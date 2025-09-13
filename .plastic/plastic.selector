@@ -1,0 +1,4 @@
+repository "IdleKnight/IdleKnight@20067242563958@cloud"
+  path "/"
+    br "/main"
+    co "/main"

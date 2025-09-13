@@ -1,0 +1,847 @@
+fileFormatVersion: 2
+guid: 2a0d60546c9a8bd419025552e1ecc1f1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2520825501131634899
+    second: BlueAura_0
+  - first:
+      213: -6571713684683061581
+    second: BlueAura_1
+  - first:
+      213: -2089725679500677767
+    second: BlueAura_2
+  - first:
+      213: 7926784223667526126
+    second: BlueAura_3
+  - first:
+      213: -5023198284895799147
+    second: BlueAura_4
+  - first:
+      213: 6825489266952751913
+    second: BlueAura_5
+  - first:
+      213: -3743225003735524616
+    second: BlueAura_6
+  - first:
+      213: 4889631546147271890
+    second: BlueAura_7
+  - first:
+      213: -4503415939658528613
+    second: BlueAura_8
+  - first:
+      213: 5259795948336759948
+    second: BlueAura_9
+  - first:
+      213: -4979315297249465001
+    second: BlueAura_10
+  - first:
+      213: 5792664432901419004
+    second: BlueAura_11
+  - first:
+      213: 7190989185708367908
+    second: BlueAura_12
+  - first:
+      213: -5767863218921239395
+    second: BlueAura_13
+  - first:
+      213: -8862344618488180196
+    second: BlueAura_14
+  - first:
+      213: -5495611576533025746
+    second: BlueAura_15
+  - first:
+      213: 7416606635170436659
+    second: BlueAura_16
+  - first:
+      213: 1578392969850112269
+    second: BlueAura_17
+  - first:
+      213: -9002966841630762900
+    second: BlueAura_18
+  - first:
+      213: -4485948263331115700
+    second: BlueAura_19
+  - first:
+      213: 4264232647884442717
+    second: BlueAura_20
+  - first:
+      213: -1534268077997331093
+    second: BlueAura_21
+  - first:
+      213: 9018883291095689582
+    second: BlueAura_22
+  - first:
+      213: -3122442929175169800
+    second: BlueAura_23
+  - first:
+      213: 7746758039830604530
+    second: BlueAura_24
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BlueAura_0
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 2221
+        width: 426
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d872b7ff65cbf220800000000000000
+      internalID: 2520825501131634899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 2224
+        width: 429
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b684e2e8359cc4a0800000000000000
+      internalID: -6571713684683061581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_2
+      rect:
+        serializedVersion: 2
+        x: 1143
+        y: 2225
+        width: 428
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97da95bf09dcff2e0800000000000000
+      internalID: -2089725679500677767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_3
+      rect:
+        serializedVersion: 2
+        x: 1685
+        y: 2224
+        width: 429
+        height: 424
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee99fd6e048910e60800000000000000
+      internalID: 7926784223667526126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_4
+      rect:
+        serializedVersion: 2
+        x: 2225
+        y: 2224
+        width: 431
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5983f6026c30a4ab0800000000000000
+      internalID: -5023198284895799147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_5
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 1684
+        width: 434
+        height: 421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92bc5f6435209be50800000000000000
+      internalID: 6825489266952751913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_6
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 1681
+        width: 434
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fadbf901b46d0cc0800000000000000
+      internalID: -3743225003735524616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_7
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 1681
+        width: 435
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d4f6ae1cf57bd340800000000000000
+      internalID: 4889631546147271890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_8
+      rect:
+        serializedVersion: 2
+        x: 1681
+        y: 1685
+        width: 437
+        height: 421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9842d02017a081c0800000000000000
+      internalID: -4503415939658528613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_9
+      rect:
+        serializedVersion: 2
+        x: 2222
+        y: 1686
+        width: 438
+        height: 420
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c84c6a32c8c8ef840800000000000000
+      internalID: 5259795948336759948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_10
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 1144
+        width: 438
+        height: 421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75de6c26e1be5eab0800000000000000
+      internalID: -4979315297249465001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_11
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 1143
+        width: 437
+        height: 420
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cffe0226c9da36050800000000000000
+      internalID: 5792664432901419004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_12
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 1141
+        width: 434
+        height: 424
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 420a2dd90968bc360800000000000000
+      internalID: 7190989185708367908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_13
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 1141
+        width: 434
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9c882b36fe64ffa0800000000000000
+      internalID: -5767863218921239395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_14
+      rect:
+        serializedVersion: 2
+        x: 2225
+        y: 1140
+        width: 434
+        height: 423
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c12dae13680a20580800000000000000
+      internalID: -8862344618488180196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_15
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 600
+        width: 433
+        height: 422
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c793d536aabb3b0800000000000000
+      internalID: -5495611576533025746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_16
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 597
+        width: 433
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 336932890741de660800000000000000
+      internalID: 7416606635170436659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_17
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 597
+        width: 433
+        height: 424
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d09c3eb1b0497e510800000000000000
+      internalID: 1578392969850112269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_18
+      rect:
+        serializedVersion: 2
+        x: 1683
+        y: 596
+        width: 431
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c685af77b590f0380800000000000000
+      internalID: -9002966841630762900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_19
+      rect:
+        serializedVersion: 2
+        x: 2225
+        y: 596
+        width: 430
+        height: 425
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4d4e5372d5beb1c0800000000000000
+      internalID: -4485948263331115700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_20
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 54
+        width: 429
+        height: 424
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5c86c810099d2b30800000000000000
+      internalID: 4264232647884442717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_21
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 54
+        width: 432
+        height: 424
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6d6fbcdf4f25bae0800000000000000
+      internalID: -1534268077997331093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_22
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 52
+        width: 430
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e69e674b192892d70800000000000000
+      internalID: 9018883291095689582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_23
+      rect:
+        serializedVersion: 2
+        x: 1685
+        y: 52
+        width: 428
+        height: 426
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f4751703badaa4d0800000000000000
+      internalID: -3122442929175169800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAura_24
+      rect:
+        serializedVersion: 2
+        x: 2226
+        y: 55
+        width: 428
+        height: 423
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fa2105a463028b60800000000000000
+      internalID: 7746758039830604530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1209955de6dd762429bc55628dacf9fd
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      BlueAura_0: 2520825501131634899
+      BlueAura_1: -6571713684683061581
+      BlueAura_10: -4979315297249465001
+      BlueAura_11: 5792664432901419004
+      BlueAura_12: 7190989185708367908
+      BlueAura_13: -5767863218921239395
+      BlueAura_14: -8862344618488180196
+      BlueAura_15: -5495611576533025746
+      BlueAura_16: 7416606635170436659
+      BlueAura_17: 1578392969850112269
+      BlueAura_18: -9002966841630762900
+      BlueAura_19: -4485948263331115700
+      BlueAura_2: -2089725679500677767
+      BlueAura_20: 4264232647884442717
+      BlueAura_21: -1534268077997331093
+      BlueAura_22: 9018883291095689582
+      BlueAura_23: -3122442929175169800
+      BlueAura_24: 7746758039830604530
+      BlueAura_3: 7926784223667526126
+      BlueAura_4: -5023198284895799147
+      BlueAura_5: 6825489266952751913
+      BlueAura_6: -3743225003735524616
+      BlueAura_7: 4889631546147271890
+      BlueAura_8: -4503415939658528613
+      BlueAura_9: 5259795948336759948
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
