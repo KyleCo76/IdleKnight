@@ -94,12 +94,19 @@ namespace Player
 
             if (!this.TryGetComponent<Transform>(out playerTransform)) {
                 Debug.LogError("Player Controller requires a Transform component.");
+                enabled = false;
+                return;
             }
             if (!this.TryGetComponent<Animator>(out playerAnimator)) {
                 Debug.LogError("Player Controller requires an Animator component.");
+                enabled = false;
+                return;
             }
-            if (!this.TryGetComponent<AuraManager>(out playerAuraManager)) {
+            playerAuraManager = this.GetComponentInChildren<AuraManager>();
+            if (playerAuraManager == null) {
                 Debug.LogError("Player Controller requires an AuraManager component.");
+                enabled = false;
+                return;
             }
 
             var allProjectiles = Resources.LoadAll<GameObject>("Projectiles/GoldenArrow");
@@ -228,11 +235,11 @@ namespace Player
                 } else if (moveInput.x > 0) {
                     RotateSprite(true);
                     if ((isFlipped && moveInput.y > 0f) || (!isFlipped && moveInput.y < 0f))
-                        FlipSprite(moveInput.y < 0f ? true : false);
+                        FlipSprite(moveInput.y < 0f);
                 } else if (moveInput.x < 0) {
                     RotateSprite(false);
                     if ((!isFlipped && moveInput.y > 0f) || (isFlipped && moveInput.y < 0f))
-                        FlipSprite(moveInput.y < 0f ? false : true);
+                        FlipSprite(moveInput.y > 0f);
                 }
             }
         }

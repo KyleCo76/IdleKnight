@@ -6,7 +6,7 @@ namespace Player
 {
     public partial class PlayerController
     {
-        private void ActivatePowerUp(PowerUpData _powerUp)
+        public void ActivatePowerUp(PowerUpData _powerUp)
         {
             switch (_powerUp.Type)
             {

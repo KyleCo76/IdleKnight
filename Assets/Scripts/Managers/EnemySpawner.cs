@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        Enemies.Controller.OnEnemyDeath += (attackType, points) => { SpawnRandomEnemy(); };
+        Enemies.Controller.OnEnemyDeath += (attackType, points) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
     }
 
     private void Update()

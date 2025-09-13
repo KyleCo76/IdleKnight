@@ -6,11 +6,13 @@ namespace Game
         public PowerUpType Type { get; private set; }
         public float Duration { get; private set; }
         public float Multiplier { get; private set; }
-        public PowerUpData(PowerUpType type, float duration = 0f, float multiplier = 1f)
+        public float Amount { get; private set; }
+        public PowerUpData(PowerUpType type, float duration = 0f, float multiplier = 1f, float amount = 0f)
         {
             Type = type;
             Duration = duration;
             Multiplier = multiplier;
+            Amount = amount;
         }
     }
 
@@ -29,31 +31,31 @@ namespace Game
         DoublePoints,
         CoinMagnet,
         AttackSpeedBoost,
-        TempAttackSpeedBoost,
         MeleeDamageBoost,
-        TempMeleeDamageBoost,
         RangedDamageBoost,
-        TempRangedDamageBoost,
-        Shield,
-        TempShield,
         HealthRegenTickRate,
-        TempHealthRegenTickRate,
         HealthRegenAmount,
-        TempHealthRegenAmount,
         MaxHealthBoost,
-        TempMaxHealthBoost,
         HealAmount,
         ManaRegen,
-        TempManaRegen,
         ManaBoost,
-        TempManaBoost,
+        MaxManaBoost,
         SpeedBoost,
-        TempSpeedBoost,
         AuraTickSpeedBoost,
-        TempAuraTickSpeedBoost,
         AuraRangeBoost,
-        TempAuraRangeBoost,
         AuraDamageBoost,
+        TempAttackSpeedBoost,
+        TempMeleeDamageBoost,
+        TempRangedDamageBoost,
+        TempHealthRegenTickRate,
+        TempHealthRegenAmount,
+        TempMaxHealthBoost,
+        TempManaRegen,
+        TempManaBoost,
+        TempMaxManaBoost,
+        TempSpeedBoost,
+        TempAuraTickSpeedBoost,
+        TempAuraRangeBoost,
         TempAuraDamageBoost
     }
 }
