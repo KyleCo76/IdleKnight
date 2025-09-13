@@ -390,7 +390,7 @@ public class Collectables : MonoBehaviour
 
     private void SetStat((string, float) _stat)
     {
-        Debug.Log("Setting stat: " + _stat.Item1 + " on " + gameObject.name + " with stat");
+        Debug.Log("Setting stat: " + _stat.Item1 + " on " + gameObject.name + " with stat " + _stat.Item2);
         switch (_stat.Item1) {
             case "Invincibility":
                 giveInvincibility = true;

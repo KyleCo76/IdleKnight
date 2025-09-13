@@ -9,13 +9,13 @@ public class EnemySpawner : MonoBehaviour
     private GameObject[] enemyPrefabs;
     private float timer = 0f;
 
-    private readonly float spawnRangeMin = 8.0f; // Minimum distance from player
-    private readonly float spawnRangeMax = 15.0f; // Maximum distance from player
+    private readonly float spawnRangeMin = 10.0f; // Minimum distance from player
+    private readonly float spawnRangeMax = 20.0f; // Maximum distance from player
 
     private void Start()
     {
         // Load all prefabs from Resources/Enemies at start
-        enemyPrefabs = Resources.LoadAll<GameObject>("Enemies");
+        enemyPrefabs = Resources.LoadAll<GameObject>("Enemies/Level1");
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) {
             if (!playerObj.TryGetComponent<Player.PlayerController>(out player)) {

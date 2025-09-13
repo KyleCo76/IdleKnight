@@ -1,13 +1,14 @@
 fileFormatVersion: 2
-guid: 3b379c106eee34349b2d8c3d57720ad5
+guid: 1ada8dd23fd4bfd4a8649b46146c75a6
 labels:
-- Sword
+- Healthpack
 AssetOrigin:
   serializedVersion: 1
   productId: 15882
   packageName: Power-Ups & Pick-Ups (PNG Version)
   packageVersion: 1.4
-  assetPath: Assets/Instant 2D - Power-Ups & Pick-Ups - PNG files/Plain/Sword 001.png
+  assetPath: Assets/Instant 2D - Power-Ups & Pick-Ups - PNG files/Plain/HealthPack
+    001.png
   uploadId: 69381
 TextureImporter:
   internalIDToNameTable: []
@@ -57,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1024
+  spritePixelsToUnits: 1800
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
