@@ -44,18 +44,5 @@ namespace Game
         AuraTickSpeedBoost,
         AuraRangeBoost,
         AuraDamageBoost,
-        TempAttackSpeedBoost,
-        TempMeleeDamageBoost,
-        TempRangedDamageBoost,
-        TempHealthRegenTickRate,
-        TempHealthRegenAmount,
-        TempMaxHealthBoost,
-        TempManaRegen,
-        TempManaBoost,
-        TempMaxManaBoost,
-        TempSpeedBoost,
-        TempAuraTickSpeedBoost,
-        TempAuraRangeBoost,
-        TempAuraDamageBoost
     }
 }

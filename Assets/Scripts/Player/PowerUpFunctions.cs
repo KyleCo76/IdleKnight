@@ -20,72 +20,75 @@ namespace Player
                     StartCoroutine(CoinMagnetCoroutine(_powerUp.Duration));
                     break;
                 case PowerUpType.AttackSpeedBoost:
-                    attackCooldown /= _powerUp.Multiplier;
-                    break;
-                case PowerUpType.TempAttackSpeedBoost:
-                    StartCoroutine(TemporaryAttackSpeedBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryAttackSpeedBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        attackCooldown /= _powerUp.Multiplier;
                     break;
                 case PowerUpType.MeleeDamageBoost:
-                    meleeDamage *= _powerUp.Multiplier;
-                    break;
-                case PowerUpType.TempMeleeDamageBoost:
-                    StartCoroutine(TemporaryMeleeDamageBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryMeleeDamageBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        meleeDamage *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.RangedDamageBoost:
-                    rangedDamage *= _powerUp.Multiplier;
-                    break;
-                case PowerUpType.TempRangedDamageBoost:
-                    StartCoroutine(TemporaryRangedDamageBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryRangedDamageBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        rangedDamage *= _powerUp.Multiplier;
                     break;
 
                 case PowerUpType.HealthRegenTickRate:
-                    healthRegenInterval /= _powerUp.Multiplier;
-                    break;
-                case PowerUpType.TempHealthRegenTickRate:
-                    StartCoroutine(TemporaryHealthRegenTickRateCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryHealthRegenTickRateCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        healthRegenInterval /= _powerUp.Multiplier;
                     break;
                 case PowerUpType.HealthRegenAmount:
-                    healthRegenAmount *= _powerUp.Multiplier;
-                    break;
-                case PowerUpType.TempHealthRegenAmount:
-                    StartCoroutine(TemporaryHealthRegenAmountCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryHealthRegenAmountCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        healthRegenAmount *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.MaxHealthBoost:
-                    float healthIncrease = (maxHealth * _powerUp.Multiplier) - maxHealth;
-                    ChangeMaxHealth(healthIncrease);
-                    ChangeHealth(healthIncrease); // Heal the player by the increase amount
-                    break;
-                case PowerUpType.TempMaxHealthBoost:
-                    float tempHealthIncrease = (maxHealth * _powerUp.Multiplier) - maxHealth;
-                    StartCoroutine(TemporaryMaxHealthBoostCoroutine(tempHealthIncrease, _powerUp.Duration));
+                    float healthIncrease = (maxHealth * _powerUp.Amount) - maxHealth;
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryMaxHealthBoostCoroutine(healthIncrease, _powerUp.Duration));
+                    else {
+                        ChangeMaxHealth(healthIncrease);
+                        ChangeHealth(healthIncrease); // Heal the player by the increase amount
+                    }
                     break;
                 case PowerUpType.HealAmount:
-                    ChangeHealth(maxHealth * _powerUp.Multiplier); // Heal by a percentage of max health
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryHealthBoostCoroutine(_powerUp.Amount, _powerUp.Duration));
+                    else
+                        ChangeHealth(maxHealth * _powerUp.Amount); // Heal by a percentage of max health
                     break;
 
                 case PowerUpType.SpeedBoost:
-                    StartCoroutine(SpeedBoostCoroutine());
-                    break;
-                case PowerUpType.TempSpeedBoost:
-                    StartCoroutine(TemporarySpeedBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporarySpeedBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        movementSpeed *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.AuraTickSpeedBoost:
-                    playerAuraManager.ChangeAuraTickRate(_powerUp.Multiplier);
-                    break;
-                case PowerUpType.TempAuraTickSpeedBoost:
-                    playerAuraManager.ChangeAuraTickRate(_powerUp.Multiplier, _powerUp.Duration);
+                    if (_powerUp.Duration > 0)
+                        playerAuraManager.ChangeAuraTickRate(_powerUp.Multiplier, _powerUp.Duration);
+                    else
+                        playerAuraManager.ChangeAuraTickRate(_powerUp.Multiplier);
                     break;
                 case PowerUpType.AuraRangeBoost:
-                    playerAuraManager.ChangeAuraRange(_powerUp.Multiplier);
-                    break;
-                case PowerUpType.TempAuraRangeBoost:
-                    playerAuraManager.ChangeAuraRange(_powerUp.Multiplier, _powerUp.Duration);
+                    if (_powerUp.Duration > 0)
+                        playerAuraManager.ChangeAuraRange(_powerUp.Multiplier, _powerUp.Duration);
+                    else
+                        playerAuraManager.ChangeAuraRange(_powerUp.Multiplier);
                     break;
                 case PowerUpType.AuraDamageBoost:
-                    playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier);
-                    break;
-                case PowerUpType.TempAuraDamageBoost:
-                    playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier, _powerUp.Duration);
+                    if (_powerUp.Duration > 0)
+                        playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier, _powerUp.Duration);
+                    else
+                        playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier);
                     break;
                 default:
                     Debug.LogWarning("Unknown power-up type: " + _powerUp.Type);
@@ -102,20 +105,19 @@ namespace Player
             //coinMagnetRadius = originalMagnetRadius; // Reset to original radius
         }
 
-        private IEnumerator SpeedBoostCoroutine()
-        {
-            float originalSpeed = movementSpeed;
-            movementSpeed *= 2; // Double the speed
-            yield return new WaitForSeconds(5); // Duration of the power-up
-            movementSpeed = originalSpeed; // Reset to original speed
-        }
-
         private IEnumerator TemporaryAttackSpeedBoostCoroutine(float _multiplier, float _duration)
         {
             float originalCooldown = attackCooldown;
             attackCooldown /= _multiplier; // Increase attack speed
             yield return new WaitForSeconds(_duration);
             attackCooldown = originalCooldown; // Reset to original cooldown
+        }
+
+        private IEnumerator TemporaryHealthBoostCoroutine(float _amount, float _duration)
+        {
+            ChangeHealth(_amount); // Heal the player
+            yield return new WaitForSeconds(_duration);
+            ChangeHealth(-_amount); // Reset health adjustment
         }
 
         private IEnumerator TemporaryHealthRegenAmountCoroutine(float _multiplier, float _duration)
