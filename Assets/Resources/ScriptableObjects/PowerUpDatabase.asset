@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf98c1b5fa47404daf797038fb0f4e2, type: 3}
+  m_Name: PowerUpDatabase
+  m_EditorClassIdentifier: 
+  Sprites:
+  - PowerUpType: 1
+    Sprite: {fileID: 21300000, guid: 339c209692e4c3f47863fafb7e3301d5, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 2
+    Sprite: {fileID: 21300000, guid: 5cd3e8656a6121a47b07812c277796c1, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 3
+    Sprite: {fileID: 21300000, guid: 70477b2e2e706bb4e9756fb123f975f9, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 4
+    Sprite: {fileID: 21300000, guid: 85e84eb67f163354da14128976fdc8a3, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 1
+  - PowerUpType: 5
+    Sprite: {fileID: 21300000, guid: 85e84eb67f163354da14128976fdc8a3, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 6
+    Sprite: {fileID: 21300000, guid: 352c15211cec3a4409aadcfd16fe83cd, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 7
+    Sprite: {fileID: 21300000, guid: 161e1100da583fa4c8d18f3dc5698138, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 1
+  - PowerUpType: 8
+    Sprite: {fileID: 21300000, guid: 161e1100da583fa4c8d18f3dc5698138, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 9
+    Sprite: {fileID: 21300000, guid: fcf0418e48113e143ab4a28ea25818cb, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 10
+    Sprite: {fileID: 21300000, guid: 3edaaf84cc5ee5841b25e9fe5e0c4f91, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 11
+    Sprite: {fileID: 21300000, guid: 2c851b77757bc8f4aabd7a1822492b44, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 1
+  - PowerUpType: 12
+    Sprite: {fileID: 21300000, guid: 2c851b77757bc8f4aabd7a1822492b44, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 13
+    Sprite: {fileID: 21300000, guid: 9543a0cf9df5cc041a8159f22dc7afc6, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 14
+    Sprite: {fileID: 21300000, guid: 63c67c05822d29a409c631b12943cde3, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 15
+    Sprite: {fileID: 21300000, guid: a2e185850a421e64d8faf7bbab3c9ea4, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 16
+    Sprite: {fileID: 21300000, guid: 30e34996d4aead34b889476ea93a03a9, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 1
+  - PowerUpType: 17
+    Sprite: {fileID: 21300000, guid: ea9a73b878da553448dbae576caedd96, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 18
+    Sprite: {fileID: 21300000, guid: c33ecb1e3035adb46a0c4465537b79a0, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 1
+  - PowerUpType: 4
+    Sprite: {fileID: 21300000, guid: 6e3aa9da91b4b0949a1deb33a2fb68fc, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 0
+  - PowerUpType: 5
+    Sprite: {fileID: 21300000, guid: 6e3aa9da91b4b0949a1deb33a2fb68fc, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 6
+    Sprite: {fileID: 21300000, guid: 3b379c106eee34349b2d8c3d57720ad5, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 7
+    Sprite: {fileID: 21300000, guid: 34a9425ab5f6c274abaf231901d5f088, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 0
+  - PowerUpType: 8
+    Sprite: {fileID: 21300000, guid: 34a9425ab5f6c274abaf231901d5f088, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 9
+    Sprite: {fileID: 21300000, guid: bba1752fc11437a428fab41ecd5b5ed7, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 10
+    Sprite: {fileID: 21300000, guid: 1ada8dd23fd4bfd4a8649b46146c75a6, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 11
+    Sprite: {fileID: 21300000, guid: 6454958f578fdfe4c94259efcaed7747, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 0
+  - PowerUpType: 12
+    Sprite: {fileID: 21300000, guid: 6454958f578fdfe4c94259efcaed7747, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 13
+    Sprite: {fileID: 21300000, guid: a8959e85c7ec27c418a8358456e00b94, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 14
+    Sprite: {fileID: 21300000, guid: 0083c0a8095636e4d8ed8d97a4eca201, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 15
+    Sprite: {fileID: 21300000, guid: 2c4288dff3e04eb41b45986ba19de367, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 16
+    Sprite: {fileID: 21300000, guid: 075fcaeceb49d63489581502a8c03251, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 0
+  - PowerUpType: 17
+    Sprite: {fileID: 21300000, guid: e510d049a19303e40aaca72ed7729ce0, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  - PowerUpType: 18
+    Sprite: {fileID: 21300000, guid: d947e2cefa8aa7e4bbef65e0708ef66e, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
+  Prefabs:
+  - Prefab: {fileID: 1109358075695914188, guid: 3a6eb5c499ba0a24e9fc5e963a236093, type: 3}
+    IsTemporary: 0
+    HasTickIcon: 0
+  - Prefab: {fileID: 3945348052944968005, guid: 9103d102fafdaf241a8627dd6762493c, type: 3}
+    IsTemporary: 0
+    HasTickIcon: 1
+  - Prefab: {fileID: 2617052626196804232, guid: f8aa53694b261bb46bf30106ca58d432, type: 3}
+    IsTemporary: 1
+    HasTickIcon: 0
+  - Prefab: {fileID: 2055534039744266873, guid: 513fa0dd0baeff747a523a37d767b08c, type: 3}
+    IsTemporary: 1
+    HasTickIcon: 1
+  SpawnWeights:
+  - PowerUpType: 1
+    Weight: 0.05
+  - PowerUpType: 2
+    Weight: 0.1
+  - PowerUpType: 3
+    Weight: 0
+  - PowerUpType: 4
+    Weight: 0.2
+  - PowerUpType: 5
+    Weight: 0.1
+  - PowerUpType: 6
+    Weight: 0.08
+  - PowerUpType: 7
+    Weight: 0.2
+  - PowerUpType: 8
+    Weight: 0.2
+  - PowerUpType: 9
+    Weight: 0.01
+  - PowerUpType: 10
+    Weight: 0.5
+  - PowerUpType: 11
+    Weight: 0
+  - PowerUpType: 12
+    Weight: 0
+  - PowerUpType: 13
+    Weight: 0
+  - PowerUpType: 14
+    Weight: 0
+  - PowerUpType: 15
+    Weight: 0.19
+  - PowerUpType: 16
+    Weight: 0.1
+  - PowerUpType: 17
+    Weight: 0.3
+  - PowerUpType: 18
+    Weight: 0.3

@@ -125,7 +125,7 @@ MonoBehaviour:
   useCustomSpriteList: 0
   customSpriteList: []
   spriteFolderPath: 
-  randomizeStats: 1
+  randomizeStats: 0
   giveInvincibility: 0
   invincibilityDuration: 5
   giveDoublePoints: 0
@@ -180,9 +180,9 @@ MonoBehaviour:
   maxMeleeDamageBoostRange: {x: 1, y: 5}
   randomMeleeDamageBoostTemporary: 0
   maxMeleeDamageBoostDurationRange: {x: 0.5328586, y: 120}
-  randomGiveRangedDamageBoost: 1
+  randomGiveRangedDamageBoost: 0
   maxRangedDamageBoostRange: {x: 1.1, y: 1.5}
-  randomRangedDamageBoostTemporary: 1
+  randomRangedDamageBoostTemporary: 0
   maxRangedDamageBoostDurationRange: {x: 30, y: 120}
   randomGiveSpeedBoost: 0
   maxSpeedBoostRange: {x: 1, y: 5}

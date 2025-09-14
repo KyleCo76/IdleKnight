@@ -14,7 +14,7 @@ namespace Player
                     invincibilityTimer = invincibilityDuration;
                     break;
                 case PowerUpType.DoublePoints:
-                    RunScoreManager.Instance.ModifyPointMultiplier(_powerUp.Multiplier, _powerUp.Duration);
+                    RunScoreManager.Instance.ModifyPointMultiplier(_powerUp.Duration);
                     break;
                 case PowerUpType.CoinMagnet:
                     StartCoroutine(CoinMagnetCoroutine(_powerUp.Duration));
@@ -94,6 +94,8 @@ namespace Player
                     Debug.LogWarning("Unknown power-up type: " + _powerUp.Type);
                     break;
             }
+
+            Debug.Log($"Activated Power-Up: {_powerUp.Type} with Duration: {_powerUp.Duration}, Multiplier: {_powerUp.Multiplier}, Amount: {_powerUp.Amount}");
         }
 
 

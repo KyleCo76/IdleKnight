@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ namespace Player
 
         // Cached components
         private Slider healthBubble;
+        private TextMeshProUGUI healthText;
         private Slider manaBubble;
 
 
@@ -40,6 +42,13 @@ namespace Player
             }
             if (!healthBubbleObject.TryGetComponent<Slider>(out healthBubble)) {
                 Debug.LogError("No HealthBubble GameObject found under Canvas.");
+                enabled = false;
+                return;
+            }
+
+            healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
+            if (healthText == null) {
+                Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
                 enabled = false;
                 return;
             }
@@ -114,6 +123,7 @@ namespace Player
             }
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             healthBubble.value = currentHealth / maxHealth;
+            healthText.text = $"{Mathf.RoundToInt(currentHealth)} / {Mathf.RoundToInt(maxHealth)}";
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Enemies
 
         private void Die(AttackType _attackType)
         {
-            OnEnemyDeath?.Invoke(_attackType, deathValue);
+            OnEnemyDeath?.Invoke(_attackType, deathValue, itemSpawnChance, transform.position);
             Destroy(gameObject);
         }
     }

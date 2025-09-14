@@ -7,7 +7,7 @@ namespace Enemies
 {
     public partial class Controller : MonoBehaviour
     {
-        public static event System.Action<AttackType, float> OnEnemyDeath;
+        public static event System.Action<AttackType, float, float, Vector2> OnEnemyDeath;
 
         [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("The movement speed of the enemy")]
         private float movementSpeed = 3.0f;
@@ -19,6 +19,8 @@ namespace Enemies
         private float damageInterval = 1.0f;
         [FoldoutGroup("Death Values"), SerializeField, Tooltip("The value of the enemy when it dies")]
         private float deathValue = 1f;
+        [FoldoutGroup("Death Values"), SerializeField, Tooltip("The chance (0 to 1) to spawn an item on enemy death"), Range(0f, 1f)]
+        private float itemSpawnChance = 0f;
 
 
         // Cached components

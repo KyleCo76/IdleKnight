@@ -49,16 +49,16 @@ public class RunScoreManager : MonoBehaviour
         scoreText.text = $"Score: {Mathf.FloorToInt(runScore)}";
     }
 
-    private void HandleEnemyDeath(AttackType _attackType, float _points)
+    private void HandleEnemyDeath(AttackType _attackType, float _points, float _itemChance, Vector2 _position)
     {
         float pointValue = _points * (_attackType == AttackType.PlayerAttack ? playerAttackMultiplier : 1f);
         AddScore(pointValue);
     }
 
-    public void ModifyPointMultiplier(float _multiplier, float _duration)
+    public void ModifyPointMultiplier(float _duration)
     {
         float originalPoints = playerAttackMultiplier;
-        playerAttackMultiplier *= _multiplier;
+        playerAttackMultiplier *= 2f;
         StartCoroutine(ResetPointMultiplier(originalPoints, _duration));
     }
 

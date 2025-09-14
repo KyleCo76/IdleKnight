@@ -193,7 +193,7 @@ public class Collectables : MonoBehaviour
     [FoldoutGroup("Collectable Stats/Weights"), SerializeField, Tooltip("Weight for Melee Damage Boost"), ShowIf("@randomizeStats && randomGiveMeleeDamageBoost"), Min(0f)]
     private float weightMeleeDamageBoost = 1f;
     [FoldoutGroup("Collectable Stats/Weights"), SerializeField, Tooltip("Weight for Ranged Damage Boost"), ShowIf("@randomizeStats && randomGiveRangedDamageBoost"), Min(0f)]
-    private float weightRangedDamageBoost = 1f; 
+    private float weightRangedDamageBoost = 1f;
     [FoldoutGroup("Collectable Stats/Weights"), SerializeField, Tooltip("Weight for Speed Boost"), ShowIf("@randomizeStats && randomGiveSpeedBoost"), Min(0f)]
     private float weightSpeedBoost = 1f;
     [FoldoutGroup("Collectable Stats/Weights"), SerializeField, Tooltip("Weight for Aura Tick Rate Boost"), ShowIf("@randomizeStats && randomGiveAuraTickRateBoost"), Min(0f)]
@@ -211,8 +211,13 @@ public class Collectables : MonoBehaviour
     [SerializeField, ReadOnly, Tooltip("Has the ID been set?")]
     private bool iDSet = false;
 
-
+    private const float pickupDelay = 0.5f;
+    private float pickupDelayTimer = 0f;
     private readonly List<PowerUpData> powerUps = new();
+    private bool isEnabled = false;
+
+    // Cached Component
+    private Collider2D collectableCollider;
 
 
     private void Awake()
@@ -229,6 +234,21 @@ public class Collectables : MonoBehaviour
             collectableID = System.Guid.NewGuid().ToString();
             iDSet = true;
         }
+        if (!this.TryGetComponent<Collider2D>(out collectableCollider)) {
+            Debug.LogError("No Collider2D component found on " + gameObject.name);
+        } else {
+            collectableCollider.enabled = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (pickupDelayTimer > 0) {
+            pickupDelayTimer -= Time.deltaTime;
+        } else if (!isEnabled) {
+            collectableCollider.enabled = true;
+            isEnabled = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D _other)
@@ -236,7 +256,6 @@ public class Collectables : MonoBehaviour
         if (_other.CompareTag("Player")) {
             if (collectOnPickup) {
                 Collect(_other);
-                Debug.Log("Collected " + gameObject.name);
             }
             if (pickupSound != null) {
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position, pickupSoundVolume);
@@ -245,6 +264,11 @@ public class Collectables : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void Initialize(PowerUpData _data)
+    {
+        powerUps.Add(_data);
     }
 
 
@@ -390,7 +414,6 @@ public class Collectables : MonoBehaviour
 
     private void SetStat((string, float) _stat)
     {
-        Debug.Log("Setting stat: " + _stat.Item1 + " on " + gameObject.name + " with stat " + _stat.Item2);
         switch (_stat.Item1) {
             case "Invincibility":
                 giveInvincibility = true;

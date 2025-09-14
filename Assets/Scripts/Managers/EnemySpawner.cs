@@ -12,6 +12,8 @@ public class EnemySpawner : MonoBehaviour
     private readonly float spawnRangeMin = 10.0f; // Minimum distance from player
     private readonly float spawnRangeMax = 20.0f; // Maximum distance from player
 
+    private Transform enemyParent;
+
     private void Start()
     {
         // Load all prefabs from Resources/Enemies at start
@@ -26,11 +28,16 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
             enabled = false;
         }
+
+        var parentObject = GameObject.Find("Enemies");
+        if (parentObject == null || !parentObject.TryGetComponent<Transform>(out enemyParent)) {
+            enemyParent = new GameObject("Enemies").transform;
+        }
     }
 
     private void OnEnable()
     {
-        Enemies.Controller.OnEnemyDeath += (attackType, points) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
+        Enemies.Controller.OnEnemyDeath += (attackType, points, itemChance, position) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
     }
 
     private void Update()
@@ -65,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
 
         Vector3 spawnPosition = player.transform.position + (Vector3)spawningRange;
 
-        GameObject enemy = Instantiate(prefab, spawnPosition, Quaternion.identity);
+        GameObject enemy = Instantiate(prefab, spawnPosition, Quaternion.identity, enemyParent);
 
         //Get the EnemyController component and set the player reference
         if (enemy.TryGetComponent<Enemies.Controller>(out var newEnemy)) {

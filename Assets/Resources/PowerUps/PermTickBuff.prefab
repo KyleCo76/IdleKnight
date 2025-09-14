@@ -250,7 +250,7 @@ MonoBehaviour:
   useCustomSpriteList: 0
   customSpriteList: []
   spriteFolderPath: 
-  randomizeStats: 1
+  randomizeStats: 0
   giveInvincibility: 0
   invincibilityDuration: 5
   giveDoublePoints: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   maxInvincibilityDurationRange: {x: 0.1, y: 120}
   randomGiveDoublePoints: 0
   maxDoublePointsDurationRange: {x: 0.1, y: 120}
-  randomGiveHealthBoost: 1
+  randomGiveHealthBoost: 0
   maxHealthBoostRange: {x: 0.1, y: 1000}
   randomHealthBoostTemporary: 0
   maxHealthBoostDurationRange: {x: 0.2, y: 120}
