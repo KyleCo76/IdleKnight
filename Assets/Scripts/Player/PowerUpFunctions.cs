@@ -51,7 +51,7 @@ namespace Player
                         healthRegenAmount *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.MaxHealthBoost:
-                    float healthIncrease = (maxHealth * _powerUp.Amount) - maxHealth;
+                    float healthIncrease = (maxHealth + _powerUp.Amount) - maxHealth;
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryMaxHealthBoostCoroutine(healthIncrease, _powerUp.Duration));
                     else {
@@ -63,7 +63,7 @@ namespace Player
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryHealthBoostCoroutine(_powerUp.Amount, _powerUp.Duration));
                     else
-                        ChangeHealth(maxHealth * _powerUp.Amount); // Heal by a percentage of max health
+                        ChangeHealth(maxHealth + _powerUp.Amount);
                     break;
 
                 case PowerUpType.SpeedBoost:
@@ -89,6 +89,12 @@ namespace Player
                         playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier, _powerUp.Duration);
                     else
                         playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier);
+                    break;
+                case PowerUpType.SuperCooldownReduction:
+                    superCooldownTimer = Mathf.Max(0f, superCooldownTimer - _powerUp.Amount);
+                    break;
+                case PowerUpType.SuperDamageBoost:
+                    superDamage *= _powerUp.Multiplier;
                     break;
                 default:
                     Debug.LogWarning("Unknown power-up type: " + _powerUp.Type);
@@ -117,8 +123,10 @@ namespace Player
 
         private IEnumerator TemporaryHealthBoostCoroutine(float _amount, float _duration)
         {
+            allowOverHeal = true;
             ChangeHealth(_amount); // Heal the player
             yield return new WaitForSeconds(_duration);
+            allowOverHeal = false;
             ChangeHealth(-_amount); // Reset health adjustment
         }
 
@@ -143,7 +151,7 @@ namespace Player
             ChangeMaxHealth(_healthIncrease);
             ChangeHealth(_healthIncrease); // Heal the player by the increase amount
             yield return new WaitForSeconds(_duration);
-            ChangeHealth(-_healthIncrease); // Adjust current health if necessary
+            ChangeHealth(-_healthIncrease, true); // Adjust current health if necessary
             ChangeMaxHealth(-_healthIncrease); // Reduce max health
         }
 

@@ -45,5 +45,7 @@ namespace Game
         AuraTickSpeedBoost,
         AuraRangeBoost,
         AuraDamageBoost,
+        SuperCooldownReduction,
+        SuperDamageBoost
     }
 }

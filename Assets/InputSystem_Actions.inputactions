@@ -28,7 +28,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -55,6 +55,15 @@
                     "name": "Pause",
                     "type": "Button",
                     "id": "016142db-2d19-4cf7-aeb8-c6b2e8027701",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Super",
+                    "type": "Button",
+                    "id": "9fba6171-b332-43bb-9ee2-3dbce0a7100a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -334,6 +343,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f7b926d-85e2-4fab-9eff-e9a9ebd8a0bd",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Super",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

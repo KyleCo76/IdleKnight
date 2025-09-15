@@ -20,6 +20,10 @@ namespace Player
         private float meleeDamage = 10f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Range of the melee attack.")]
         private float attackRange = 1f;
+        [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Cooldown time for the super ability in seconds.")]
+        private float superCooldown = 10f;
+        [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Damage of the super ability")]
+        private float superDamage = 100f;
 
         private bool gamePaused = false;
         private bool isFlipped = false;
@@ -27,10 +31,10 @@ namespace Player
 
         // Input values
         private Vector2 moveInput;
-        private Vector2 attackPoint;
         private bool sprintPressed;
         private bool attackPressed;
         private bool isInteracting;
+        private float superCooldownTimer = 0f;
 
         // Cached components
         private Transform playerTransform;
@@ -39,6 +43,9 @@ namespace Player
         private readonly List<GameObject> projectiles = new();
         private AuraManager playerAuraManager;
 
+        // Cached in runtime
+        private GameObject currentSuperPrefab;
+
 
         /*
          * Begin Input System methods
@@ -46,7 +53,7 @@ namespace Player
         public void OnAttack(InputAction.CallbackContext _context)
         {
             if (!gamePaused) {
-                attackPressed = _context.performed;
+                attackPressed = _context.performed || _context.started;
             }
         }
 
@@ -85,12 +92,20 @@ namespace Player
             }
         }
 
+        public void OnSuper(InputAction.CallbackContext _context)
+        {
+            if (!gamePaused && _context.performed) {
+                ActivateSuper();
+            }
+        }
+
         /*
          * Begin MonoBehaviour methods
         */
         private void Awake()
         {
             HealthAwake();
+            StaminaAwake();
 
             if (!this.TryGetComponent<Transform>(out playerTransform)) {
                 Debug.LogError("Player Controller requires a Transform component.");
@@ -131,9 +146,14 @@ namespace Player
                 return;
 
             HealthUpdate();
+            StaminaUpdate();
 
             if (attackCooldownTimer > 0f) {
                 attackCooldownTimer -= Time.deltaTime;
+            }
+
+            if (superCooldownTimer > 0f) {
+                superCooldownTimer -= Time.deltaTime;
             }
         }
 
@@ -154,6 +174,20 @@ namespace Player
         }
 
 
+        private void ActivateSuper()
+        {
+            if (superCooldownTimer > 0f || currentSuperPrefab == null || !ChangeMana(-specialAttackManaCost))
+                return;
+
+            superCooldownTimer = superCooldown;
+            var (rotation, attackPoint) = GetProjectileData();
+
+            var projectile = Instantiate(currentSuperPrefab, playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
+            if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
+                projComponent.Initialize(attackPoint.normalized, 600f, superDamage, AttackType.PlayerAttack, true);
+            }
+        }
+
         private void Attack()
         {
             attackCooldownTimer = attackCooldown;
@@ -172,17 +206,11 @@ namespace Player
             }
 
             if (projectiles.Count > 0) {
-                attackPoint = GameManager.InputActions.Player.AttackPoint.ReadValue<Vector2>();
-                attackPoint = Camera.main.ScreenToWorldPoint(attackPoint);
-
-                Vector2 direction = (attackPoint - (Vector2)transform.position).normalized;
-                int rotation = Mathf.RoundToInt(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-
-                attackPoint -= (Vector2)transform.position;
+                var (rotation, attackPoint) = GetProjectileData();
 
                 var projectile = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
                 if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
-                    projComponent.Initialize(attackPoint.normalized, 400f, rangedDamage, AttackType.PlayerAttack);
+                    projComponent.Initialize(attackPoint.normalized, 400f, rangedDamage, AttackType.PlayerAttack, false);
                 }
             }
         }
@@ -193,7 +221,6 @@ namespace Player
             playerAnimator.SetLayerWeight(layerIndex, 0f);
             layerIndex = playerAnimator.GetLayerIndex("Base Layer");
             playerAnimator.SetLayerWeight(layerIndex, 1f);
-            attackPressed = false;
         }
 
         private void FlipSprite(bool _flipLeft)
@@ -205,6 +232,17 @@ namespace Player
                 playerTransform.localScale = new Vector3(1, 1, 1);
                 isFlipped = false;
             }
+        }
+
+        private (float, Vector2) GetProjectileData()
+        {
+            var attackPoint = GameManager.InputActions.Player.AttackPoint.ReadValue<Vector2>();
+            attackPoint = Camera.main.ScreenToWorldPoint(attackPoint);
+
+            Vector2 direction = (attackPoint - (Vector2)transform.position).normalized;
+            int rotation = Mathf.RoundToInt(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+
+            return (rotation, attackPoint - (Vector2)transform.position);
         }
 
         private void MovePlayer()
@@ -256,6 +294,11 @@ namespace Player
             } else {
                 playerTransform.rotation = Quaternion.Euler(0f, moveInput.y > 0f ? 330f : 340f, 0f);
             }
+        }
+
+        public void SetSuper(GameObject _superPrefab)
+        {
+            currentSuperPrefab = _superPrefab;
         }
     }
 

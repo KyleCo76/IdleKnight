@@ -18,11 +18,11 @@ namespace Player
         private float currentHealth;
         private float invincibilityTimer = 0f;
         private float healthRegenTimer = 0f;
+        private bool allowOverHeal = false;
 
         // Cached components
         private Slider healthBubble;
         private TextMeshProUGUI healthText;
-        private Slider manaBubble;
 
 
         private void HealthAwake()
@@ -53,18 +53,6 @@ namespace Player
                 return;
             }
 
-            var manaBubbleObject = canvas.transform.Find("ManaBubble");
-            if (manaBubbleObject == null) {
-                Debug.LogError("No ManaBubble GameObject found under Canvas.");
-                enabled = false;
-                return;
-            }
-            if (!manaBubbleObject.TryGetComponent<Slider>(out manaBubble)) {
-                Debug.LogError("No ManaBubble GameObject found under Canvas.");
-                enabled = false;
-                return;
-            }
-
             currentHealth = maxHealth;
             UpdateHealthUI();
             healthRegenTimer = healthRegenInterval;
@@ -77,7 +65,7 @@ namespace Player
                 if (invincibilityTimer <= 0f)
                     playerAnimator.SetBool("isHurt", false);
             }
-            if (invincibilityTimer <= 0f && currentHealth < maxHealth) {
+            if (currentHealth < maxHealth) {
                 healthRegenTimer -= Time.deltaTime;
                 if (healthRegenTimer <= 0f) {
                     ChangeHealth(healthRegenAmount);
@@ -86,9 +74,9 @@ namespace Player
             }
         }
 
-        public void ChangeHealth(float _amount)
+        public void ChangeHealth(float _amount, bool _ignoreHurt = false)
         {
-            if (_amount < 0) {
+            if (_amount < 0 && !_ignoreHurt) {
                 if (invincibilityTimer > 0f)
                     return; // Ignore damage if invincible
                 
@@ -97,7 +85,8 @@ namespace Player
             }
 
             currentHealth += _amount;
-            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+            if (!allowOverHeal)
+                currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
             if (currentHealth <= 0f) {
                 Debug.Log($"{gameObject.name} has died.");
@@ -121,8 +110,10 @@ namespace Player
                 Debug.LogError("healthBubble is null in PlayerHealth");
                 return;
             }
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            healthBubble.value = currentHealth / maxHealth;
+            if (!allowOverHeal)
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+            healthBubble.value = Mathf.Clamp01(currentHealth / maxHealth);
             healthText.text = $"{Mathf.RoundToInt(currentHealth)} / {Mathf.RoundToInt(maxHealth)}";
         }
     }

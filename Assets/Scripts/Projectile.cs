@@ -5,7 +5,8 @@ public class Projectile : MonoBehaviour
 {
     private Rigidbody2D projectileBody;
 
-    private float timeToLive = 10.0f; // Time in seconds before the projectile is destroyed
+    private float timeToLive = 4.0f; // Time in seconds before the projectile is destroyed
+    private bool isSuper;
 
     // Projectile Damage Variables
     private int damageAmount = 1;
@@ -29,21 +30,22 @@ public class Projectile : MonoBehaviour
     }
 
 
-    public void Initialize(Vector2 _direction, float _force, float _damage, AttackType _attackType)
+    public void Initialize(Vector2 _direction, float _force, float _damage, AttackType _attackType, bool _isSuper)
     {
         damageAmount = (int)_damage;
         projectileBody.AddForce(_direction * _force);
         typeOfAttack = _attackType;
+        isSuper = _isSuper;
     }
 
-    private void OnCollisionEnter2D(Collision2D _other)
+    private void OnTriggerEnter2D (Collider2D _other)
     {
-        if (_other.collider.CompareTag("Enemy")) {
-            if (_other.collider.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
+        if (_other.CompareTag("Enemy")) {
+            if (_other.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
                 enemyHealth.TakeDamage(damageAmount, typeOfAttack);
             }
         }
-
-        Destroy(gameObject);
+        if (!isSuper)
+            Destroy(gameObject);
     }
 }

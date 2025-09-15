@@ -145,6 +145,14 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: d947e2cefa8aa7e4bbef65e0708ef66e, type: 3}
     UseTickIcon: 0
     IsTemporary: 0
+  - PowerUpType: 19
+    Sprite: {fileID: 21300000, guid: 9ad21647b3eeb3a459aa48407278d302, type: 3}
+    UseTickIcon: 1
+    IsTemporary: 0
+  - PowerUpType: 20
+    Sprite: {fileID: 21300000, guid: 9ad21647b3eeb3a459aa48407278d302, type: 3}
+    UseTickIcon: 0
+    IsTemporary: 0
   Prefabs:
   - Prefab: {fileID: 1109358075695914188, guid: 3a6eb5c499ba0a24e9fc5e963a236093, type: 3}
     IsTemporary: 0
@@ -195,3 +203,7 @@ MonoBehaviour:
     Weight: 0.3
   - PowerUpType: 18
     Weight: 0.3
+  - PowerUpType: 19
+    Weight: 0.08
+  - PowerUpType: 20
+    Weight: 0.1

@@ -31,7 +31,7 @@ public class RunScoreManager : MonoBehaviour
             enabled = false;
             return;
         }
-        scoreText.text = $"Score: {Mathf.FloorToInt(runScore)}";
+        scoreText.text = Mathf.FloorToInt(runScore).ToString();
     }
     private void OnEnable()
     {
@@ -46,7 +46,7 @@ public class RunScoreManager : MonoBehaviour
     private void AddScore(float _points)
     {
         runScore += _points;
-        scoreText.text = $"Score: {Mathf.FloorToInt(runScore)}";
+        scoreText.text = Mathf.FloorToInt(runScore).ToString();
     }
 
     private void HandleEnemyDeath(AttackType _attackType, float _points, float _itemChance, Vector2 _position)

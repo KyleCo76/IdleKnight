@@ -10,11 +10,13 @@ public class Collectables : MonoBehaviour
     private bool collectOnPickup = true;
     [FoldoutGroup("Collectable Settings/General Settings"), SerializeField, Tooltip("Should this object be destroyed on pickup?")]
     private bool destroyOnPickup = true;
+    [FoldoutGroup("Collectable Settings/General Settings"), SerializeField, Tooltip("Is this a super power up?")]
+    private bool isSuperPowerUp = false;
     [FoldoutGroup("Collectable Settings/Audio Settings"), SerializeField, Tooltip("Sound to play on pickup")]
     private AudioClip pickupSound;
     [FoldoutGroup("Collectable Settings/Audio Settings"), SerializeField, Tooltip("Volume of the pickup sound"), Range(0f, 1f)]
     private float pickupSoundVolume = 1f;
-    [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("Should the sprite be randomized?")]
+    [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("Should the sprite be randomized?"), HideIf("isSuperPowerUp")]
     private bool randomizeSprite = false;
     [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("List of sprites? If false, will default to a folder selection"), ShowIf("randomizeSprite")]
     private bool useCustomSpriteList = false;
@@ -22,59 +24,59 @@ public class Collectables : MonoBehaviour
     private List<Sprite> customSpriteList = new();
     [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("Folder to load sprites from"), FolderPath, ShowIf("@this.randomizeSprite && !this.useCustomSpriteList")]
     private string spriteFolderPath = "";
-    [FoldoutGroup("Collectable Settings/Collection Settings"), SerializeField, Tooltip("Should the stats be randomized?")]
+    [FoldoutGroup("Collectable Settings/Collection Settings"), SerializeField, Tooltip("Should the stats be randomized?"), HideIf("isSuperPowerUp")]
     private bool randomizeStats = false;
 
     [FoldoutGroup("Collectable Stats")]
-    [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Should the power up give invincibility?"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Should the power up give invincibility?"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private bool giveInvincibility = false;
     [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Duration of invincibility"), ShowIf("giveInvincibility"), Min(0.1f)]
     private float invincibilityDuration = 5f;
-    [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Should the power up give double points?"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Should the power up give double points?"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private bool giveDoublePoints = false;
     [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Duration of double points"), ShowIf("giveDoublePoints"), Min(0.1f)]
     private float doublePointsDuration = 5f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Health to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Health to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float healthAmount = 0f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the health boost, 0 is permanent"), ShowIf("@!this.randomizeStats && healthAmount != 0f")]
     private float healthDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Mana to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Mana to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float manaAmount = 0f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the mana boost, 0 is permanent"), ShowIf("@!this.randomizeStats && manaAmount != 0f")]
     private float manaDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Max mana boost to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Max mana boost to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float maxManaBoost = 0f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the max mana boost, 0 is permanent"), ShowIf("@!this.randomizeStats && maxManaBoost != 0f")]
     private float maxManaDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Attack speed multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Attack speed multiplier to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float attackSpeedMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the attack speed boost, 0 is permanent"), ShowIf("@!this.randomizeStats && attackSpeedMultiplier != 1f")]
     private float attackSpeedDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Melee damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Melee damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float meleeDamageBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the melee damage boost, 0 is permanent"), ShowIf("@!this.randomizeStats && meleeDamageBoostMultiplier != 1f")]
     private float meleeDamageDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Ranged damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Ranged damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float rangedDamageBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the ranged damage boost, 0 is permanent"), ShowIf("@!this.randomizeStats && rangedDamageBoostMultiplier != 1f")]
     private float rangedDamageDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Max health boost to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Max health boost to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float maxHealthBoost = 0f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the max health boost, 0 is permanent"), ShowIf("@!this.randomizeStats && maxHealthBoost != 0f")]
     private float maxHealthDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Speed boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Speed boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float speedBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the speed boost, 0 is permanent"), ShowIf("@!this.randomizeStats && speedBoostMultiplier != 1f")]
     private float speedBoostDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura tick rate multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura tick rate multiplier to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float auraTickRateMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the aura tick rate boost, 0 is permanent"), ShowIf("@!this.randomizeStats && auraTickRateMultiplier != 1f")]
     private float auraTickRateDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura range boost to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura range boost to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float auraRangeBoost = 0f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the aura range boost, 0 is permanent"), ShowIf("@!this.randomizeStats && auraRangeBoost != 0f")]
     private float auraRangeDuration = 0f;
-    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
+    [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats && !isSuperPowerUp")]
     private float auraDamageBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the aura damage boost, 0 is permanent"), ShowIf("@!this.randomizeStats && auraDamageBoostMultiplier != 1f")]
     private float auraDamageDuration = 0f;
@@ -206,6 +208,9 @@ public class Collectables : MonoBehaviour
     [FoldoutGroup("Collectable Stats/Number of Stats"), SerializeField, Tooltip("Number of stats to give on pickup"), Min(1), ShowIf("randomizeStats")]
     private int numberOfStatsToGive = 1;
 
+    [FoldoutGroup("Super Settings"), SerializeField, Tooltip("The Prefab to use for the super power up"), ShowIf("isSuperPowerUp")]
+    private GameObject superPowerUpPrefab;
+
     [SerializeField, ReadOnly, Tooltip("Unique ID for this collectable")]
     private string collectableID;
     [SerializeField, ReadOnly, Tooltip("Has the ID been set?")]
@@ -292,6 +297,10 @@ public class Collectables : MonoBehaviour
     private void Collect(Collider2D _other)
     {
         if (_other.TryGetComponent<Player.PlayerController>(out var player)) {
+            if (isSuperPowerUp && superPowerUpPrefab != null) {
+                player.SetSuper(superPowerUpPrefab);
+                return;
+            }
             foreach (var powerUp in powerUps) {
                 player.ActivatePowerUp(powerUp);
             }
@@ -538,6 +547,21 @@ public class Collectables : MonoBehaviour
             giveInvincibility = false;
             giveDoublePoints = false;
         }
+        if (!randomizeStats) {
+            randomGiveInvincibility = false;
+            randomGiveDoublePoints = false;
+            randomGiveHealthBoost = false;
+            randomGiveMaxHealthBoost = false;
+            randomGiveManaBoost = false;
+            randomGiveMaxManaBoost = false;
+            randomGiveAttackSpeedBoost = false;
+            randomGiveMeleeDamageBoost = false;
+            randomGiveRangedDamageBoost = false;
+            randomGiveSpeedBoost = false;
+            randomGiveAuraTickRateBoost = false;
+            randomGiveAuraRangeBoost = false;
+            randomGiveAuraDamageBoost = false;
+        }
         if (!randomGiveHealthBoost) {
             randomHealthBoostTemporary = false;
         }
@@ -571,6 +595,49 @@ public class Collectables : MonoBehaviour
         if (!randomGiveAuraDamageBoost) {
             randomAuraDamageBoostTemporary = false;
         }
-    }
+        if (!randomGiveAttackSpeedBoost) {
+            weightAttackSpeedBoost = 0f;
+        }
+        if (!randomGiveDoublePoints) {
+            weightDoublePoints = 0f;
+        }
+        if (!randomGiveHealthBoost) {
+            weightHealthBoost = 0f;
+        }
+        if (!randomGiveInvincibility) {
+            weightInvincibility = 0f;
+        }
+        if (!randomGiveManaBoost) {
+            weightManaBoost = 0f;
+        }
+        if (!randomGiveMaxHealthBoost) {
+            weightMaxHealthBoost = 0f;
+        }
+        if (!randomGiveMaxManaBoost) {
+            weightMaxManaBoost = 0f;
+        }
+        if (!randomGiveMeleeDamageBoost) {
+            weightMeleeDamageBoost = 0f;
+        }
+        if (!randomGiveRangedDamageBoost) {
+            weightRangedDamageBoost = 0f;
+        }
+        if (!randomGiveSpeedBoost) {
+            weightSpeedBoost = 0f;
+        }
+        if (!randomGiveAuraTickRateBoost) {
+            weightAuraTickRateBoost = 0f;
+        }
+        if (!randomGiveAuraRangeBoost) {
+            weightAuraRangeBoost = 0f;
+        }
+        if (!randomGiveAuraDamageBoost) {
+            weightAuraDamageBoost = 0f;
+        }
+        if (numberOfStatsToGive < 1) {
+            numberOfStatsToGive = 1;
+        }
+
+        }
 
 }

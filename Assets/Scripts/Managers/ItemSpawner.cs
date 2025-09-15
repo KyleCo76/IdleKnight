@@ -99,48 +99,28 @@ public class ItemSpawner : MonoBehaviour
             case PowerUpType.CoinMagnet:
                 _powerUp.Initialize(new PowerUpData(_type, duration: RandomDuration()));
                 break;
-            case PowerUpType.AttackSpeedBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
-            case PowerUpType.RangedDamageBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
-            case PowerUpType.MeleeDamageBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
-            case PowerUpType.HealthRegenTickRate:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
-            case PowerUpType.HealthRegenAmount:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
             case PowerUpType.MaxHealthBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, amount: RandomAmount()));
-                break;
             case PowerUpType.HealAmount:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, amount: RandomAmount()));
-                break;
-            case PowerUpType.ManaRegenTickRate:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
-            case PowerUpType.ManaRegenAmount:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
             case PowerUpType.ManaBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, amount: RandomAmount()));
-                break;
             case PowerUpType.MaxManaBoost:
                 _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, amount: RandomAmount()));
                 break;
+            case PowerUpType.SuperCooldownReduction:
+                _powerUp.Initialize(new PowerUpData(_type, duration: 0f, amount: Random.Range(0f, 1f)));
+                break;
+            case PowerUpType.SuperDamageBoost:
+                _powerUp.Initialize(new PowerUpData(_type, duration: 0f, multiplier: RandomMultiplier()));
+                break;
+            case PowerUpType.ManaRegenTickRate:
+            case PowerUpType.AttackSpeedBoost:
+            case PowerUpType.RangedDamageBoost:
+            case PowerUpType.MeleeDamageBoost:
+            case PowerUpType.HealthRegenTickRate:
+            case PowerUpType.HealthRegenAmount:
+            case PowerUpType.ManaRegenAmount:
             case PowerUpType.SpeedBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
             case PowerUpType.AuraTickSpeedBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
             case PowerUpType.AuraRangeBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
-                break;
             case PowerUpType.AuraDamageBoost:
                 _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
                 break;
@@ -153,6 +133,9 @@ public class ItemSpawner : MonoBehaviour
     public void SpawnItem(Vector2 _position)
     {
         PowerUpType chosenType = ChoosePowerUpType();
+        while (chosenType == PowerUpType.None) {
+            chosenType = ChoosePowerUpType();
+        }
         bool isTemporary = ChoosePowerUpTemporary();
         Sprite powerUpSprite = powerUpDatabase.GetSpriteForPowerUpType(chosenType, isTemporary);
         GameObject powerUpPrefab = powerUpDatabase.GetPrefabForPowerUpType(chosenType, isTemporary);
