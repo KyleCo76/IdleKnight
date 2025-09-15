@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        //UIManager.Instance.ShowPauseMenu(true);
+        UIManager.Instance.ShowPauseMenu(true);
         IsPaused = true;
         Time.timeScale = 0.0f;
     }
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResumeDelay(float _delayTime, bool _hideMenu)
     {
         yield return new WaitForSecondsRealtime(_delayTime);
-        //UIManager.Instance.ShowPauseMenu(!_hideMenu);
+        UIManager.Instance.ShowPauseMenu(!_hideMenu);
         IsPaused = false;
         Time.timeScale = 1.0f;
     }

@@ -23,39 +23,13 @@ namespace Player
         private float currentMana;
         private float manaRegenTimer;
 
-        // Cached Components
-        private Slider manaBubble;
-        private TextMeshProUGUI manaText;
 
-
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
         void StaminaAwake()
         {
-            var canvas = GameObject.Find("Canvas");
-            var manaBubbleObject = canvas.transform.Find("ManaBubble");
-            if (manaBubbleObject == null) {
-                Debug.LogError("No ManaBubble GameObject found under Canvas.");
-                enabled = false;
-                return;
-            }
-            if (!manaBubbleObject.TryGetComponent<Slider>(out manaBubble)) {
-                Debug.LogError("No Slider component found on ManaBubble GameObject.");
-                enabled = false;
-                return;
-            }
-            manaText = manaBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
-            if (manaText == null) {
-                Debug.LogError("No TextMeshProUGUI component found on ManaText GameObject.");
-                enabled = false;
-                return;
-            }
-
             currentMana = startingMana;
-            manaBubble.value = currentMana / maxMana;
-            manaText.text = $"{currentMana}/{maxMana}";
+            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
         }
 
-        // Update is called once per frame
         void StaminaUpdate()
         {
             if (manaRegenTimer < manaRegenInterval) {
@@ -81,14 +55,8 @@ namespace Player
                 return false; // Not enough mana
             }
             currentMana = Mathf.Clamp(currentMana + amount, 0f, maxMana);
-            UpdateManaUI();
+            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
             return true;
-        }
-
-        private void UpdateManaUI()
-        {
-            manaBubble.value = currentMana / maxMana;
-            manaText.text = $"{currentMana}/{maxMana}";
         }
     }
 }

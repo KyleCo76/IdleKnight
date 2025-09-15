@@ -20,41 +20,11 @@ namespace Player
         private float healthRegenTimer = 0f;
         private bool allowOverHeal = false;
 
-        // Cached components
-        private Slider healthBubble;
-        private TextMeshProUGUI healthText;
-
 
         private void HealthAwake()
         {
-            var canvas = GameObject.Find("Canvas");
-            if (canvas == null) {
-                Debug.LogError("No Canvas GameObject found in the scene.");
-                enabled = false;
-                return;
-            }
-            
-            var healthBubbleObject = canvas.transform.Find("HealthBubble");
-            if (healthBubbleObject == null) {
-                Debug.LogError("No HealthBubble GameObject found under Canvas.");
-                enabled = false;
-                return;
-            }
-            if (!healthBubbleObject.TryGetComponent<Slider>(out healthBubble)) {
-                Debug.LogError("No HealthBubble GameObject found under Canvas.");
-                enabled = false;
-                return;
-            }
-
-            healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
-            if (healthText == null) {
-                Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
-                enabled = false;
-                return;
-            }
-
             currentHealth = maxHealth;
-            UpdateHealthUI();
+            UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
             healthRegenTimer = healthRegenInterval;
         }
 
@@ -79,7 +49,7 @@ namespace Player
             if (_amount < 0 && !_ignoreHurt) {
                 if (invincibilityTimer > 0f)
                     return; // Ignore damage if invincible
-                
+
                 invincibilityTimer = invincibilityDuration; // Reset invincibility timer
                 playerAnimator.SetBool("isHurt", true);
             }
@@ -93,7 +63,7 @@ namespace Player
                 // Handle player death (e.g., trigger game over, respawn, etc.)
                 return;
             }
-            UpdateHealthUI();
+            UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
         }
 
         private void ChangeMaxHealth(float _amount)
@@ -101,20 +71,7 @@ namespace Player
             maxHealth += _amount;
             maxHealth = Mathf.Max(1f, maxHealth); // Ensure max health is at least 1
             currentHealth = Mathf.Min(currentHealth, maxHealth); // Adjust current health if necessary
-            UpdateHealthUI();
-        }
-
-        private void UpdateHealthUI()
-        {
-            if (healthBubble == null) {
-                Debug.LogError("healthBubble is null in PlayerHealth");
-                return;
-            }
-            if (!allowOverHeal)
-                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-            healthBubble.value = Mathf.Clamp01(currentHealth / maxHealth);
-            healthText.text = $"{Mathf.RoundToInt(currentHealth)} / {Mathf.RoundToInt(maxHealth)}";
+            UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
         }
     }
 }

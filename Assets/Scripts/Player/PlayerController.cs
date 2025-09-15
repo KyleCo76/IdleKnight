@@ -79,10 +79,11 @@ namespace Player
         public void OnPause(InputAction.CallbackContext _context)
         {
             gamePaused = _context.performed;
-            Application.Quit();
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
+            if (gamePaused) {
+                GameManager.Instance.PauseGame();
+            } else {
+                GameManager.Instance.ResumeGame();
+            }
         }
 
         public void OnSprint(InputAction.CallbackContext _context)
@@ -104,7 +105,7 @@ namespace Player
         */
         private void Awake()
         {
-            ColliderAwake();
+            //ColliderAwake();
             HealthAwake();
             StaminaAwake();
 
@@ -281,6 +282,14 @@ namespace Player
                         FlipSprite(moveInput.y > 0f);
                 }
             }
+        }
+
+        private void QuitGame()
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
 
         private void ResetRotation()
