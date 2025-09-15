@@ -104,6 +104,7 @@ namespace Player
         */
         private void Awake()
         {
+            ColliderAwake();
             HealthAwake();
             StaminaAwake();
 
