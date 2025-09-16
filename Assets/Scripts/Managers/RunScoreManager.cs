@@ -8,12 +8,19 @@ public class RunScoreManager : MonoBehaviour
     public static RunScoreManager Instance { get; private set; }
 
     [SerializeField, Tooltip("The multiplier applied to the score when the player defeats an enemy")]
-    private float playerAttackMultiplier = 2f; 
+    private float playerAttackMultiplier = 2f;
 
-    private float runScore = 0f;
+    public delegate void PlayerLeveledUpEventHandler(int newLevel);
+    public event PlayerLeveledUpEventHandler OnPlayerLeveledUp;
+
+    private int runScore = 0;
+    public int CurrentScore => runScore;
+    private int playerLevel = 1;
+    private int lastScoreLevelThreshold = 50;
 
     // Cached Components
-    public TextMeshProUGUI scoreText;
+    private TextMeshProUGUI scoreText;
+    private PlayerLevels playerLevels;
 
 
     private void Awake()
@@ -32,6 +39,13 @@ public class RunScoreManager : MonoBehaviour
             return;
         }
         scoreText.text = Mathf.FloorToInt(runScore).ToString();
+
+        playerLevels = Resources.Load<PlayerLevels>("ScriptableObjects/PlayerLevels");
+        if (playerLevels == null) {
+            Debug.LogError("PlayerLevels not found in Resources/ScriptableObjects.");
+            enabled = false;
+            return;
+        }
     }
     private void OnEnable()
     {
@@ -43,15 +57,32 @@ public class RunScoreManager : MonoBehaviour
         Enemies.Controller.OnEnemyDeath -= HandleEnemyDeath;
     }
 
-    private void AddScore(float _points)
+    private void Update()
+    {
+        if (runScore >= lastScoreLevelThreshold + (lastScoreLevelThreshold * playerLevels.GetLevelMultiplier(playerLevel)))
+        {
+            lastScoreLevelThreshold = runScore;
+            playerLevel++;
+            OnPlayerLeveledUp?.Invoke(playerLevel);
+            Debug.Log($"Player leveled up to {playerLevel}!");
+        }
+    }
+
+    public void AddScore(int _points)
     {
         runScore += _points;
+        runScore = Mathf.Max(0, runScore);
         scoreText.text = Mathf.FloorToInt(runScore).ToString();
     }
 
-    private void HandleEnemyDeath(AttackType _attackType, float _points, float _itemChance, Vector2 _position)
+    public int GetPlayerLevel()
     {
-        float pointValue = _points * (_attackType == AttackType.PlayerAttack ? playerAttackMultiplier : 1f);
+        return playerLevel;
+    }
+
+    private void HandleEnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position)
+    {
+        int pointValue = Mathf.FloorToInt(_points * (_attackType == AttackType.PlayerAttack ? playerAttackMultiplier : 1f));
         AddScore(pointValue);
     }
 

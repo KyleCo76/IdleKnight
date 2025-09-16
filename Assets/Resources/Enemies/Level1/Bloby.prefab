@@ -129,8 +129,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   nextWaypointDistance: 0.5
-  contactDamage: 10
+  contactDamage: 3
   damageInterval: 1
+  deathValue: 1
+  itemSpawnChance: 0
   maxHealth: 10
 --- !u!114 &28104885835771246
 MonoBehaviour:

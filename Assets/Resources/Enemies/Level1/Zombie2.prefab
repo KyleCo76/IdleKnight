@@ -103,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 6363420602697670431}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 07cb89f6ea5e36b4e8b21a54c86f8d8d, type: 2}
+  m_Controller: {fileID: 9100000, guid: e647ff09660869a4f99f26d2a34ea1bd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -129,9 +129,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   movementSpeed: 3
   nextWaypointDistance: 0.5
-  contactDamage: 10
-  damageInterval: 1
-  maxHealth: 10
+  contactDamage: 2
+  damageInterval: 3
+  deathValue: 1
+  itemSpawnChance: 0
+  maxHealth: 4
 --- !u!114 &819593684615957644
 MonoBehaviour:
   m_ObjectHideFlags: 0

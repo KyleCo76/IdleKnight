@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
 
     private static readonly HashSet<string> assignedIDs = new();
 
+    public delegate void GamePausedEventHandler();
+    public event GamePausedEventHandler OnGamePaused;
+    public delegate void GameResumedEventHandler();
+    public event GameResumedEventHandler OnGameResumed;
+
 
     //public delegate void ItemCollectedEventHandler(CollectableData _itemData);
     //public event ItemCollectedEventHandler OnItemCollected;
@@ -33,7 +38,7 @@ public class GameManager : MonoBehaviour
         InputActions = new InputSystem_Actions();
         InputActions.Player.Enable();
         InputActions.UI.Enable();
-        InputActions.Player.Pause.performed += ctx => {
+        InputActions.UI.Pause.performed += ctx => {
             if (IsPaused) {
                 ResumeGame();
             } else {
@@ -53,7 +58,16 @@ public class GameManager : MonoBehaviour
     {
         UIManager.Instance.ShowPauseMenu(true);
         IsPaused = true;
+        OnGamePaused?.Invoke();
         Time.timeScale = 0.0f;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     /// <summary>
@@ -61,15 +75,17 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <remarks>This method initiates a coroutine to resume the game after a specified delay.  The delay
     /// duration is fixed and cannot be customized through this method.</remarks>
-    public void ResumeGame(bool _hideMenu = true)
+    public void ResumeGame()
     {
-        StartCoroutine(ResumeDelay(0.2f, _hideMenu));
+        UIManager.Instance.ResetResumeButton();
+        StartCoroutine(ResumeDelay(0.5f));
+        OnGameResumed?.Invoke();
     }
 
-    private IEnumerator ResumeDelay(float _delayTime, bool _hideMenu)
+    private IEnumerator ResumeDelay(float _delayTime)
     {
         yield return new WaitForSecondsRealtime(_delayTime);
-        UIManager.Instance.ShowPauseMenu(!_hideMenu);
+        UIManager.Instance.ShowPauseMenu(false);
         IsPaused = false;
         Time.timeScale = 1.0f;
     }

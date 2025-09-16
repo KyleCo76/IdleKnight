@@ -130,9 +130,10 @@ MonoBehaviour:
   movementSpeed: 3
   nextWaypointDistance: 0.5
   contactDamage: 10
-  damageInterval: 1
+  damageInterval: 3
   deathValue: 2
-  maxHealth: 40
+  itemSpawnChance: 0
+  maxHealth: 8
 --- !u!114 &7834173803780858458
 MonoBehaviour:
   m_ObjectHideFlags: 0

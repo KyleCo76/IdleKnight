@@ -1,5 +1,4 @@
 using Game;
-using Unity.Mathematics;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PowerUpDatabase", menuName = "Scriptable Objects/PowerUpDatabase")]

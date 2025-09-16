@@ -28,6 +28,8 @@ namespace Player
         private bool gamePaused = false;
         private bool isFlipped = false;
         private float attackCooldownTimer = 0f;
+        private float superDamageMultiplier = 1f;
+        private float superSpeed = 600f;
 
         // Input values
         private Vector2 moveInput;
@@ -76,16 +78,6 @@ namespace Player
             }
         }
 
-        public void OnPause(InputAction.CallbackContext _context)
-        {
-            gamePaused = _context.performed;
-            if (gamePaused) {
-                GameManager.Instance.PauseGame();
-            } else {
-                GameManager.Instance.ResumeGame();
-            }
-        }
-
         public void OnSprint(InputAction.CallbackContext _context)
         {
             if (!gamePaused) {
@@ -130,6 +122,18 @@ namespace Player
             foreach (var proj in allProjectiles) {
                 projectiles.Add(proj);
             }
+        }
+        
+        private void OnEnable()
+        {
+            GameManager.Instance.OnGamePaused += HandleGamePause;
+            GameManager.Instance.OnGameResumed += HandleGamePause;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.OnGamePaused -= HandleGamePause;
+            GameManager.Instance.OnGameResumed -= HandleGamePause;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -186,7 +190,7 @@ namespace Player
 
             var projectile = Instantiate(currentSuperPrefab, playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
             if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
-                projComponent.Initialize(attackPoint.normalized, 600f, superDamage, AttackType.PlayerAttack, true);
+                projComponent.Initialize(attackPoint.normalized, superSpeed, superDamage * superDamageMultiplier, AttackType.PlayerAttack, true);
             }
         }
 
@@ -247,6 +251,19 @@ namespace Player
             return (rotation, attackPoint - (Vector2)transform.position);
         }
 
+        private void HandleGamePause()
+        {
+            gamePaused = !gamePaused;
+            //if (!gamePaused)
+            //    return;
+            //moveInput = Vector2.zero;
+            //sprintPressed = false;
+            //attackPressed = false;
+            //isInteracting = false;
+            //playerAnimatorHelper.SetWalking(false, playerAnimator);
+            //ResetRotation();
+        }
+
         private void MovePlayer()
         {
             playerTransform.position = Vector2.MoveTowards(playerTransform.position, playerTransform.position + (Vector3)moveInput, Time.deltaTime * (sprintPressed ? (sprintSpeedMultiplier * movementSpeed) : movementSpeed));
@@ -284,14 +301,6 @@ namespace Player
             }
         }
 
-        private void QuitGame()
-        {
-            Application.Quit();
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-        }
-
         private void ResetRotation()
         {
             playerTransform.rotation = new Quaternion(0f, 0f, 0f, 0f);
@@ -306,9 +315,11 @@ namespace Player
             }
         }
 
-        public void SetSuper(GameObject _superPrefab)
+        public void SetSuper(GameObject _superPrefab, float _damage, float _speed)
         {
             currentSuperPrefab = _superPrefab;
+            superDamage = _damage;
+            superSpeed = _speed;
         }
     }
 

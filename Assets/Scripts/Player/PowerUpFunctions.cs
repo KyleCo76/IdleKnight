@@ -94,7 +94,7 @@ namespace Player
                     superCooldownTimer = Mathf.Max(0f, superCooldownTimer - _powerUp.Amount);
                     break;
                 case PowerUpType.SuperDamageBoost:
-                    superDamage *= _powerUp.Multiplier;
+                    superDamageMultiplier *= _powerUp.Multiplier;
                     break;
                 default:
                     Debug.LogWarning("Unknown power-up type: " + _powerUp.Type);

@@ -1,3 +1,4 @@
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -14,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     private Transform enemyParent;
 
-    private void Start()
+    private void Awake()
     {
         // Load all prefabs from Resources/Enemies at start
         enemyPrefabs = Resources.LoadAll<GameObject>("Enemies/Level1");
@@ -38,6 +39,13 @@ public class EnemySpawner : MonoBehaviour
     private void OnEnable()
     {
         Enemies.Controller.OnEnemyDeath += (attackType, points, itemChance, position) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
+        RunScoreManager.Instance.OnPlayerLeveledUp += HandlePlayerLevelUp;
+    }
+
+    private void OnDisable()
+    {
+        RunScoreManager.Instance.OnPlayerLeveledUp -= HandlePlayerLevelUp;
+        Enemies.Controller.OnEnemyDeath -= (attackType, points, itemChance, position) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
     }
 
     private void Update()
@@ -47,6 +55,18 @@ public class EnemySpawner : MonoBehaviour
             timer = 0f;
             SpawnRandomEnemy();
         }
+    }
+
+    private void HandlePlayerLevelUp(int _newLevel)
+    {
+        spawnInterval = Mathf.Max(0.25f, spawnInterval - 0.5f * (_newLevel - 1));
+        string path = $"Enemies/Level{_newLevel}";
+        var newPrefabs = Resources.LoadAll<GameObject>(path);
+        if (newPrefabs.Length == 0) {
+            Debug.LogWarning($"No enemy prefabs found in Resources/{path}! Continuing to use previous level's enemies.");
+            return;
+        }
+        enemyPrefabs.AddRange(newPrefabs);
     }
 
     private void SpawnRandomEnemy()

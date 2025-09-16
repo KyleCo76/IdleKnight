@@ -5,6 +5,20 @@ public class ItemSpawner : MonoBehaviour
 {
     [SerializeField, Tooltip("Base chance (0 to 1) to spawn an item on enemy death"), Range(0f, 1f)]
     private float baseItemSpawnChance = 0.05f;
+    [SerializeField, Tooltip("Chance (0 to 1) that a spawned power-up is temporary"), Range(0f, 1f)]
+    private float temporaryPowerUpChance = 0.5f;
+    [SerializeField, Tooltip("Minimum duration for temporary power-ups")]
+    private float minTemporaryDuration = 5f;
+    [SerializeField, Tooltip("Maximum duration for temporary power-ups")]
+    private float maxTemporaryDuration = 30f;
+    [SerializeField, Tooltip("Minimum amount for power-ups that have an amount")]
+    private float minAmount = 5f;
+    [SerializeField, Tooltip("Maximum amount for power-ups that have an amount")]
+    private float maxAmount = 30f;
+    [SerializeField, Tooltip("Minimum multiplier for power-ups that have a multiplier")]
+    private float minMultiplier = 1.05f;
+    [SerializeField, Tooltip("Maximum multiplier for power-ups that have a multiplier")]
+    private float maxMultiplier = 1.3f;
 
     private PowerUpDatabase powerUpDatabase;
 
@@ -45,14 +59,13 @@ public class ItemSpawner : MonoBehaviour
         return PowerUpType.None;
     }
 
-    private void EnemyDeath(AttackType _attackType, float _points, float _itemChance, Vector2 _position)
+    private void EnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position)
     {
         float chanceToSpawnItem = baseItemSpawnChance + _itemChance;
         chanceToSpawnItem = Mathf.Clamp01(chanceToSpawnItem);
         float roll = Random.Range(0f, 1f);
 
         if (roll <= chanceToSpawnItem) {
-            Debug.Log($"Spawning item at {_position} (Roll: {roll}, Chance: {chanceToSpawnItem})");
             SpawnItem(_position);
         }
     }
@@ -70,46 +83,36 @@ public class ItemSpawner : MonoBehaviour
         return normalizedWeights;
     }
 
-    private float RandomAmount()
+    private float RandomBiasedNumber(float _min = 5f, float _max = 30f)
     {
-        return Random.Range(5f, 50f);
-    }
-
-    private float RandomDuration()
-    {
-        return Random.Range(5f, 20f);
-    }
-
-    private float RandomMultiplier()
-    {
-        float biasedRoll = Random.Range(0f, 1f);
-        biasedRoll = Mathf.Pow(biasedRoll, 2); // Bias towards lower values
-        return 1f + biasedRoll * (2f -1f); // Scale to range [1, 2]
+        float uniform = Random.Range(0f, 1f);
+        float biased = Mathf.Pow(uniform, 2); // Bias towards lower values
+        return _min + biased * (_max - _min); // Scale to range [_min, _max]
     }
 
     private void SetPowerUpStats(Collectables _powerUp, PowerUpType _type, bool _isTemporary)
     {
         switch (_type) {
             case PowerUpType.Invincibility:
-                _powerUp.Initialize(new PowerUpData(_type, duration: RandomDuration()));
+                _powerUp.Initialize(new PowerUpData(_type, duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                 break;
             case PowerUpType.DoublePoints:
-                _powerUp.Initialize(new PowerUpData(_type, duration: RandomDuration()));
+                _powerUp.Initialize(new PowerUpData(_type, duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                 break;
             case PowerUpType.CoinMagnet:
-                _powerUp.Initialize(new PowerUpData(_type, duration: RandomDuration()));
+                _powerUp.Initialize(new PowerUpData(_type, duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                 break;
             case PowerUpType.MaxHealthBoost:
             case PowerUpType.HealAmount:
             case PowerUpType.ManaBoost:
             case PowerUpType.MaxManaBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, amount: RandomAmount()));
+                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration) : 0f, amount: RandomBiasedNumber(minAmount, maxAmount)));
                 break;
             case PowerUpType.SuperCooldownReduction:
                 _powerUp.Initialize(new PowerUpData(_type, duration: 0f, amount: Random.Range(0f, 1f)));
                 break;
             case PowerUpType.SuperDamageBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: 0f, multiplier: RandomMultiplier()));
+                _powerUp.Initialize(new PowerUpData(_type, duration: 0f, multiplier: RandomBiasedNumber(minMultiplier, maxMultiplier)));
                 break;
             case PowerUpType.ManaRegenTickRate:
             case PowerUpType.AttackSpeedBoost:
@@ -122,7 +125,7 @@ public class ItemSpawner : MonoBehaviour
             case PowerUpType.AuraTickSpeedBoost:
             case PowerUpType.AuraRangeBoost:
             case PowerUpType.AuraDamageBoost:
-                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomDuration() : 0f, multiplier: RandomMultiplier()));
+                _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration) : 0f, multiplier: RandomBiasedNumber(minMultiplier, maxMultiplier)));
                 break;
             default:
                 Debug.LogWarning($"Unhandled PowerUpType {_type} in SetPowerUpStats.");
@@ -136,7 +139,7 @@ public class ItemSpawner : MonoBehaviour
         while (chosenType == PowerUpType.None) {
             chosenType = ChoosePowerUpType();
         }
-        bool isTemporary = ChoosePowerUpTemporary();
+        bool isTemporary = RandomBiasedNumber(0f, 1f) < temporaryPowerUpChance;
         Sprite powerUpSprite = powerUpDatabase.GetSpriteForPowerUpType(chosenType, isTemporary);
         GameObject powerUpPrefab = powerUpDatabase.GetPrefabForPowerUpType(chosenType, isTemporary);
 

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88a35242fe2be145a9509d57032bf71, type: 3}
+  m_Name: PlayerLevels
+  m_EditorClassIdentifier: 
+  Levels:
+  - Level: 1
+    ExperienceMultiplierRequired: 1
+  - Level: 2
+    ExperienceMultiplierRequired: 1.1
+  - Level: 3
+    ExperienceMultiplierRequired: 1.1
+  - Level: 4
+    ExperienceMultiplierRequired: 1.1
+  - Level: 5
+    ExperienceMultiplierRequired: 1.1
+  - Level: 6
+    ExperienceMultiplierRequired: 1.1
+  - Level: 7
+    ExperienceMultiplierRequired: 1.1
+  - Level: 8
+    ExperienceMultiplierRequired: 1.1
+  - Level: 9
+    ExperienceMultiplierRequired: 1.1
+  - Level: 10
+    ExperienceMultiplierRequired: 1.1
+  BaseExperienceToLevelUp: 100

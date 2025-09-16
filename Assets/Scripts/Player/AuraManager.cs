@@ -61,9 +61,7 @@ public class AuraManager : MonoBehaviour
 
     public void ChangeAuraRange(float _multiplier)
     {
-        if (this.TryGetComponent<CircleCollider2D>(out var collider)) {
-            collider.radius *= _multiplier;
-        }
+        transform.localScale *= _multiplier;
     }
 
     public void ChangeAuraRange(float _multiplier, float _duration)
@@ -92,12 +90,10 @@ public class AuraManager : MonoBehaviour
 
     private IEnumerator TemporaryAuraRangeCoroutine(float _multiplier, float _duration)
     {
-        if (this.TryGetComponent<CircleCollider2D>(out var collider)) {
-            float originalRadius = collider.radius;
-            collider.radius *= _multiplier; // Increase range
-            yield return new WaitForSeconds(_duration);
-            collider.radius = originalRadius; // Reset to original radius
-        }
+        Vector3 originalRadius = transform.localScale;
+        transform.localScale *= _multiplier; // Increase range
+        yield return new WaitForSeconds(_duration);
+        transform.localScale = originalRadius; // Reset to original radius
     }
 
     private IEnumerator TemporaryAuraTickRateCoroutine(float _multiplier, float _duration)

@@ -48,4 +48,25 @@ namespace Game
         SuperCooldownReduction,
         SuperDamageBoost
     }
+
+    public enum SuperType
+    {
+        None,
+        BlobLarge,
+        BlobSmall,
+        ElectricLarge,
+        ElectricSmall,
+        EnergyLarge,
+        EnergySmall,
+        FireBallLarge,
+        FireBallSmall,
+        LaserLarge,
+        LaserSmall,
+        MagicMissileLarge,
+        MagicMissileSmall,
+        RockLarge,
+        RockSmall,
+        SlashLarge,
+        SlashSmall,
+    }
 }
