@@ -11,7 +11,7 @@ namespace Player
         [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("Movement speed of the player.")]
         private float movementSpeed = 5f;
         [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("Sprint speed multiplier.")]
-        private float sprintSpeedMultiplier = 2f;
+        private float sprintSpeedMultiplier = 1.4f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Attack cooldown in seconds.")]
         private float attackCooldown = 1f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Damage dealt per ranged attack.")]
@@ -20,6 +20,10 @@ namespace Player
         private float meleeDamage = 10f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Range of the melee attack.")]
         private float attackRange = 1f;
+        [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Ranged damage required to unlock double attack.")]
+        private float doubleAttackDamageActivationPoint = 20f;
+        [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Ranged damage required to unlock triple attack.")]
+        private float tripleAttackDamageActivationPoint = 40f;
         [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Cooldown time for the super ability in seconds.")]
         private float superCooldown = 10f;
         [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Damage of the super ability")]
@@ -30,6 +34,13 @@ namespace Player
         private float attackCooldownTimer = 0f;
         private float superDamageMultiplier = 1f;
         private float superSpeed = 600f;
+        private const float arrowSpreadAmount = 15f;
+
+
+
+        // Attack type variables
+        private bool attackTripleAttack = false;
+        private bool attackDoubleAttack = false;
 
         // Input values
         private Vector2 moveInput;
@@ -87,6 +98,9 @@ namespace Player
 
         public void OnSuper(InputAction.CallbackContext _context)
         {
+            if (superCooldownTimer > 0f || currentSuperPrefab == null)
+                return;
+
             if (!gamePaused && _context.performed) {
                 ActivateSuper();
             }
@@ -161,6 +175,17 @@ namespace Player
             if (superCooldownTimer > 0f) {
                 superCooldownTimer -= Time.deltaTime;
             }
+
+            if (rangedDamage >= doubleAttackDamageActivationPoint) {
+                attackDoubleAttack = true;
+            } else {
+                attackDoubleAttack = false;
+            }
+            if (rangedDamage >= tripleAttackDamageActivationPoint) {
+                attackTripleAttack = true;
+            } else {
+                attackTripleAttack = false;
+            }
         }
 
         private void FixedUpdate()
@@ -182,7 +207,7 @@ namespace Player
 
         private void ActivateSuper()
         {
-            if (superCooldownTimer > 0f || currentSuperPrefab == null || !ChangeMana(-specialAttackManaCost))
+            if (!ChangeMana(-specialAttackManaCost))
                 return;
 
             superCooldownTimer = superCooldown;
@@ -214,9 +239,26 @@ namespace Player
             if (projectiles.Count > 0) {
                 var (rotation, attackPoint) = GetProjectileData();
 
+                //Vector2 mainDirection = ((Vector3)attackPoint - transform.position).normalized;
+                Vector2 mainDirection = attackPoint.normalized;
+                Vector2 leftDirection = Quaternion.Euler(0, 0, arrowSpreadAmount) * mainDirection;
+                Vector2 rightDirection = Quaternion.Euler(0, 0, -arrowSpreadAmount) * mainDirection;
+
+                if (attackDoubleAttack) {
+                    var projectileLeft = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation + 15f));
+                    if (projectileLeft.TryGetComponent<Projectile>(out var projComponentLeft)) {
+                        projComponentLeft.Initialize(leftDirection, 400f, rangedDamage, AttackType.PlayerAttack, false);
+                    }
+                }
+                if (attackTripleAttack) {
+                    var projectileRight = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation - 15f));
+                    if (projectileRight.TryGetComponent<Projectile>(out var projComponentRight)) {
+                        projComponentRight.Initialize(rightDirection, 400f, rangedDamage, AttackType.PlayerAttack, false);
+                    }
+                }
                 var projectile = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
                 if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
-                    projComponent.Initialize(attackPoint.normalized, 400f, rangedDamage, AttackType.PlayerAttack, false);
+                    projComponent.Initialize(mainDirection, 400f, rangedDamage, AttackType.PlayerAttack, false);
                 }
             }
         }

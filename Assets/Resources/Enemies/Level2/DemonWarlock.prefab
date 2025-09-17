@@ -133,6 +133,7 @@ MonoBehaviour:
   damageInterval: 3
   deathValue: 2
   itemSpawnChance: 0
+  hasAttackAnimation: 1
   maxHealth: 8
 --- !u!114 &7834173803780858458
 MonoBehaviour:

@@ -1,4 +1,4 @@
-using Sirenix.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     private float spawnInterval = 5f;
 
     private Player.PlayerController player;
-    private GameObject[] enemyPrefabs;
+    private List<GameObject> enemyPrefabs;
     private float timer = 0f;
 
     private readonly float spawnRangeMin = 10.0f; // Minimum distance from player
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         // Load all prefabs from Resources/Enemies at start
-        enemyPrefabs = Resources.LoadAll<GameObject>("Enemies/Level1");
+        enemyPrefabs = new List<GameObject>(Resources.LoadAll<GameObject>("Enemies/Level1"));
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) {
             if (!playerObj.TryGetComponent<Player.PlayerController>(out player)) {
@@ -71,13 +71,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnRandomEnemy()
     {
-        if (enemyPrefabs.Length == 0) {
+        if (enemyPrefabs.Count == 0) {
             Debug.LogWarning("No enemy prefabs found in Resources/Enemies!");
             return;
         }
 
         // Pick a random prefab
-        int index = Random.Range(0, enemyPrefabs.Length);
+        int index = Random.Range(0, enemyPrefabs.Count);
         GameObject prefab = enemyPrefabs[index];
 
         // Spawn at a random position outsisde the player's area

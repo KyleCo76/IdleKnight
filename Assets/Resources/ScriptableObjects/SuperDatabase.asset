@@ -51,11 +51,11 @@ MonoBehaviour:
     Prefab: {fileID: 6092577068655494035, guid: 76990081acd710142950ae97f688ddbb, type: 3}
   - Type: 9
     PowerLevel: 2
-    SpeedMultiplier: 0
+    SpeedMultiplier: 2
     Prefab: {fileID: 4603567176983631415, guid: b6eb77762e00c704d92585cfd1ba9c25, type: 3}
   - Type: 10
     PowerLevel: 1
-    SpeedMultiplier: 0
+    SpeedMultiplier: 2
     Prefab: {fileID: 489800762747689296, guid: dbaa92c6b5dccbc42a2533ae49842423, type: 3}
   - Type: 11
     PowerLevel: 6

@@ -73,8 +73,8 @@ public class ShopManager : MonoBehaviour
         List<SuperType> possibleSupers = new();
 
         foreach (var superType in System.Enum.GetValues(typeof(SuperType))) {
-            var superTypeInt = (int)superType;
-            if (superTypeInt <= _playerLevel) {
+            var superPowerLevel = superDatabase.GetPowerLevelForSuper((SuperType)superType);
+            if (superPowerLevel <= _playerLevel) {
                 possibleSupers.Add((SuperType)superType);
             }
         }

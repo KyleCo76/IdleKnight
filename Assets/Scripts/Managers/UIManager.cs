@@ -279,13 +279,13 @@ public class UIManager : MonoBehaviour
             int playerLevel = RunScoreManager.Instance.GetPlayerLevel();
             ShopManager.Instance.OpenShop(playerLevel);
         }
-        //if (_activate) {
-        //    // Reset toggles to off state when activating shop
-        //    if (leaveShopButton != null) leaveShopButton.isOn = true;
-        //    if (item1BuyIcon != null) item1BuyIcon.interactable = true;
-        //    if (item2BuyIcon != null) item2BuyIcon.interactable = true;
-        //    if (item3BuyIcon != null) item3BuyIcon.interactable = true;
-        //}
+        if (_activate) {
+            // Reset toggles to off state when activating shop
+            if (leaveShopButton != null) leaveShopButton.isOn = true;
+            if (item1BuyIcon != null) item1BuyIcon.interactable = true;
+            if (item2BuyIcon != null) item2BuyIcon.interactable = true;
+            if (item3BuyIcon != null) item3BuyIcon.interactable = true;
+        }
         shopCanvasObject.SetActive(_activate);
         uiCanvasObject.SetActive(!_activate);
         //Time.timeScale = _activate ? 0.0f : 1.0f;

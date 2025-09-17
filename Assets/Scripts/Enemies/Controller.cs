@@ -21,11 +21,14 @@ namespace Enemies
         private int deathValue = 1;
         [FoldoutGroup("Death Values"), SerializeField, Tooltip("The chance (0 to 1) to spawn an item on enemy death"), Range(0f, 1f)]
         private float itemSpawnChance = 0f;
+        [FoldoutGroup("Animation Settings"), SerializeField, Tooltip("Does the enemy have an attack animation?")]
+        private bool hasAttackAnimation = false;
 
 
         // Cached components
         private Transform playerTransform;
         private Seeker seeker;
+        private Animator enemyAnimator;
 
         private Path path;
         private readonly float pathUpdateRate = 0.5f; // How often to update the path
@@ -49,6 +52,12 @@ namespace Enemies
                 Debug.LogError("Enemy GameObject does not have a Seeker component.");
                 enabled = false;
             }
+            
+            if (hasAttackAnimation && !TryGetComponent<Animator>(out enemyAnimator)) {
+                Debug.LogError("Enemy is set to have an attack animation but does not have an Animator component.");
+                enabled = false;
+            }
+
             InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateRate);
             currentHealth = maxHealth;
         }
@@ -88,6 +97,9 @@ namespace Enemies
             {
                 if (_other.collider.TryGetComponent<Player.PlayerController>(out var player))
                 {
+                    if (hasAttackAnimation && enemyAnimator != null) {
+                        enemyAnimator.SetTrigger("Attack");
+                    }
                     player.ChangeHealth(-contactDamage);
                     attackTimer = damageInterval;
                 }

@@ -9,6 +9,7 @@ namespace Enemies
         private float maxHealth = 10f;
 
         private float currentHealth;
+        private bool isDead = false;
 
         public void TakeDamage(float _amount, AttackType _attackType = AttackType.None)
         {
@@ -22,6 +23,8 @@ namespace Enemies
 
         private void Die(AttackType _attackType)
         {
+            if (isDead) return;
+            isDead = true;
             OnEnemyDeath?.Invoke(_attackType, deathValue, itemSpawnChance, transform.position);
             Destroy(gameObject);
         }
