@@ -135,6 +135,8 @@ MonoBehaviour:
   itemSpawnChance: 0
   hasAttackAnimation: 0
   maxHealth: 1
+  armourValue: 0
+  currentHealth: 0
 --- !u!114 &3785573540689950545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +325,7 @@ MonoBehaviour:
   enableLocalAvoidanceBacking: 1
   enableGravityBacking: 1
   rvoSettingsBacking:
-    agentTimeHorizon: 3
+    agentTimeHorizon: 1
     obstacleTimeHorizon: 0.5
     maxNeighbours: 10
     layer: 1

@@ -23,11 +23,6 @@ public class GameManager : MonoBehaviour
     public int DifficultyLevel { get; private set; } = 1;
 
 
-    //public delegate void ItemCollectedEventHandler(CollectableData _itemData);
-    //public event ItemCollectedEventHandler OnItemCollected;
-
-    //private PlayerController playerController;
-
     private void Awake()
     {
         if (Instance != null && Instance != this) {
@@ -90,5 +85,11 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowPauseMenu(false);
         IsPaused = false;
         Time.timeScale = 1.0f;
+    }
+
+    public void UpdateAStarGrid(float _paintRadius)
+    {
+        var updateBounds = new Bounds(transform.position, new(_paintRadius, _paintRadius, 1));
+        AstarPath.active.UpdateGraphs(updateBounds);
     }
 }

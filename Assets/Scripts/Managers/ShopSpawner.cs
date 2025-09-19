@@ -21,7 +21,7 @@ public class ShopSpawner : MonoBehaviour
     private readonly List<TrackedShop> activeShops = new();
     private Transform playerTransform;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         shopPrefabs = Resources.LoadAll<GameObject>("Shops");
@@ -33,7 +33,6 @@ public class ShopSpawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (GameManager.Instance == null || GameManager.Instance.IsPaused)

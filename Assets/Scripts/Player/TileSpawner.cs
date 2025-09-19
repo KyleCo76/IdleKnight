@@ -64,7 +64,7 @@ public class TileSpawner : MonoBehaviour
         }
 
         if (updatedAStar) {
-            UpdateAStarGrid();
+            GameManager.Instance.UpdateAStarGrid(paintRadius);
         }
 
         if (Time.time >= nextCheckTime) {
@@ -128,11 +128,5 @@ public class TileSpawner : MonoBehaviour
             }
         }
         paintedTiles = newTiles;
-    }
-
-    private void UpdateAStarGrid()
-    {
-        var updateBounds = new Bounds(transform.position, new(paintRadius, paintRadius, 1));
-        AstarPath.active.UpdateGraphs(updateBounds);
     }
 }

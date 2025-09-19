@@ -19,11 +19,15 @@ public class EnemyAuraEffects : MonoBehaviour
     private readonly List<Enemies.Controller> affectedEnemies = new();
     private Player.PlayerController playerController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        if (!this.TryGetComponent<CircleCollider2D>(out var collider)) {
-            collider = this.gameObject.AddComponent<CircleCollider2D>();
+        var collider = GetComponentInChildren<CircleCollider2D>();
+        if (!collider) {
+            GameObject auraObjectCollider = new("AuraCollider");
+            auraObjectCollider.transform.SetParent(transform);
+            auraObjectCollider.layer = LayerMask.NameToLayer("EnemyAura");
+            collider = auraObjectCollider.AddComponent<CircleCollider2D>();
         }
         collider.isTrigger = true;
         collider.radius = auraRadius;
@@ -33,7 +37,6 @@ public class EnemyAuraEffects : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (damagePlayer && playerController != null) {

@@ -66,4 +66,4 @@ MonoBehaviour:
     SpawnChance: 0.3
     DifficultyMultiplier: 0.5
     MaxSpawn: 1
-    MaxSpawnCount: 1
+    MaxSpawnCount: 4

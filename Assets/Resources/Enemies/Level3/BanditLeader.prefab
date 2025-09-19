@@ -136,6 +136,8 @@ MonoBehaviour:
   itemSpawnChance: 0
   hasAttackAnimation: 1
   maxHealth: 10
+  armourValue: 8
+  currentHealth: 0
 --- !u!114 &2458141461037358793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9881c0e12680c5240a3e10046e0c05ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auraRadius: 3
+  auraRadius: 4
   auraEffects:
   - AuraEffectType: 1
     AuraEffectIntensityMultiplier: 0.5
@@ -354,7 +356,7 @@ MonoBehaviour:
   enableLocalAvoidanceBacking: 1
   enableGravityBacking: 1
   rvoSettingsBacking:
-    agentTimeHorizon: 3
+    agentTimeHorizon: 1
     obstacleTimeHorizon: 0.5
     maxNeighbours: 10
     layer: 1

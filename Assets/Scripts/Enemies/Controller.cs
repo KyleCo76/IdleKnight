@@ -2,6 +2,7 @@ using Pathfinding;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Game;
+using Player;
 
 namespace Enemies
 {
@@ -60,7 +61,7 @@ namespace Enemies
             }
 
             InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateRate);
-            currentHealth = maxHealth;
+            currentHealth = maxHealth * GameManager.Instance.DifficultyLevel * Mathf.Max(1, RunScoreManager.Instance.GetPlayerLevel() / 2);
             moveSpeed = movementSpeed;
         }
 

@@ -1,14 +1,18 @@
 using UnityEngine;
 using Game;
+using Sirenix.OdinInspector;
 
 namespace Enemies
 {
     public partial class Controller : MonoBehaviour
     {
-        [SerializeField, Tooltip("The maximum amount of health the enemy has")]
+        [FoldoutGroup("Health Settings"), SerializeField, Tooltip("The maximum amount of health the enemy has")]
         private float maxHealth = 10f;
+        [FoldoutGroup("Health Settings"), SerializeField, Tooltip("The amount of resistance the enemy has the player's basic attack")]
+        private float armourValue = 0f;
 
         private float shieldHealth = 0f;
+        [SerializeField]
         private float currentHealth;
         private bool isDead = false;
 
@@ -28,6 +32,11 @@ namespace Enemies
                 } else {
                     return;
                 }
+            }
+            if (armourValue > 0f && _amount < 0f && _attackType == AttackType.PlayerAttack) { // Only apply armour to player attacks, not environmental damage or aura
+                _amount += armourValue;
+                if (_amount > 0f)
+                    return; // Prevent healing from armour
             }
             currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
