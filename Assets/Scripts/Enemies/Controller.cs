@@ -7,7 +7,7 @@ namespace Enemies
 {
     public partial class Controller : MonoBehaviour
     {
-        public static event System.Action<AttackType, int, float, Vector2> OnEnemyDeath;
+        public static event System.Action<AttackType, int, float, Vector2, GameObject> OnEnemyDeath;
 
         [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("The movement speed of the enemy")]
         private float movementSpeed = 3.0f;

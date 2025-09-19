@@ -37,6 +37,11 @@ public class ItemSpawner : MonoBehaviour
         Enemies.Controller.OnEnemyDeath += EnemyDeath;
     }
 
+    private void OnDisable()
+    {
+        Enemies.Controller.OnEnemyDeath -= EnemyDeath;
+    }
+
     private bool ChoosePowerUpTemporary()
     {
         float roll = Random.Range(0f, 1f);
@@ -59,7 +64,7 @@ public class ItemSpawner : MonoBehaviour
         return PowerUpType.None;
     }
 
-    private void EnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position)
+    private void EnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position, GameObject _enemy)
     {
         float chanceToSpawnItem = baseItemSpawnChance + _itemChance;
         chanceToSpawnItem = Mathf.Clamp01(chanceToSpawnItem);

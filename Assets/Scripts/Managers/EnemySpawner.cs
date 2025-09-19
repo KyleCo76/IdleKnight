@@ -1,3 +1,5 @@
+using Game;
+using Pathfinding.ECS;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
 
     private Transform enemyParent;
     private EnemySpawnChances enemySpawnChances;
+
+    private readonly List<TrackedSpawn> trackedSpawns = new();
 
     private void Awake()
     {
@@ -46,14 +50,22 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        Enemies.Controller.OnEnemyDeath += (attackType, points, itemChance, position) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
+        if (RunScoreManager.Instance == null) {
+            Debug.LogError("RunScoreManager instance is null. Ensure it is initialized before enabling EnemySpawner.");
+            enabled = false;
+            return;
+        }
+        Enemies.Controller.OnEnemyDeath += HandleEnemyDeath;
         RunScoreManager.Instance.OnPlayerLeveledUp += HandlePlayerLevelUp;
     }
 
     private void OnDisable()
     {
+        if (RunScoreManager.Instance == null) {
+            return;
+        }
         RunScoreManager.Instance.OnPlayerLeveledUp -= HandlePlayerLevelUp;
-        Enemies.Controller.OnEnemyDeath -= (attackType, points, itemChance, position) => { if (attackType == Game.AttackType.PlayerAttack) SpawnRandomEnemy(); };
+        Enemies.Controller.OnEnemyDeath -= HandleEnemyDeath;
     }
 
     private void Update()
@@ -61,6 +73,14 @@ public class EnemySpawner : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= spawnInterval) {
             timer = 0f;
+            SpawnRandomEnemy();
+        }
+    }
+
+    private void HandleEnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position, GameObject _enemy)
+    {
+        TryRemoveTrackedEnemy(_enemy);
+        if (_attackType == Game.AttackType.PlayerAttack) {
             SpawnRandomEnemy();
         }
     }
@@ -74,7 +94,26 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnRandomEnemy()
     {
         // Pick a random prefab
-        GameObject prefab = enemySpawnChances.GetRandomEnemy(GameManager.Instance.DifficultyLevel, currentLevel);
+        GameObject prefab = null;
+        int loopCount = 0;
+        bool trackedEnemy = false;
+
+        while (prefab == null && loopCount < 5) {
+            loopCount++;
+            prefab = enemySpawnChances.GetRandomEnemy(GameManager.Instance.DifficultyLevel, currentLevel);
+            int maxSpawns = enemySpawnChances.GetMaxSpawnCount(prefab);
+            if (maxSpawns > 0) {
+                trackedEnemy = true;
+                // Check if we have reached the max spawn count for this enemy type
+                foreach (var tracked in trackedSpawns) {
+                    if (tracked.Enemy == prefab && tracked.Count >= maxSpawns) {
+                        prefab = null; // Reset prefab to null to pick another
+                        break;
+                    }
+                }
+            }
+        }
+
 
         // Spawn at a random position outsisde the player's area
         Vector2 spawningRange;
@@ -89,11 +128,64 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnPosition = player.transform.position + (Vector3)spawningRange;
 
         GameObject enemy = Instantiate(prefab, spawnPosition, Quaternion.identity, enemyParent);
+        
+        if (trackedEnemy) {
+            // Track the spawned enemy
+            bool found = false;
+            foreach (var tracked in trackedSpawns) {
+                if (tracked.Enemy == prefab) {
+                    tracked.Increment(enemy.name);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                trackedSpawns.Add(new TrackedSpawn(prefab, enemy.name));
+            }
+        }
 
         //Get the EnemyController component and set the player reference
         if (enemy.TryGetComponent<Enemies.Controller>(out var newEnemy)) {
             newEnemy.SetPlayerTransform(player.transform);
         }
+    }
 
+    private void TryRemoveTrackedEnemy(GameObject _enemy)
+    {
+        foreach (var tracked in trackedSpawns) {
+            if (tracked.Enemy == _enemy) {
+                tracked.Decrement(_enemy.name);
+                if (tracked.Count <= 0) {
+                    trackedSpawns.Remove(tracked);
+                }
+                break;
+            }
+        }
+    }
+}
+
+public struct TrackedSpawn
+{
+    public GameObject Enemy { get; private set; }
+    public int Count { get; private set; }
+    public List<string> Names { get; private set; }
+
+    public TrackedSpawn(GameObject _enemy, string _name)
+    {
+        Enemy = _enemy;
+        Count = 1;
+        Names = new List<string> { _name };
+    }
+
+    public void Increment(string _name)
+    {
+        Count++;
+        Names.Add(_name);
+    }
+
+    public void Decrement(string _name)
+    {
+        Count--;
+        Names.Remove(_name);
     }
 }

@@ -41,7 +41,7 @@ namespace Enemies
         {
             if (isDead) return;
             isDead = true;
-            OnEnemyDeath?.Invoke(_attackType, deathValue, itemSpawnChance, transform.position);
+            OnEnemyDeath?.Invoke(_attackType, deathValue, itemSpawnChance, transform.position, gameObject);
             Destroy(gameObject);
         }
     }

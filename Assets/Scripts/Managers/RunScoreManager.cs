@@ -80,7 +80,7 @@ public class RunScoreManager : MonoBehaviour
         return playerLevel;
     }
 
-    private void HandleEnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position)
+    private void HandleEnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position, GameObject _enemy)
     {
         int pointValue = Mathf.FloorToInt(_points * (_attackType == AttackType.PlayerAttack ? playerAttackMultiplier : 1f));
         AddScore(pointValue);
