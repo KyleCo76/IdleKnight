@@ -115,11 +115,10 @@ public class EnemySpawner : MonoBehaviour
         }
 
 
-        // Spawn at a random position outsisde the player's area
-        Vector2 spawningRange;
+        // Spawn at a random position outside the player's area
         bool useNegative = Random.value < 0.5f; // Randomly decide if we want to use negative or positive range
-        spawningRange = new Vector2(Random.Range(spawnRangeMin, spawnRangeMax), Random.Range(spawnRangeMin, spawnRangeMax)); // Set default range
-                                                                                                                                // Adjust the spawning range based on the random choice
+        Vector2 spawningRange = new(Random.Range(spawnRangeMin, spawnRangeMax), Random.Range(spawnRangeMin, spawnRangeMax));
+
         if (useNegative) {
             spawningRange.x *= -1;
             spawningRange.y *= -1;

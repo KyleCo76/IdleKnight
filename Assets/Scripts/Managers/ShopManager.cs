@@ -136,13 +136,13 @@ public class ShopManager : MonoBehaviour
 
     private int GetItemCost(int _playerLevel, int _powerLevel)
     {
-        int cost = (baseItemCost + _playerLevel) + (_powerLevel * itemCostPerLevel);
+        int cost = (baseItemCost * _playerLevel) + (_powerLevel * itemCostPerLevel);
         return cost;
     }
 
     private float GetItemDamage(int _playerLevel, int _powerLevel)
     {
-        float damage = (baseItemDamage + _playerLevel) * (_powerLevel * itemDamagePerLevel);
+        float damage = (baseItemDamage * _playerLevel) + (_powerLevel * itemDamagePerLevel);
         return damage;
     }
 }
