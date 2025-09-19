@@ -129,9 +129,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   movementSpeed: 3
   nextWaypointDistance: 0.5
-  contactDamage: 10
-  damageInterval: 1
-  maxHealth: 10
+  contactDamage: 1
+  damageInterval: 2
+  deathValue: 1
+  itemSpawnChance: 0
+  hasAttackAnimation: 0
+  maxHealth: 2
 --- !u!114 &1350066292466359887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,7 +284,7 @@ MonoBehaviour:
   managedSettings:
     pathfindingSettings:
       graphMask:
-        value: -1
+        value: 1
       traversableTags: -1
       tagCostMultipliers:
       - 1
@@ -320,7 +323,7 @@ MonoBehaviour:
   enableLocalAvoidanceBacking: 1
   enableGravityBacking: 1
   rvoSettingsBacking:
-    agentTimeHorizon: 1
+    agentTimeHorizon: 3
     obstacleTimeHorizon: 0.5
     maxNeighbours: 10
     layer: 1

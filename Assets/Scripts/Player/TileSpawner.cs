@@ -56,9 +56,15 @@ public class TileSpawner : MonoBehaviour
 
         // Process a limited number of tile operations per frame
         int ops = 0;
+        bool updatedAStar = false;
         while (tileOpsQueue.Count > 0 && ops < maxTilesPerFrame) {
             tileOpsQueue.Dequeue().Invoke();
             ops++;
+            updatedAStar = true;
+        }
+
+        if (updatedAStar) {
+            UpdateAStarGrid();
         }
 
         if (Time.time >= nextCheckTime) {
@@ -121,7 +127,12 @@ public class TileSpawner : MonoBehaviour
                 tileOpsQueue.Enqueue(() => groundTilemap.SetTile(addPos, groundRuleTile));
             }
         }
-
         paintedTiles = newTiles;
+    }
+
+    private void UpdateAStarGrid()
+    {
+        var updateBounds = new Bounds(transform.position, new(paintRadius, paintRadius, 1));
+        AstarPath.active.UpdateGraphs(updateBounds);
     }
 }

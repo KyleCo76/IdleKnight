@@ -133,6 +133,7 @@ MonoBehaviour:
   damageInterval: 1
   deathValue: 1
   itemSpawnChance: 0
+  hasAttackAnimation: 0
   maxHealth: 10
 --- !u!114 &28104885835771246
 MonoBehaviour:
@@ -283,7 +284,7 @@ MonoBehaviour:
   managedSettings:
     pathfindingSettings:
       graphMask:
-        value: -1
+        value: 1
       traversableTags: -1
       tagCostMultipliers:
       - 1
@@ -322,7 +323,7 @@ MonoBehaviour:
   enableLocalAvoidanceBacking: 1
   enableGravityBacking: 1
   rvoSettingsBacking:
-    agentTimeHorizon: 1
+    agentTimeHorizon: 3
     obstacleTimeHorizon: 0.5
     maxNeighbours: 10
     layer: 1

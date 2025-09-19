@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a179e9bad20df4596cd62dbc83f18e, type: 3}
+  m_Name: EnemySpawnChances
+  m_EditorClassIdentifier: 
+  enemySpawnChances:
+  - EnemyPrefab: {fileID: 8202214565999595801, guid: 28bfdc5d8b6b915418087a685500aa0c, type: 3}
+    LevelRequirement: 1
+    SpawnChance: 1
+    DifficultyMultiplier: 0
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 2363434297154920506, guid: 23f767449f5ea0c4f9615ff54208c859, type: 3}
+    LevelRequirement: 1
+    SpawnChance: 0.9
+    DifficultyMultiplier: 0
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 2632631671137502860, guid: ecee15006a9ef2c47a665f4d305a49d9, type: 3}
+    LevelRequirement: 1
+    SpawnChance: 0.9
+    DifficultyMultiplier: 0
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 6363420602697670431, guid: 2b66f8191210a0a4891a0069d594c94f, type: 3}
+    LevelRequirement: 1
+    SpawnChance: 0.85
+    DifficultyMultiplier: 0
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 8823059831478928026, guid: 1e301f5472eaa0c468bda7c23077d4bb, type: 3}
+    LevelRequirement: 1
+    SpawnChance: 0.7
+    DifficultyMultiplier: 0
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 9148910520869931493, guid: 47764a9d0c98b1741979a5f7bf755ebe, type: 3}
+    LevelRequirement: 2
+    SpawnChance: 0.5
+    DifficultyMultiplier: 0.1
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 6059748324249143493, guid: 2896ee67dd0ade547815500ab78c39c2, type: 3}
+    LevelRequirement: 2
+    SpawnChance: 0.5
+    DifficultyMultiplier: 0.1
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 8941242622962656950, guid: 434ff4e6c1bf8b34aaab4b56cdc1c94d, type: 3}
+    LevelRequirement: 3
+    SpawnChance: 0.5
+    DifficultyMultiplier: 0.2
+    MaxSpawn: 0
+    MaxSpawnCount: 0
+  - EnemyPrefab: {fileID: 272020789548830694, guid: 6afef179bde598940b994c4619432e2f, type: 3}
+    LevelRequirement: 3
+    SpawnChance: 0.3
+    DifficultyMultiplier: 0.5
+    MaxSpawn: 1
+    MaxSpawnCount: 4

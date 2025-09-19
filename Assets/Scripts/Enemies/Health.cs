@@ -8,12 +8,28 @@ namespace Enemies
         [SerializeField, Tooltip("The maximum amount of health the enemy has")]
         private float maxHealth = 10f;
 
+        private float shieldHealth = 0f;
         private float currentHealth;
         private bool isDead = false;
 
-        public void TakeDamage(float _amount, AttackType _attackType = AttackType.None)
+
+        public void ApplyShield(float _value)
         {
-            currentHealth -= _amount;
+            shieldHealth += _value;
+        }
+
+        public void ChangeHealth(float _amount, AttackType _attackType = AttackType.None, bool _ignoreShield = false)
+        {
+            if (shieldHealth > 0f && _amount < 0f && !_ignoreShield) {
+                shieldHealth += _amount;
+                if (shieldHealth < 0f) {
+                    _amount = shieldHealth; // Remaining damage after shield is depleted
+                    shieldHealth = 0f;
+                } else {
+                    return;
+                }
+            }
+            currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
             if (currentHealth <= 0) {

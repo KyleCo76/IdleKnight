@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
     {
         if (_other.CompareTag("Enemy")) {
             if (_other.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
-                enemyHealth.TakeDamage(damageAmount, typeOfAttack);
+                enemyHealth.ChangeHealth(-damageAmount, typeOfAttack);
             }
         }
         if (!isSuper)

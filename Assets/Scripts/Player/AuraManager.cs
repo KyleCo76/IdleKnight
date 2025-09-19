@@ -41,7 +41,7 @@ public class AuraManager : MonoBehaviour
         if (damageTimer <= 0.0f) {
             foreach (var enemy in new List<Enemies.Controller>(enemiesInAura)) {
                 if (enemy != null) {
-                    enemy.TakeDamage(damageAmount);
+                    enemy.ChangeHealth(-damageAmount);
                 }
             }
             damageTimer = damageSpeed; // Reset the timer

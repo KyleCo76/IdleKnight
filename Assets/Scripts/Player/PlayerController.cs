@@ -35,7 +35,8 @@ namespace Player
         private float superDamageMultiplier = 1f;
         private float superSpeed = 600f;
         private const float arrowSpreadAmount = 15f;
-
+        private float currentMovementSpeed;
+        private float currentSprintSpeedMultiplier;
 
 
         // Attack type variables
@@ -140,12 +141,18 @@ namespace Player
         
         private void OnEnable()
         {
+            if (GameManager.Instance == null) {
+                Debug.LogError("GameManager instance not found in the scene. Please ensure a GameManager is present.");
+                return;
+            }
             GameManager.Instance.OnGamePaused += HandleGamePause;
             GameManager.Instance.OnGameResumed += HandleGamePause;
         }
 
         private void OnDisable()
         {
+            if (GameManager.Instance == null)
+                return;
             GameManager.Instance.OnGamePaused -= HandleGamePause;
             GameManager.Instance.OnGameResumed -= HandleGamePause;
         }
@@ -158,6 +165,8 @@ namespace Player
             } else {
                 GameManager.InputActions.Player.SetCallbacks(this);
             }
+            currentMovementSpeed = movementSpeed;
+            currentSprintSpeedMultiplier = sprintSpeedMultiplier;
         }
 
         private void Update()
@@ -219,6 +228,12 @@ namespace Player
             }
         }
 
+        public void ApplySlow(float _multiplier)
+        {
+            currentMovementSpeed *= _multiplier;
+            currentSprintSpeedMultiplier *= _multiplier;
+        }
+
         private void Attack()
         {
             attackCooldownTimer = attackCooldown;
@@ -231,7 +246,7 @@ namespace Player
             foreach (var hit in hits) {
                 if (hit.collider != null && hit.collider.CompareTag("Enemy")) {
                     if (hit.collider.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
-                        enemyHealth.TakeDamage(meleeDamage, AttackType.PlayerAttack);
+                        enemyHealth.ChangeHealth(-meleeDamage, AttackType.PlayerAttack);
                     }
                 }
             }
@@ -308,7 +323,7 @@ namespace Player
 
         private void MovePlayer()
         {
-            playerTransform.position = Vector2.MoveTowards(playerTransform.position, playerTransform.position + (Vector3)moveInput, Time.deltaTime * (sprintPressed ? (sprintSpeedMultiplier * movementSpeed) : movementSpeed));
+            playerTransform.position = Vector2.MoveTowards(playerTransform.position, playerTransform.position + (Vector3)moveInput, Time.deltaTime * (sprintPressed ? (currentSprintSpeedMultiplier * currentMovementSpeed) : currentMovementSpeed));
             if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y)) {
                 // Moving horizontally
                 ResetRotation();
@@ -341,6 +356,12 @@ namespace Player
                         FlipSprite(moveInput.y > 0f);
                 }
             }
+        }
+
+        public void RemoveSlow()
+        {
+            currentMovementSpeed = movementSpeed;
+            currentSprintSpeedMultiplier = sprintSpeedMultiplier;
         }
 
         private void ResetRotation()

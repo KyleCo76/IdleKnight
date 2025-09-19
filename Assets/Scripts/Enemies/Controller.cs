@@ -35,6 +35,7 @@ namespace Enemies
         private int currentWaypoint = 0;
         private float attackTimer = 0f;
         private bool isFlipped = false;
+        private float moveSpeed;
 
         private void Awake()
         {
@@ -60,6 +61,7 @@ namespace Enemies
 
             InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateRate);
             currentHealth = maxHealth;
+            moveSpeed = movementSpeed;
         }
 
         private void Update()
@@ -77,7 +79,7 @@ namespace Enemies
 
             //transform.position = Vector2.MoveTowards(transform.position, path.vectorPath[currentWaypoint], movementSpeed * Time.fixedDeltaTime);
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - (Vector2)transform.position).normalized;
-            Vector2 force = movementSpeed * Time.fixedDeltaTime * direction;
+            Vector2 force = moveSpeed * Time.fixedDeltaTime * direction;
             transform.position += (Vector3)force;
             float distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
             if (direction.x < 0f && !isFlipped) {
@@ -106,6 +108,11 @@ namespace Enemies
             }
         }
 
+        public void ApplySpeedBoost(float _multiplier)
+        {
+            moveSpeed *= _multiplier;
+        }
+
         private void FlipSprite(bool _flipLeft)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
@@ -123,6 +130,11 @@ namespace Enemies
                 path = _p;
                 currentWaypoint = 0;
             }
+        }
+
+        public void RemoveSpeedBoost()
+        {
+            moveSpeed = movementSpeed;
         }
 
         public void SetPlayerTransform(Transform _player)

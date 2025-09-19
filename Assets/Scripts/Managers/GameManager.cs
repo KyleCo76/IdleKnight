@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public delegate void GameResumedEventHandler();
     public event GameResumedEventHandler OnGameResumed;
 
+    public int DifficultyLevel { get; private set; } = 1;
+
 
     //public delegate void ItemCollectedEventHandler(CollectableData _itemData);
     //public event ItemCollectedEventHandler OnItemCollected;

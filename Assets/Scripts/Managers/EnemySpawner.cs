@@ -7,33 +7,41 @@ public class EnemySpawner : MonoBehaviour
     private float spawnInterval = 5f;
 
     private Player.PlayerController player;
-    private List<GameObject> enemyPrefabs;
     private float timer = 0f;
+    private int currentLevel = 1;
 
     private readonly float spawnRangeMin = 10.0f; // Minimum distance from player
     private readonly float spawnRangeMax = 20.0f; // Maximum distance from player
 
     private Transform enemyParent;
+    private EnemySpawnChances enemySpawnChances;
 
     private void Awake()
     {
-        // Load all prefabs from Resources/Enemies at start
-        enemyPrefabs = new List<GameObject>(Resources.LoadAll<GameObject>("Enemies/Level1"));
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null) {
             if (!playerObj.TryGetComponent<Player.PlayerController>(out player)) {
                 Debug.LogError("Player GameObject does not have a PlayerController component.");
                 enabled = false;
+                return;
             }
         } else {
             Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
             enabled = false;
+            return;
+        }
+        enemySpawnChances = Resources.Load<EnemySpawnChances>("ScriptableObjects/EnemySpawnChances");
+        if (enemySpawnChances == null) {
+            Debug.LogError("EnemySpawnChances ScriptableObject not found in Resources/ScriptableObjects!");
+            enabled = false;
+            return;
         }
 
         var parentObject = GameObject.Find("Enemies");
         if (parentObject == null || !parentObject.TryGetComponent<Transform>(out enemyParent)) {
             enemyParent = new GameObject("Enemies").transform;
         }
+
     }
 
     private void OnEnable()
@@ -60,25 +68,13 @@ public class EnemySpawner : MonoBehaviour
     private void HandlePlayerLevelUp(int _newLevel)
     {
         spawnInterval = Mathf.Max(0.25f, spawnInterval - 0.5f * (_newLevel - 1));
-        string path = $"Enemies/Level{_newLevel}";
-        var newPrefabs = Resources.LoadAll<GameObject>(path);
-        if (newPrefabs.Length == 0) {
-            Debug.LogWarning($"No enemy prefabs found in Resources/{path}! Continuing to use previous level's enemies.");
-            return;
-        }
-        enemyPrefabs.AddRange(newPrefabs);
+        currentLevel = _newLevel;
     }
 
     private void SpawnRandomEnemy()
     {
-        if (enemyPrefabs.Count == 0) {
-            Debug.LogWarning("No enemy prefabs found in Resources/Enemies!");
-            return;
-        }
-
         // Pick a random prefab
-        int index = Random.Range(0, enemyPrefabs.Count);
-        GameObject prefab = enemyPrefabs[index];
+        GameObject prefab = enemySpawnChances.GetRandomEnemy(GameManager.Instance.DifficultyLevel, currentLevel);
 
         // Spawn at a random position outsisde the player's area
         Vector2 spawningRange;
