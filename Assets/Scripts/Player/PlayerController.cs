@@ -57,6 +57,7 @@ namespace Player
         private readonly PlayerAnimatorHelper playerAnimatorHelper = new();
         private readonly List<GameObject> projectiles = new();
         private AuraManager playerAuraManager;
+        private Camera mainCamera;
 
         // Cached in runtime
         private GameObject currentSuperPrefab;
@@ -138,6 +139,9 @@ namespace Player
             foreach (var proj in allProjectiles) {
                 projectiles.Add(proj);
             }
+            
+            playerAnimatorHelper.Init(playerAnimator);
+            mainCamera = Camera.main;
         }
         
         private void OnEnable()
@@ -186,16 +190,8 @@ namespace Player
                 superCooldownTimer -= Time.deltaTime;
             }
 
-            if (rangedDamage >= doubleAttackDamageActivationPoint) {
-                attackDoubleAttack = true;
-            } else {
-                attackDoubleAttack = false;
-            }
-            if (rangedDamage >= tripleAttackDamageActivationPoint) {
-                attackTripleAttack = true;
-            } else {
-                attackTripleAttack = false;
-            }
+            attackDoubleAttack = rangedDamage >= doubleAttackDamageActivationPoint;
+            attackTripleAttack = rangedDamage >= tripleAttackDamageActivationPoint;
         }
 
         private void FixedUpdate()
@@ -205,9 +201,9 @@ namespace Player
 
             if (moveInput != Vector2.zero) {
                 MovePlayer();
-                playerAnimatorHelper.SetWalking(true, playerAnimator);
+                playerAnimatorHelper.SetWalking(true);
             } else {
-                playerAnimatorHelper.SetWalking(false, playerAnimator);
+                playerAnimatorHelper.SetWalking(false);
             }
             if (attackPressed && attackCooldownTimer <= 0f) {
                 Attack();
@@ -235,17 +231,14 @@ namespace Player
             currentSprintSpeedMultiplier *= _multiplier;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("ReSharper", "Unity.PreferNonAllocApi")]
         private void Attack()
         {
             attackCooldownTimer = attackCooldown;
-            int layerIndex = playerAnimator.GetLayerIndex("Attack Layer");
-            playerAnimator.SetLayerWeight(layerIndex, 1f);
-            layerIndex = playerAnimator.GetLayerIndex("Base Layer");
-            playerAnimator.SetLayerWeight(layerIndex, 0f);
 
             RaycastHit2D[] hits = Physics2D.CircleCastAll(playerTransform.position, attackRange, Vector2.zero);
             foreach (var hit in hits) {
-                if (hit.collider != null && hit.collider.CompareTag("Enemy")) {
+                if (hit.collider && hit.collider.CompareTag("Enemy")) {
                     if (hit.collider.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
                         enemyHealth.ChangeHealth(-meleeDamage, AttackType.PlayerAttack);
                     }
@@ -255,10 +248,23 @@ namespace Player
             if (projectiles.Count > 0) {
                 var (rotation, attackPoint) = GetProjectileData();
 
-                //Vector2 mainDirection = ((Vector3)attackPoint - transform.position).normalized;
                 Vector2 mainDirection = attackPoint.normalized;
                 Vector2 leftDirection = Quaternion.Euler(0, 0, ArrowSpreadAmount) * mainDirection;
                 Vector2 rightDirection = Quaternion.Euler(0, 0, -ArrowSpreadAmount) * mainDirection;
+
+                if (moveInput != Vector2.zero) {
+                    playerAnimatorHelper.SetAttack(true);
+                } else {
+                    if (Mathf.Abs(mainDirection.x) > Mathf.Abs(mainDirection.y)) {
+                        playerAnimatorHelper.SetAttack(true, mainDirection.x > 0f ? Direction.Right : Direction.Left); // Horizontal Shot
+                        if (mainDirection.x > 0f && isFlipped)
+                            FlipSprite(false);
+                        else if (mainDirection.x < 0f && !isFlipped)
+                            FlipSprite(true);
+                    } else {
+                        playerAnimatorHelper.SetAttack(true, mainDirection.y > 0f ? Direction.Up : Direction.Down); // Vertical Shot
+                    }
+                }
 
                 if (attackDoubleAttack) {
                     var projectileLeft = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation + 15f));
@@ -281,10 +287,7 @@ namespace Player
 
         public void AttackEnd()
         {
-            int layerIndex = playerAnimator.GetLayerIndex("Attack Layer");
-            playerAnimator.SetLayerWeight(layerIndex, 0f);
-            layerIndex = playerAnimator.GetLayerIndex("Base Layer");
-            playerAnimator.SetLayerWeight(layerIndex, 1f);
+            playerAnimatorHelper.SetAttack(false);
         }
 
         private void FlipSprite(bool _flipLeft)
@@ -301,8 +304,8 @@ namespace Player
         private (float, Vector2) GetProjectileData()
         {
             var attackPoint = GameManager.InputActions.Player.AttackPoint.ReadValue<Vector2>();
-            if (Camera.main != null) 
-                attackPoint = Camera.main.ScreenToWorldPoint(attackPoint);
+            if (mainCamera) 
+                attackPoint = mainCamera.ScreenToWorldPoint(attackPoint);
 
             Vector2 direction = (attackPoint - (Vector2)transform.position).normalized;
             int rotation = Mathf.RoundToInt(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
@@ -330,20 +333,20 @@ namespace Player
                 // Moving horizontally
                 ResetRotation();
                 if (moveInput.x > 0) {
-                    playerAnimatorHelper.SetRight(true, playerAnimator);
+                    playerAnimatorHelper.SetRight(true);
                     if (isFlipped)
                         FlipSprite(false);
                 } else if (moveInput.x < 0) {
-                    playerAnimatorHelper.SetLeft(true, playerAnimator);
+                    playerAnimatorHelper.SetLeft(true);
                     if (!isFlipped)
                         FlipSprite(true);
                 }
             } else {
                 // Moving vertically
                 if (moveInput.y > 0) {
-                    playerAnimatorHelper.SetUp(true, playerAnimator);
+                    playerAnimatorHelper.SetUp(true);
                 } else if (moveInput.y < 0) {
-                    playerAnimatorHelper.SetDown(true, playerAnimator);
+                    playerAnimatorHelper.SetDown(true);
                 }
                 // Check for diagonal movement
                 if (Mathf.Approximately(moveInput.x, 0f)) {
@@ -373,11 +376,9 @@ namespace Player
 
         private void RotateSprite(bool _lookLeft)
         {
-            if (_lookLeft) {
-                playerTransform.rotation = Quaternion.Euler(0f, moveInput.y > 0f ? 30f : 20f, 0f);
-            } else {
-                playerTransform.rotation = Quaternion.Euler(0f, moveInput.y > 0f ? 330f : 340f, 0f);
-            }
+            playerTransform.rotation = _lookLeft
+                ? Quaternion.Euler(0f, moveInput.y > 0f ? 30f : 20f, 0f)
+                : Quaternion.Euler(0f, moveInput.y > 0f ? 330f : 340f, 0f);
         }
 
         public void SetSuper(GameObject _superPrefab, float _damage, float _speed)
@@ -390,82 +391,124 @@ namespace Player
 
     internal class PlayerAnimatorHelper
     {
-        public bool IsWalking = false;
-        private bool isUp = false;
-        private bool isDown = false;
-        private bool isLeft = false;
-        private bool isRight = false;
+        private bool isWalking;
+        private bool isUp;
+        private bool isDown;
+        private bool isLeft;
+        private bool isRight;
+        private readonly Dictionary<string, int> animatorHashes = new();
+        private Animator animator;
+        private int attackLayerIndex;
+        private int baseLayerIndex;
 
-        public void SetUp(bool _value, Animator _animator, Direction _caller = Direction.none)
+        public void Init(Animator _animator)
+        {
+            animatorHashes["Up"] = Animator.StringToHash("Up");
+            animatorHashes["Down"] = Animator.StringToHash("Down");
+            animatorHashes["Left"] = Animator.StringToHash("Left");
+            animatorHashes["Right"] = Animator.StringToHash("Right");
+            animatorHashes["isWalking"] = Animator.StringToHash("isWalking");
+            animatorHashes["isHurt"] = Animator.StringToHash("isHurt");
+            animator = _animator;
+            attackLayerIndex = animator.GetLayerIndex("Attack Layer");
+            baseLayerIndex = animator.GetLayerIndex("Base Layer");
+        }
+        public void SetUp(bool _value, Direction _caller = Direction.None)
         {
             if (isUp == _value) return;
             isUp = _value;
-            _animator.SetBool("Up", _value);
-            if (_caller == Direction.none) {
-                SetDown(!_value, _animator, Direction.up);
-                SetLeft(!_value, _animator, Direction.up);
-                SetRight(!_value, _animator, Direction.up);
+            animator.SetBool(animatorHashes["Up"], _value);
+            if (_caller == Direction.None) {
+                SetDown(!_value, Direction.Up);
+                SetLeft(!_value, Direction.Up);
+                SetRight(!_value, Direction.Up);
             }
         }
-        public void SetDown(bool _value, Animator _animator, Direction _caller = Direction.none)
+        public void SetDown(bool _value, Direction _caller = Direction.None)
         {
             if (isDown == _value) return;
             isDown = _value;
-            _animator.SetBool("Down", _value);
-            if (_caller == Direction.none) {
-                SetUp(!_value, _animator, Direction.down);
-                SetLeft(!_value, _animator, Direction.down);
-                SetRight(!_value, _animator, Direction.down);
+            animator.SetBool(animatorHashes["Down"], _value);
+            if (_caller == Direction.None) {
+                SetUp(!_value, Direction.Down);
+                SetLeft(!_value, Direction.Down);
+                SetRight(!_value, Direction.Down);
             }
         }
-        public void SetLeft(bool _value, Animator _animator, Direction _caller = Direction.none)
+        public void SetLeft(bool _value, Direction _caller = Direction.None)
         {
             if (isLeft == _value) return;
             isLeft = _value;
-            _animator.SetBool("Left", _value);
-            if (_caller == Direction.none) {
-                SetUp(!_value, _animator, Direction.left);
-                SetDown(!_value, _animator, Direction.left);
-                SetRight(!_value, _animator, Direction.left);
+            animator.SetBool(animatorHashes["Left"], _value);
+            if (_caller == Direction.None) {
+                SetUp(!_value, Direction.Left);
+                SetDown(!_value, Direction.Left);
+                SetRight(!_value, Direction.Left);
             }
         }
-        public void SetRight(bool _value, Animator _animator, Direction _caller = Direction.none)
+        public void SetRight(bool _value, Direction _caller = Direction.None)
         {
             if (isRight == _value) return;
             isRight = _value;
-            _animator.SetBool("Right", _value);
-            if (_caller == Direction.none) {
-                SetUp(!_value, _animator, Direction.right);
-                SetDown(!_value, _animator, Direction.right);
-                SetLeft(!_value, _animator, Direction.right);
+            animator.SetBool(animatorHashes["Right"], _value);
+            if (_caller == Direction.None) {
+                SetUp(!_value, Direction.Right);
+                SetDown(!_value, Direction.Right);
+                SetLeft(!_value, Direction.Right);
             }
         }
-        public void ResetAll(Animator _animator, Direction _caller = Direction.none)
+        public void ResetAll(Direction _caller = Direction.None)
         {
-            if (_caller != Direction.up)
-                SetUp(false, _animator, _caller);
-            if (_caller != Direction.down)
-                SetDown(false, _animator, _caller);
-            if (_caller != Direction.left)
-                SetLeft(false, _animator, _caller);
-            if (_caller != Direction.right)
-                SetRight(false, _animator, _caller);
+            if (_caller != Direction.Up)
+                SetUp(false, _caller);
+            if (_caller != Direction.Down)
+                SetDown(false, _caller);
+            if (_caller != Direction.Left)
+                SetLeft(false, _caller);
+            if (_caller != Direction.Right)
+                SetRight(false, _caller);
         }
 
-        public void SetWalking(bool _value, Animator _animator)
+        public void SetWalking(bool _value)
         {
-            if (IsWalking == _value) return;
-            _animator.SetBool("isWalking", _value);
-            IsWalking = _value;
+            if (isWalking == _value) return;
+            animator.SetBool(animatorHashes["isWalking"], _value);
+            isWalking = _value;
+        }
+
+        public void SetHurt(bool _value)
+        {
+            animator.SetBool(animatorHashes["isHurt"], _value);
+        }
+
+        public void SetAttack(bool _value, Direction _direction = Direction.None)
+        {
+            animator.SetLayerWeight(attackLayerIndex, _value ? 1f : 0f);
+            animator.SetLayerWeight(baseLayerIndex, _value ? 0f : 1f);
+            switch (_direction)
+            {
+                case Direction.Up:
+                    SetUp(true);
+                    break;
+                case Direction.Down:
+                    SetDown(true);
+                    break;
+                case Direction.Left:
+                    SetLeft(true);
+                    break;
+                case Direction.Right:
+                    SetRight(true);
+                    break;
+            }
         }
     }
 
     internal enum Direction
     {
-        none,
-        up,
-        down,
-        left,
-        right
+        None,
+        Up,
+        Down,
+        Left,
+        Right
     }
 }

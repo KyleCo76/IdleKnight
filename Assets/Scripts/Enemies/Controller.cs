@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Pathfinding;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,13 +25,18 @@ namespace Enemies
         private float itemSpawnChance;
         [FoldoutGroup("Animation Settings"), SerializeField, Tooltip("Does the enemy have an attack animation?")]
         private bool hasAttackAnimation;
+        [FoldoutGroup("Animation Settings"), SerializeField, Tooltip(("Does the enemy have a death animation?"))]
+        private bool hasDeathAnimation;
 
 
         // Cached components
         private Transform playerTransform;
         private Seeker seeker;
         private Animator enemyAnimator;
+        private readonly Dictionary<string, int> animatorHashes = new();
+        private PooledMinion spawnerInterface;
 
+        private bool isPartOfPool;
         private Path path;
         private readonly float pathUpdateRate = 0.5f; // How often to update the path
         private int currentWaypoint;
@@ -55,14 +61,17 @@ namespace Enemies
                 enabled = false;
             }
             
-            if (hasAttackAnimation && !TryGetComponent(out enemyAnimator)) {
-                Debug.LogError("Enemy is set to have an attack animation but does not have an Animator component.");
+            if ((hasAttackAnimation || hasDeathAnimation) && !TryGetComponent(out enemyAnimator)) {
+                Debug.LogError("Enemy is set to have an attack and/or death animation but does not have an Animator component.");
                 enabled = false;
             }
 
             InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateRate);
+            
             currentHealth = maxHealth * GameManager.Instance.DifficultyLevel * Mathf.Max(1, RunScoreManager.Instance.GetPlayerLevel() / 2);
             moveSpeed = movementSpeed;
+            animatorHashes["Attack"] = Animator.StringToHash("Attack");
+            animatorHashes["Die"] = Animator.StringToHash("Die");
         }
 
         private void Update()
@@ -101,7 +110,7 @@ namespace Enemies
                 if (_other.collider.TryGetComponent<Player.PlayerController>(out var player))
                 {
                     if (hasAttackAnimation && enemyAnimator != null) {
-                        enemyAnimator.SetTrigger("Attack");
+                        enemyAnimator.SetTrigger(animatorHashes["Attack"]);
                     }
                     player.ChangeHealth(-contactDamage);
                     attackTimer = damageInterval;
@@ -137,6 +146,15 @@ namespace Enemies
         public void SetPlayerTransform(Transform _player)
         {
             playerTransform = _player;
+        }
+
+        internal void SetPooledMember()
+        {
+            if (!TryGetComponent(out spawnerInterface)) {
+                Debug.LogError("MinionSpawner component not found on " + gameObject.name + ".");
+                return;
+            }
+            isPartOfPool = true;
         }
 
         private void UpdatePath()

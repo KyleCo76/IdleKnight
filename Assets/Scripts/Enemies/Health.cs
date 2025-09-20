@@ -50,8 +50,22 @@ namespace Enemies
         {
             if (isDead) return;
             isDead = true;
+            if (hasDeathAnimation)
+                enemyAnimator.SetTrigger(animatorHashes["Die"]);
+            if (isPartOfPool) {
+                spawnerInterface.ReturnToPool();
+                return;
+            }
+            if (TryGetComponent(out Collider2D enemyCollider))
+                enemyCollider.enabled = false;
             OnEnemyDeath?.Invoke(_attackType, deathValue, itemSpawnChance, transform.position, gameObject);
             Destroy(gameObject);
+        }
+        
+        public void ResetHealth()
+        {
+            isDead = false;
+            currentHealth = maxHealth;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Player
             if (invincibilityTimer > 0f) {
                 invincibilityTimer -= Time.deltaTime;
                 if (invincibilityTimer <= 0f)
-                    playerAnimator.SetBool("isHurt", false);
+                    playerAnimatorHelper.SetHurt(false);
             }
             if (currentHealth < maxHealth) {
                 healthRegenTimer -= Time.deltaTime;
@@ -50,7 +50,7 @@ namespace Player
                     return; // Ignore damage if invincible
 
                 invincibilityTimer = invincibilityDuration; // Reset invincibility timer
-                playerAnimator.SetBool("isHurt", true);
+                playerAnimatorHelper.SetHurt(true); // Animate player as if taking damage;
             }
 
             currentHealth += _amount;

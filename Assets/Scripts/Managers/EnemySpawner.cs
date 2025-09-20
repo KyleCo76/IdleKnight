@@ -10,18 +10,22 @@ namespace Managers
     {
         [SerializeField, Tooltip("Time interval between enemy spawns")]
         private float spawnInterval = 5f;
+        [SerializeField, Tooltip("Maximum number of enemies allowed in the scene at once")]
+        private int maxEnemies = 100;
 
         private Player.PlayerController player;
         private float timer;
         private int currentLevel = 1;
 
-        private readonly float spawnRangeMin = 10.0f; // Minimum distance from player
-        private readonly float spawnRangeMax = 20.0f; // Maximum distance from player
+        private const float SpawnRangeMin = 10.0f; // Minimum distance from player
+        private const float SpawnRangeMax = 20.0f; // Maximum distance from player
 
         private Transform enemyParent;
         private EnemySpawnChances enemySpawnChances;
 
         private readonly List<TrackedSpawn> trackedSpawns = new();
+        
+        private int spawnCount;
 
         private void Awake()
         {
@@ -83,6 +87,7 @@ namespace Managers
         private void HandleEnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position, GameObject _enemy)
         {
             TryRemoveTrackedEnemy(_enemy);
+            spawnCount--;
             if (_attackType == AttackType.PlayerAttack) {
                 SpawnRandomEnemy();
             }
@@ -96,12 +101,14 @@ namespace Managers
 
         private void SpawnRandomEnemy()
         {
+            if (spawnCount >= maxEnemies)
+                return;
             // Pick a random prefab
             GameObject prefab = null;
             int loopCount = 0;
             bool trackedEnemy = false;
 
-            while (prefab == null && loopCount < 5) {
+            while (!prefab && loopCount < 5) {
                 loopCount++;
                 prefab = enemySpawnChances.GetRandomEnemy(GameManager.Instance.DifficultyLevel, currentLevel);
                 int maxSpawns = enemySpawnChances.GetMaxSpawnCount(prefab);
@@ -120,7 +127,7 @@ namespace Managers
 
             // Spawn at a random position outside the player's area
             bool useNegative = Random.value < 0.5f; // Randomly decide if we want to use negative or positive range
-            Vector2 spawningRange = new(Random.Range(spawnRangeMin, spawnRangeMax), Random.Range(spawnRangeMin, spawnRangeMax));
+            Vector2 spawningRange = new(Random.Range(SpawnRangeMin, SpawnRangeMax), Random.Range(SpawnRangeMin, SpawnRangeMax));
 
             if (useNegative) {
                 spawningRange.x *= -1;
@@ -129,6 +136,7 @@ namespace Managers
 
             Vector3 spawnPosition = player.transform.position + (Vector3)spawningRange;
 
+            spawnCount++;
             GameObject enemy = Instantiate(prefab, spawnPosition, Quaternion.identity, enemyParent);
         
             if (trackedEnemy) {

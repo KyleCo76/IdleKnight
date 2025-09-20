@@ -9,7 +9,7 @@ namespace Player
         {
             if (_other.CompareTag("Shop")) {
                 if (isInteracting)
-                    UIManager.Instance.ActivateShop(true);
+                    UIManager.Instance.ActivateShop(true, _other.gameObject);
             }
         }
 
@@ -17,7 +17,7 @@ namespace Player
         {
             if (_other.CompareTag("Shop")) {
                 if (isInteracting)
-                    UIManager.Instance.ActivateShop(true);
+                    UIManager.Instance.ActivateShop(true, _other.gameObject);
             }
         }
 

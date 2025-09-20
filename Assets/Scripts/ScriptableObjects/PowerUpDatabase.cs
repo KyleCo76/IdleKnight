@@ -61,7 +61,7 @@ public class PowerUpDatabase : ScriptableObject
                 return sprite.Sprite;
             }
         }
-        Debug.LogWarning($"Sprite for PowerUpType {_powerUpType} not found in Sprites.");
+        Debug.LogWarning($"Sprite for PowerUpType {_powerUpType} as temp {_isTemporary} not found in Sprites.");
         return null;
     }
 }

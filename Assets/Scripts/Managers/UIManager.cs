@@ -30,6 +30,7 @@ namespace Managers
         private TextMeshProUGUI item1PriceText;
         private TextMeshProUGUI item2PriceText;
         private TextMeshProUGUI item3PriceText;
+        private GameObject activeShop;
 
 
         private void Awake()
@@ -267,7 +268,7 @@ namespace Managers
 
 
 
-        public void ActivateShop(bool _activate)
+        public void ActivateShop(bool _activate, GameObject _shop = null)
         {
             if (shopCanvasObject == null || uiCanvasObject == null) {
                 Debug.LogError("ShopCanvasObject or UICanvasObject is null in UIManager");
@@ -288,6 +289,10 @@ namespace Managers
                 if (item2BuyIcon != null) item2BuyIcon.interactable = true;
                 if (item3BuyIcon != null) item3BuyIcon.interactable = true;
             }
+            
+            if (_shop)
+                activeShop = _shop;
+            
             shopCanvasObject.SetActive(_activate);
             uiCanvasObject.SetActive(!_activate);
             //Time.timeScale = _activate ? 0.0f : 1.0f;
@@ -385,7 +390,7 @@ namespace Managers
                 return;
             }
             leaveShopButton.onValueChanged.AddListener(_ => {
-                ActivateShop(false);
+                SKipShop();
             });
         }
 
@@ -399,6 +404,12 @@ namespace Managers
             //resumeButton.isOn = _show;
             uiCanvasObject.SetActive(!_show);
             shopCanvasObject.SetActive(false);
+        }
+
+        private void SKipShop()
+        {
+            ShopSpawner.Instance.LeaveShop(activeShop);
+            ActivateShop(false);
         }
 
         public void ToggleShopSkipButton(bool _showSkip)

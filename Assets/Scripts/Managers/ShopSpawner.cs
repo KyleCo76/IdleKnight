@@ -18,14 +18,23 @@ namespace Managers
         [FoldoutGroup("Spawn Distance"), SerializeField, Tooltip("Maximum distance from player to spawn shops")]
         private float spawnRangeMax = 25f;
 
+        
+        public static ShopSpawner Instance;
+        
         private GameObject[] shopPrefabs;
         private float spawnTimer;
         private readonly List<TrackedShop> activeShops = new();
         private Transform playerTransform;
 
 
-        void Start()
+        void Awake()
         {
+            if (Instance != null && Instance != this) {
+                Destroy(this.gameObject);
+                return;
+            }
+            Instance = this;
+            
             shopPrefabs = Resources.LoadAll<GameObject>("Shops");
             var playerObject = GameObject.FindGameObjectWithTag("Player");
             if (playerObject == null || !playerObject.TryGetComponent(out playerTransform)) {
@@ -64,17 +73,18 @@ namespace Managers
 
         }
 
-        private void SpawnShop()
+
+        public void LeaveShop(GameObject _shop)
         {
-            if (shopPrefabs.Length == 0 || activeShops.Count >= maxShops)
-                return;
-
-            int randomIndex = Random.Range(0, shopPrefabs.Length);
-            GameObject shop = Instantiate(shopPrefabs[randomIndex]);
-            shop.transform.position = (Vector2)playerTransform.position + GetRandomSpawnPosition();
-            activeShops.Add(new TrackedShop { Shop = shop, TimeToLive = timeToLive });
+            foreach (var shop in activeShops) {
+                if (shop.Shop == _shop) {
+                    activeShops.Remove(shop);
+                    Destroy(_shop);
+                    break;
+                }
+            }
         }
-
+        
         private Vector2 GetRandomSpawnPosition()
         {
             // Spawn at a random position outside the player's area
@@ -87,11 +97,36 @@ namespace Managers
             }
             return spawningRange;
         }
+
+        private void SpawnShop()
+        {
+            if (shopPrefabs.Length == 0 || activeShops.Count >= maxShops)
+                return;
+
+            int randomIndex = Random.Range(0, shopPrefabs.Length);
+            GameObject shop = Instantiate(shopPrefabs[randomIndex]);
+            shop.transform.position = (Vector2)playerTransform.position + GetRandomSpawnPosition();
+            activeShops.Add(new TrackedShop { Shop = shop, TimeToLive = timeToLive });
+        }
     }
 
-    public struct TrackedShop
+    public struct TrackedShop : System.IEquatable<TrackedShop>
     {
         public GameObject Shop;
         public float TimeToLive;
+        
+        public bool Equals(TrackedShop _other)
+        {
+            return ReferenceEquals(Shop, _other.Shop);
+        }
+        
+        public override bool Equals(object _obj)
+        {
+            return _obj is TrackedShop other && Equals(other);
+        }
+        public override int GetHashCode()
+        {
+            return Shop.GetHashCode();
+        }
     }
 }
