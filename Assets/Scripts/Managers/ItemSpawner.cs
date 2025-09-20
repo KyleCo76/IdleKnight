@@ -100,25 +100,25 @@ namespace Managers
         {
             switch (_type) {
                 case PowerUpType.Invincibility:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                     break;
                 case PowerUpType.DoublePoints:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                     break;
                 case PowerUpType.CoinMagnet:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                     break;
                 case PowerUpType.MaxHealthBoost:
                 case PowerUpType.HealAmount:
                 case PowerUpType.ManaBoost:
                 case PowerUpType.MaxManaBoost:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration) : 0f, amount: RandomBiasedNumber(minAmount, maxAmount)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: _isTemporary ? RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration) : 0f, _amount: RandomBiasedNumber(minAmount, maxAmount)));
                     break;
                 case PowerUpType.SuperCooldownReduction:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: 0f, amount: Random.Range(0f, 1f)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: 0f, _amount: Random.Range(0f, 1f)));
                     break;
                 case PowerUpType.SuperDamageBoost:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: 0f, multiplier: RandomBiasedNumber(minMultiplier, maxMultiplier)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: 0f, _multiplier: RandomBiasedNumber(minMultiplier, maxMultiplier)));
                     break;
                 case PowerUpType.ManaRegenTickRate:
                 case PowerUpType.AttackSpeedBoost:
@@ -131,7 +131,7 @@ namespace Managers
                 case PowerUpType.AuraTickSpeedBoost:
                 case PowerUpType.AuraRangeBoost:
                 case PowerUpType.AuraDamageBoost:
-                    _powerUp.Initialize(new PowerUpData(_type, duration: _isTemporary ? RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration) : 0f, multiplier: RandomBiasedNumber(minMultiplier, maxMultiplier)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: _isTemporary ? RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration) : 0f, _multiplier: RandomBiasedNumber(minMultiplier, maxMultiplier)));
                     break;
                 default:
                     Debug.LogWarning($"Unhandled PowerUpType {_type} in SetPowerUpStats.");
