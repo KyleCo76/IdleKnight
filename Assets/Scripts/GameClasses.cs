@@ -7,12 +7,12 @@ namespace Game
         public float Duration { get; private set; }
         public float Multiplier { get; private set; }
         public float Amount { get; private set; }
-        public PowerUpData(PowerUpType type, float duration = 0f, float multiplier = 1f, float amount = 0f)
+        public PowerUpData(PowerUpType _type, float _duration = 0f, float _multiplier = 1f, float _amount = 0f)
         {
-            Type = type;
-            Duration = duration;
-            Multiplier = multiplier;
-            Amount = amount;
+            Type = _type;
+            Duration = _duration;
+            Multiplier = _multiplier;
+            Amount = _amount;
         }
     }
 

@@ -1,44 +1,29 @@
+using Managers;
 using UnityEngine;
 
 namespace Player
 {
-    public partial class PlayerController : MonoBehaviour
+    public partial class PlayerController
     {
-
-        //private void ColliderAwake()
-        //{
-
-        //}
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-
-        //}
-
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-
-        //}
-
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D _other)
         {
-            if (collision.CompareTag("Shop")) {
+            if (_other.CompareTag("Shop")) {
                 if (isInteracting)
                     UIManager.Instance.ActivateShop(true);
             }
         }
 
-        private void OnTriggerStay2D(Collider2D collision)
+        private void OnTriggerStay2D(Collider2D _other)
         {
-            if (collision.CompareTag("Shop")) {
+            if (_other.CompareTag("Shop")) {
                 if (isInteracting)
                     UIManager.Instance.ActivateShop(true);
             }
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D _other)
         {
-            if (collision.CompareTag("Shop")) {
+            if (_other.CompareTag("Shop")) {
                 UIManager.Instance.ActivateShop(false);
             }
         }

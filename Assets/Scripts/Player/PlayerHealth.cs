@@ -1,10 +1,9 @@
-using TMPro;
+using Managers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Player
 {
-    public partial class PlayerController : MonoBehaviour
+    public partial class PlayerController
     {
         [SerializeField, Tooltip("The maximum health of the player")]
         private float maxHealth = 100f;
@@ -16,9 +15,9 @@ namespace Player
         private float healthRegenAmount = 2.0f;
 
         private float currentHealth;
-        private float invincibilityTimer = 0f;
-        private float healthRegenTimer = 0f;
-        private bool allowOverHeal = false;
+        private float invincibilityTimer;
+        private float healthRegenTimer;
+        private bool allowOverHeal;
 
 
         private void HealthAwake()

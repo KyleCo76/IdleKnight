@@ -2,7 +2,7 @@ using Pathfinding;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Game;
-using Player;
+using Managers;
 
 namespace Enemies
 {
@@ -21,9 +21,9 @@ namespace Enemies
         [FoldoutGroup("Death Values"), SerializeField, Tooltip("The value of the enemy when it dies")]
         private int deathValue = 1;
         [FoldoutGroup("Death Values"), SerializeField, Tooltip("The chance (0 to 1) to spawn an item on enemy death"), Range(0f, 1f)]
-        private float itemSpawnChance = 0f;
+        private float itemSpawnChance;
         [FoldoutGroup("Animation Settings"), SerializeField, Tooltip("Does the enemy have an attack animation?")]
-        private bool hasAttackAnimation = false;
+        private bool hasAttackAnimation;
 
 
         // Cached components
@@ -33,16 +33,16 @@ namespace Enemies
 
         private Path path;
         private readonly float pathUpdateRate = 0.5f; // How often to update the path
-        private int currentWaypoint = 0;
-        private float attackTimer = 0f;
-        private bool isFlipped = false;
+        private int currentWaypoint;
+        private float attackTimer;
+        private bool isFlipped;
         private float moveSpeed;
 
         private void Awake()
         {
             var playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null) {
-                if (!playerObj.TryGetComponent<Transform>(out playerTransform)) {
+                if (!playerObj.TryGetComponent(out playerTransform)) {
                     Debug.LogError("Player GameObject does not have a Transform component.");
                     enabled = false;
                 }
@@ -50,12 +50,12 @@ namespace Enemies
                 Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
                 enabled = false;
             }
-            if (!TryGetComponent<Seeker>(out seeker)) {
+            if (!TryGetComponent(out seeker)) {
                 Debug.LogError("Enemy GameObject does not have a Seeker component.");
                 enabled = false;
             }
             
-            if (hasAttackAnimation && !TryGetComponent<Animator>(out enemyAnimator)) {
+            if (hasAttackAnimation && !TryGetComponent(out enemyAnimator)) {
                 Debug.LogError("Enemy is set to have an attack animation but does not have an Animator component.");
                 enabled = false;
             }
@@ -117,11 +117,7 @@ namespace Enemies
         private void FlipSprite(bool _flipLeft)
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
-            if (_flipLeft) {
-                isFlipped = true;
-            } else {
-                isFlipped = false;
-            }
+            isFlipped = _flipLeft;
         }
 
         private void OnPathComplete(Path _p)

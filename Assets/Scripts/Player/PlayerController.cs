@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game;
+using Managers;
 
 namespace Player
 {
@@ -29,26 +30,26 @@ namespace Player
         [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Damage of the super ability")]
         private float superDamage = 100f;
 
-        private bool gamePaused = false;
-        private bool isFlipped = false;
-        private float attackCooldownTimer = 0f;
+        private bool gamePaused;
+        private bool isFlipped;
+        private float attackCooldownTimer;
         private float superDamageMultiplier = 1f;
         private float superSpeed = 600f;
-        private const float arrowSpreadAmount = 15f;
+        private const float ArrowSpreadAmount = 15f;
         private float currentMovementSpeed;
         private float currentSprintSpeedMultiplier;
 
 
         // Attack type variables
-        private bool attackTripleAttack = false;
-        private bool attackDoubleAttack = false;
+        private bool attackTripleAttack;
+        private bool attackDoubleAttack;
 
         // Input values
         private Vector2 moveInput;
         private bool sprintPressed;
         private bool attackPressed;
         private bool isInteracting;
-        private float superCooldownTimer = 0f;
+        private float superCooldownTimer;
 
         // Cached components
         private Transform playerTransform;
@@ -116,12 +117,12 @@ namespace Player
             HealthAwake();
             StaminaAwake();
 
-            if (!this.TryGetComponent<Transform>(out playerTransform)) {
+            if (!this.TryGetComponent(out playerTransform)) {
                 Debug.LogError("Player Controller requires a Transform component.");
                 enabled = false;
                 return;
             }
-            if (!this.TryGetComponent<Animator>(out playerAnimator)) {
+            if (!this.TryGetComponent(out playerAnimator)) {
                 Debug.LogError("Player Controller requires an Animator component.");
                 enabled = false;
                 return;
@@ -256,8 +257,8 @@ namespace Player
 
                 //Vector2 mainDirection = ((Vector3)attackPoint - transform.position).normalized;
                 Vector2 mainDirection = attackPoint.normalized;
-                Vector2 leftDirection = Quaternion.Euler(0, 0, arrowSpreadAmount) * mainDirection;
-                Vector2 rightDirection = Quaternion.Euler(0, 0, -arrowSpreadAmount) * mainDirection;
+                Vector2 leftDirection = Quaternion.Euler(0, 0, ArrowSpreadAmount) * mainDirection;
+                Vector2 rightDirection = Quaternion.Euler(0, 0, -ArrowSpreadAmount) * mainDirection;
 
                 if (attackDoubleAttack) {
                     var projectileLeft = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation + 15f));
@@ -300,7 +301,8 @@ namespace Player
         private (float, Vector2) GetProjectileData()
         {
             var attackPoint = GameManager.InputActions.Player.AttackPoint.ReadValue<Vector2>();
-            attackPoint = Camera.main.ScreenToWorldPoint(attackPoint);
+            if (Camera.main != null) 
+                attackPoint = Camera.main.ScreenToWorldPoint(attackPoint);
 
             Vector2 direction = (attackPoint - (Vector2)transform.position).normalized;
             int rotation = Mathf.RoundToInt(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);

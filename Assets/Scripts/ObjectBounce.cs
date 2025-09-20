@@ -3,9 +3,9 @@ using UnityEngine;
 public class ObjectBounce : MonoBehaviour
 {
     [SerializeField, Tooltip("The vertical distance the object will bounce")]
-    private float verticalBounce = 0f;
+    private float verticalBounce;
     [SerializeField, Tooltip("The horizontal distance the object will move while bouncing")]
-    private float horizontalBounce = 0f;
+    private float horizontalBounce;
     [SerializeField, Tooltip("The speed of the bounce")]
     private float bounceSpeed = 1f;
 

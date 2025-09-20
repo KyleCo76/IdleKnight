@@ -2,6 +2,7 @@ using Game;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Collectables : MonoBehaviour
 {
@@ -17,164 +18,164 @@ public class Collectables : MonoBehaviour
     [FoldoutGroup("Collectable Settings/Audio Settings"), SerializeField, Tooltip("Volume of the pickup sound"), Range(0f, 1f)]
     private float pickupSoundVolume = 1f;
     [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("Should the sprite be randomized?")]
-    private bool randomizeSprite = false;
+    private bool randomizeSprite;
     [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("List of sprites? If false, will default to a folder selection"), ShowIf("randomizeSprite")]
-    private bool useCustomSpriteList = false;
+    private bool useCustomSpriteList;
     [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("List of sprites to choose from"), ShowIf("useCustomSpriteList")]
     private List<Sprite> customSpriteList = new();
     [FoldoutGroup("Collectable Settings/Sprite Settings"), SerializeField, Tooltip("Folder to load sprites from"), FolderPath, ShowIf("@this.randomizeSprite && !this.useCustomSpriteList")]
     private string spriteFolderPath = "";
     [FoldoutGroup("Collectable Settings/Collection Settings"), SerializeField, Tooltip("Should the stats be randomized?")]
-    private bool randomizeStats = false;
+    private bool randomizeStats;
 
     [FoldoutGroup("Collectable Stats")]
     [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Should the power up give invincibility?"), ShowIf("@!this.randomizeStats")]
-    private bool giveInvincibility = false;
+    private bool giveInvincibility;
     [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Duration of invincibility"), ShowIf("giveInvincibility"), Min(0.1f)]
     private float invincibilityDuration = 5f;
     [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Should the power up give double points?"), ShowIf("@!this.randomizeStats")]
-    private bool giveDoublePoints = false;
+    private bool giveDoublePoints;
     [FoldoutGroup("Collectable Stats/Static Stats/Temp Stats"), SerializeField, Tooltip("Duration of double points"), ShowIf("giveDoublePoints"), Min(0.1f)]
     private float doublePointsDuration = 5f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Health to give on pickup"), ShowIf("@!this.randomizeStats")]
-    private float healthAmount = 0f;
+    private float healthAmount;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the health boost, 0 is permanent"), ShowIf("@!this.randomizeStats && healthAmount != 0f")]
-    private float healthDuration = 0f;
+    private float healthDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Mana to give on pickup"), ShowIf("@!this.randomizeStats")]
-    private float manaAmount = 0f;
+    private float manaAmount;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the mana boost, 0 is permanent"), ShowIf("@!this.randomizeStats && manaAmount != 0f")]
-    private float manaDuration = 0f;
+    private float manaDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Max mana boost to give on pickup"), ShowIf("@!this.randomizeStats")]
-    private float maxManaBoost = 0f;
+    private float maxManaBoost;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the max mana boost, 0 is permanent"), ShowIf("@!this.randomizeStats && maxManaBoost != 0f")]
-    private float maxManaDuration = 0f;
+    private float maxManaDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Attack speed multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
     private float attackSpeedMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the attack speed boost, 0 is permanent"), ShowIf("@!this.randomizeStats && attackSpeedMultiplier != 1f")]
-    private float attackSpeedDuration = 0f;
+    private float attackSpeedDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Melee damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
     private float meleeDamageBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the melee damage boost, 0 is permanent"), ShowIf("@!this.randomizeStats && meleeDamageBoostMultiplier != 1f")]
-    private float meleeDamageDuration = 0f;
+    private float meleeDamageDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Ranged damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
     private float rangedDamageBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the ranged damage boost, 0 is permanent"), ShowIf("@!this.randomizeStats && rangedDamageBoostMultiplier != 1f")]
-    private float rangedDamageDuration = 0f;
+    private float rangedDamageDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Max health boost to give on pickup"), ShowIf("@!this.randomizeStats")]
-    private float maxHealthBoost = 0f;
+    private float maxHealthBoost;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the max health boost, 0 is permanent"), ShowIf("@!this.randomizeStats && maxHealthBoost != 0f")]
-    private float maxHealthDuration = 0f;
+    private float maxHealthDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Speed boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
     private float speedBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the speed boost, 0 is permanent"), ShowIf("@!this.randomizeStats && speedBoostMultiplier != 1f")]
-    private float speedBoostDuration = 0f;
+    private float speedBoostDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura tick rate multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
     private float auraTickRateMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the aura tick rate boost, 0 is permanent"), ShowIf("@!this.randomizeStats && auraTickRateMultiplier != 1f")]
-    private float auraTickRateDuration = 0f;
+    private float auraTickRateDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura range boost to give on pickup"), ShowIf("@!this.randomizeStats")]
-    private float auraRangeBoost = 0f;
+    private float auraRangeBoost;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the aura range boost, 0 is permanent"), ShowIf("@!this.randomizeStats && auraRangeBoost != 0f")]
-    private float auraRangeDuration = 0f;
+    private float auraRangeDuration;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Aura damage boost multiplier to give on pickup"), ShowIf("@!this.randomizeStats")]
     private float auraDamageBoostMultiplier = 1f;
     [FoldoutGroup("Collectable Stats/Static Stats"), SerializeField, Tooltip("Duration of the aura damage boost, 0 is permanent"), ShowIf("@!this.randomizeStats && auraDamageBoostMultiplier != 1f")]
-    private float auraDamageDuration = 0f;
+    private float auraDamageDuration;
 
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give Invincibility?"), ShowIf("randomizeStats")]
-    private bool randomGiveInvincibility = false;
+    private bool randomGiveInvincibility;
     [BoxGroup("Collectable Stats/Random Stats/Invincibility"), SerializeField, Tooltip("Min/Max duration of invincibility"), ShowIf("randomGiveInvincibility"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxInvincibilityDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give Double Points?"), ShowIf("randomizeStats")]
-    private bool randomGiveDoublePoints = false;
+    private bool randomGiveDoublePoints;
     [BoxGroup("Collectable Stats/Random Stats/Double Points"), SerializeField, Tooltip("Min/Max duration of double points"), ShowIf("randomGiveDoublePoints"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxDoublePointsDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a health boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveHealthBoost = false;
+    private bool randomGiveHealthBoost;
     [BoxGroup("Collectable Stats/Random Stats/Health Boost"), SerializeField, Tooltip("Min/Max health to give on pickup"), ShowIf("randomGiveHealthBoost"), MinMaxSlider(0.1f, 1000f, true)]
     private Vector2 maxHealthBoostRange = new(0.1f, 1000f);
     [BoxGroup("Collectable Stats/Random Stats/Health Boost"), SerializeField, Tooltip("Should the health boost be temporary?"), ShowIf("randomGiveHealthBoost")]
-    private bool randomHealthBoostTemporary = false;
+    private bool randomHealthBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Health Boost"), SerializeField, Tooltip("Min/Max duration of the health boost"), ShowIf("randomHealthBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxHealthBoostDurationRange = new(0.2f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a max health boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveMaxHealthBoost = false;
+    private bool randomGiveMaxHealthBoost;
     [BoxGroup("Collectable Stats/Random Stats/Max Health Boost"), SerializeField, Tooltip("Min/Max max health boost multiplier to give on pickup"), ShowIf("randomGiveMaxHealthBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxMaxHealthBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Max Health Boost"), SerializeField, Tooltip("Should the max health boost be temporary?"), ShowIf("randomGiveMaxHealthBoost")]
-    private bool randomMaxHealthBoostTemporary = false;
+    private bool randomMaxHealthBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Max Health Boost"), SerializeField, Tooltip("Min/Max duration of the max health boost"), ShowIf("randomMaxHealthBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxMaxHealthBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a mana boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveManaBoost = false;
+    private bool randomGiveManaBoost;
     [BoxGroup("Collectable Stats/Random Stats/Mana Boost"), SerializeField, Tooltip("Min/Max mana to give on pickup"), ShowIf("randomGiveManaBoost"), MinMaxSlider(0.1f, 1000f, true)]
     private Vector2 maxManaBoostRange = new(0.1f, 1000f);
     [BoxGroup("Collectable Stats/Random Stats/Mana Boost"), SerializeField, Tooltip("Should the mana boost be temporary?"), ShowIf("randomGiveManaBoost")]
-    private bool randomManaBoostTemporary = false;
+    private bool randomManaBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Mana Boost"), SerializeField, Tooltip("Min/Max duration of the mana boost"), ShowIf("randomManaBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxManaBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a max mana boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveMaxManaBoost = false;
+    private bool randomGiveMaxManaBoost;
     [BoxGroup("Collectable Stats/Random Stats/Max Mana Boost"), SerializeField, Tooltip("Min/Max max mana boost to give on pickup"), ShowIf("randomGiveMaxManaBoost"), MinMaxSlider(0.1f, 1000f, true)]
     private Vector2 maxMaxManaBoostRange = new(0.1f, 1000f);
     [BoxGroup("Collectable Stats/Random Stats/Max Mana Boost"), SerializeField, Tooltip("Should the max mana boost be temporary?"), ShowIf("randomGiveMaxManaBoost")]
-    private bool randomMaxManaBoostTemporary = false;
+    private bool randomMaxManaBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Max Mana Boost"), SerializeField, Tooltip("Min/Max duration of the max mana boost"), ShowIf("randomMaxManaBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxMaxManaBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give an attack speed boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveAttackSpeedBoost = false;
+    private bool randomGiveAttackSpeedBoost;
     [BoxGroup("Collectable Stats/Random Stats/Attack Speed Boost"), SerializeField, Tooltip("Min/Max attack speed multiplier to give on pickup"), ShowIf("randomGiveAttackSpeedBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxAttackSpeedBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Attack Speed Boost"), SerializeField, Tooltip("Should the attack speed boost be temporary?"), ShowIf("randomGiveAttackSpeedBoost")]
-    private bool randomAttackSpeedBoostTemporary = false;
+    private bool randomAttackSpeedBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Attack Speed Boost"), SerializeField, Tooltip("Min/Max duration of the attack speed boost"), ShowIf("randomAttackSpeedBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxAttackSpeedBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a melee damage boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveMeleeDamageBoost = false;
+    private bool randomGiveMeleeDamageBoost;
     [BoxGroup("Collectable Stats/Random Stats/Melee Damage Boost"), SerializeField, Tooltip("Min/Max melee damage boost multiplier to give on pickup"), ShowIf("randomGiveMeleeDamageBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxMeleeDamageBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Melee Damage Boost"), SerializeField, Tooltip("Should the melee damage boost be temporary?"), ShowIf("randomGiveMeleeDamageBoost")]
-    private bool randomMeleeDamageBoostTemporary = false;
+    private bool randomMeleeDamageBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Melee Damage Boost"), SerializeField, Tooltip("Min/Max duration of the melee damage boost"), ShowIf("randomMeleeDamageBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxMeleeDamageBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a ranged damage boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveRangedDamageBoost = false;
+    private bool randomGiveRangedDamageBoost;
     [BoxGroup("Collectable Stats/Random Stats/Ranged Damage Boost"), SerializeField, Tooltip("Min/Max ranged damage boost multiplier to give on pickup"), ShowIf("randomGiveRangedDamageBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxRangedDamageBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Ranged Damage Boost"), SerializeField, Tooltip("Should the ranged damage boost be temporary?"), ShowIf("randomGiveRangedDamageBoost")]
-    private bool randomRangedDamageBoostTemporary = false;
+    private bool randomRangedDamageBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Ranged Damage Boost"), SerializeField, Tooltip("Min/Max duration of the ranged damage boost"), ShowIf("randomRangedDamageBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxRangedDamageBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give a speed boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveSpeedBoost = false;
+    private bool randomGiveSpeedBoost;
     [BoxGroup("Collectable Stats/Random Stats/Speed Boost"), SerializeField, Tooltip("Min/Max speed boost multiplier to give on pickup"), ShowIf("randomGiveSpeedBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxSpeedBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Speed Boost"), SerializeField, Tooltip("Should the speed boost be temporary?"), ShowIf("randomGiveSpeedBoost")]
-    private bool randomSpeedBoostTemporary = false;
+    private bool randomSpeedBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Speed Boost"), SerializeField, Tooltip("Min/Max duration of the speed boost"), ShowIf("randomSpeedBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxSpeedBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give an aura tick rate boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveAuraTickRateBoost = false;
+    private bool randomGiveAuraTickRateBoost;
     [BoxGroup("Collectable Stats/Random Stats/Aura Tick Rate Boost"), SerializeField, Tooltip("Min/Max aura tick rate boost multiplier to give on pickup"), ShowIf("randomGiveAuraTickRateBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxAuraTickRateBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Aura Tick Rate Boost"), SerializeField, Tooltip("Should the aura tick rate boost be temporary?"), ShowIf("randomGiveAuraTickRateBoost")]
-    private bool randomAuraTickRateBoostTemporary = false;
+    private bool randomAuraTickRateBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Aura Tick Rate Boost"), SerializeField, Tooltip("Min/Max duration of the aura tick rate boost"), ShowIf("randomAuraTickRateBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxAuraTickRateBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give an aura range boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveAuraRangeBoost = false;
+    private bool randomGiveAuraRangeBoost;
     [BoxGroup("Collectable Stats/Random Stats/Aura Range Boost"), SerializeField, Tooltip("Min/Max aura range boost to give on pickup"), ShowIf("randomGiveAuraRangeBoost"), MinMaxSlider(1f, 100f, true)]
     private Vector2 maxAuraRangeBoostRange = new(1f, 100f);
     [BoxGroup("Collectable Stats/Random Stats/Aura Range Boost"), SerializeField, Tooltip("Should the aura range boost be temporary?"), ShowIf("randomGiveAuraRangeBoost")]
-    private bool randomAuraRangeBoostTemporary = false;
+    private bool randomAuraRangeBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Aura Range Boost"), SerializeField, Tooltip("Min/Max duration of the aura range boost"), ShowIf("randomAuraRangeBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxAuraRangeBoostDurationRange = new(0.1f, 120f);
     [FoldoutGroup("Collectable Stats/Random Stats"), SerializeField, Tooltip("Can the power up give an aura damage boost?"), ShowIf("randomizeStats")]
-    private bool randomGiveAuraDamageBoost = false;
+    private bool randomGiveAuraDamageBoost;
     [BoxGroup("Collectable Stats/Random Stats/Aura Damage Boost"), SerializeField, Tooltip("Min/Max aura damage boost multiplier to give on pickup"), ShowIf("randomGiveAuraDamageBoost"), MinMaxSlider(1f, 5f, true)]
     private Vector2 maxAuraDamageBoostRange = new(1f, 5f);
     [BoxGroup("Collectable Stats/Random Stats/Aura Damage Boost"), SerializeField, Tooltip("Should the aura damage boost be temporary?"), ShowIf("randomGiveAuraDamageBoost")]
-    private bool randomAuraDamageBoostTemporary = false;
+    private bool randomAuraDamageBoostTemporary;
     [BoxGroup("Collectable Stats/Random Stats/Aura Damage Boost"), SerializeField, Tooltip("Min/Max duration of the aura damage boost"), ShowIf("randomAuraDamageBoostTemporary"), MinMaxSlider(0.1f, 120f, true)]
     private Vector2 maxAuraDamageBoostDurationRange = new(0.1f, 120f);
 
@@ -211,15 +212,15 @@ public class Collectables : MonoBehaviour
     [SerializeField, ReadOnly, Tooltip("Unique ID for this collectable")]
     private string collectableID;
     [SerializeField, ReadOnly, Tooltip("Has the ID been set?")]
-    private bool iDSet = false;
+    private bool iDSet;
 
-    private const float pickupDelay = 0.5f;
-    private float pickupDelayTimer = 0f;
+    private const float PickupDelay = 0.5f;
+    private float pickupDelayTimer;
     private readonly List<PowerUpData> powerUps = new();
-    private bool isEnabled = false;
-    private float timeToLiveTimer = 0f;
-    private float spriteFlashTimer = 0f;
-    private const float spriteFlashTime = 0.5f;
+    private bool isEnabled;
+    private float timeToLiveTimer;
+    private float spriteFlashTimer;
+    private const float SpriteFlashTime = 0.5f;
 
     // Cached Component
     private Collider2D collectableCollider;
@@ -240,18 +241,18 @@ public class Collectables : MonoBehaviour
             collectableID = System.Guid.NewGuid().ToString();
             iDSet = true;
         }
-        if (!this.TryGetComponent<Collider2D>(out collectableCollider)) {
+        if (!this.TryGetComponent(out collectableCollider)) {
             Debug.LogError("No Collider2D component found on " + gameObject.name);
         } else {
             collectableCollider.enabled = false;
         }
-        if (!this.TryGetComponent<SpriteRenderer>(out spriteRenderer)) {
+        if (!this.TryGetComponent(out spriteRenderer)) {
             Debug.LogError("No SpriteRenderer component found on " + gameObject.name);
         }
 
-        pickupDelayTimer = pickupDelay;
+        pickupDelayTimer = PickupDelay;
         timeToLiveTimer = timeToLive;
-        spriteFlashTimer = spriteFlashTime;
+        spriteFlashTimer = SpriteFlashTime;
     }
 
     private void Update()
@@ -271,7 +272,7 @@ public class Collectables : MonoBehaviour
             if (timeToLiveTimer <= 5f && spriteFlashTimer <= 0f) {
                 if (spriteRenderer != null) {
                     spriteRenderer.enabled = !spriteRenderer.enabled;
-                    spriteFlashTimer = spriteFlashTime;
+                    spriteFlashTimer = SpriteFlashTime;
                 }
             }
         }
@@ -346,25 +347,25 @@ public class Collectables : MonoBehaviour
         if (maxManaBoost != 0f) {
             powerUps.Add(new PowerUpData(PowerUpType.MaxManaBoost, maxManaDuration, 0f, maxManaBoost));
         }
-        if (attackSpeedMultiplier != 1f) {
+        if (!Mathf.Approximately(attackSpeedMultiplier, 1f)) {
             powerUps.Add(new PowerUpData(PowerUpType.AttackSpeedBoost, attackSpeedDuration, attackSpeedMultiplier));
         }
-        if (meleeDamageBoostMultiplier != 1f) {
+        if (!Mathf.Approximately(meleeDamageBoostMultiplier, 1f)) {
             powerUps.Add(new PowerUpData(PowerUpType.MeleeDamageBoost, meleeDamageDuration, meleeDamageBoostMultiplier));
         }
-        if (rangedDamageBoostMultiplier != 1f) {
+        if (!Mathf.Approximately(rangedDamageBoostMultiplier, 1f)) {
             powerUps.Add(new PowerUpData(PowerUpType.RangedDamageBoost, rangedDamageDuration, rangedDamageBoostMultiplier));
         }
-        if (speedBoostMultiplier != 1f) {
+        if (!Mathf.Approximately(speedBoostMultiplier, 1f)) {
             powerUps.Add(new PowerUpData(PowerUpType.SpeedBoost, speedBoostDuration, speedBoostMultiplier));
         }
-        if (auraTickRateMultiplier != 1f) {
+        if (!Mathf.Approximately(auraTickRateMultiplier, 1)) {
             powerUps.Add(new PowerUpData(PowerUpType.AuraTickSpeedBoost, auraTickRateDuration, auraTickRateMultiplier));
         }
         if (auraRangeBoost != 0f) {
             powerUps.Add(new PowerUpData(PowerUpType.AuraRangeBoost, auraRangeDuration, auraRangeBoost));
         }
-        if (auraDamageBoostMultiplier != 1f) {
+        if (!Mathf.Approximately(auraDamageBoostMultiplier, 1)) {
             powerUps.Add(new PowerUpData(PowerUpType.AuraDamageBoost, auraDamageDuration, auraDamageBoostMultiplier));
         }
     }
@@ -453,101 +454,79 @@ public class Collectables : MonoBehaviour
                 break;
             case "HealthBoost":
                 healthAmount = Random.Range(maxHealthBoostRange.x, maxHealthBoostRange.y);
-                if (randomHealthBoostTemporary) {
-                    healthDuration = Random.Range(maxHealthBoostDurationRange.x, maxHealthBoostDurationRange.y);
-                } else {
-                    healthDuration = 0f;
-                }
+                healthDuration = randomHealthBoostTemporary
+                    ? Random.Range(maxHealthBoostDurationRange.x, maxHealthBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.HealAmount, healthDuration, 0f, healthAmount));
                 break;
             case "MaxHealthBoost":
                 maxHealthBoost = Random.Range(maxMaxHealthBoostRange.x, maxMaxHealthBoostRange.y);
-                if (randomMaxHealthBoostTemporary) {
-                    maxHealthDuration = Random.Range(maxMaxHealthBoostDurationRange.x, maxMaxHealthBoostDurationRange.y);
-                } else {
-                    maxHealthDuration = 0f;
-                }
+                maxHealthDuration = randomMaxHealthBoostTemporary
+                    ? Random.Range(maxMaxHealthBoostDurationRange.x, maxMaxHealthBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.MaxHealthBoost, maxHealthDuration, 0f, maxHealthBoost));
                 break;
             case "ManaBoost":
                 manaAmount = Random.Range(maxManaBoostRange.x, maxManaBoostRange.y);
-                if (randomManaBoostTemporary) {
-                    manaDuration = Random.Range(maxManaBoostDurationRange.x, maxManaBoostDurationRange.y);
-                } else {
-                    manaDuration = 0f;
-                }
+                manaDuration = randomManaBoostTemporary
+                    ? Random.Range(maxManaBoostDurationRange.x, maxManaBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.ManaBoost, manaDuration, 0f, manaAmount));
                 break;
             case "MaxManaBoost":
                 maxManaBoost = Random.Range(maxMaxManaBoostRange.x, maxMaxManaBoostRange.y);
-                if (randomMaxManaBoostTemporary) {
-                    maxManaDuration = Random.Range(maxMaxManaBoostDurationRange.x, maxMaxManaBoostDurationRange.y);
-                } else {
-                    maxManaDuration = 0f;
-                }
+                maxManaDuration = randomMaxManaBoostTemporary
+                    ? Random.Range(maxMaxManaBoostDurationRange.x, maxMaxManaBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.MaxManaBoost, maxManaDuration, 0f, maxManaBoost));
                 break;
             case "AttackSpeedBoost":
                 attackSpeedMultiplier = Random.Range(maxAttackSpeedBoostRange.x, maxAttackSpeedBoostRange.y);
-                if (randomAttackSpeedBoostTemporary) {
-                    attackSpeedDuration = Random.Range(maxAttackSpeedBoostDurationRange.x, maxAttackSpeedBoostDurationRange.y);
-                } else {
-                    attackSpeedDuration = 0f;
-                }
+                attackSpeedDuration = randomAttackSpeedBoostTemporary
+                    ? Random.Range(maxAttackSpeedBoostDurationRange.x, maxAttackSpeedBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.AttackSpeedBoost, attackSpeedDuration, attackSpeedMultiplier));
                 break;
             case "MeleeDamageBoost":
                 meleeDamageBoostMultiplier = Random.Range(maxMeleeDamageBoostRange.x, maxMeleeDamageBoostRange.y);
-                if (randomMeleeDamageBoostTemporary) {
-                    meleeDamageDuration = Random.Range(maxMeleeDamageBoostDurationRange.x, maxMeleeDamageBoostDurationRange.y);
-                } else {
-                    meleeDamageDuration = 0f;
-                }
+                meleeDamageDuration = randomMeleeDamageBoostTemporary
+                    ? Random.Range(maxMeleeDamageBoostDurationRange.x, maxMeleeDamageBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.MeleeDamageBoost, meleeDamageDuration, meleeDamageBoostMultiplier));
                 break;
             case "RangedDamageBoost":
                 rangedDamageBoostMultiplier = Random.Range(maxRangedDamageBoostRange.x, maxRangedDamageBoostRange.y);
-                if (randomRangedDamageBoostTemporary) {
-                    rangedDamageDuration = Random.Range(maxRangedDamageBoostDurationRange.x, maxRangedDamageBoostDurationRange.y);
-                } else {
-                    rangedDamageDuration = 0f;
-                }
+                rangedDamageDuration = randomRangedDamageBoostTemporary
+                    ? Random.Range(maxRangedDamageBoostDurationRange.x, maxRangedDamageBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.RangedDamageBoost, rangedDamageDuration, rangedDamageBoostMultiplier));
                 break;
             case "SpeedBoost":
                 speedBoostMultiplier = Random.Range(maxSpeedBoostRange.x, maxSpeedBoostRange.y);
-                if (randomSpeedBoostTemporary) {
-                    speedBoostDuration = Random.Range(maxSpeedBoostDurationRange.x, maxSpeedBoostDurationRange.y);
-                } else {
-                    speedBoostDuration = 0f;
-                }
+                speedBoostDuration = randomSpeedBoostTemporary
+                    ? Random.Range(maxSpeedBoostDurationRange.x, maxSpeedBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.SpeedBoost, speedBoostDuration, speedBoostMultiplier));
                 break;
             case "AuraTickRateBoost":
                 auraTickRateMultiplier = Random.Range(maxAuraTickRateBoostRange.x, maxAuraTickRateBoostRange.y);
-                if (randomAuraTickRateBoostTemporary) {
-                    auraTickRateDuration = Random.Range(maxAuraTickRateBoostDurationRange.x, maxAuraTickRateBoostDurationRange.y);
-                } else {
-                    auraTickRateDuration = 0f;
-                }
+                auraTickRateDuration = randomAuraTickRateBoostTemporary
+                    ? Random.Range(maxAuraTickRateBoostDurationRange.x, maxAuraTickRateBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.AuraTickSpeedBoost, auraTickRateDuration, auraTickRateMultiplier));
                 break;
             case "AuraRangeBoost":
                 auraRangeBoost = Random.Range(maxAuraRangeBoostRange.x, maxAuraRangeBoostRange.y);
-                if (randomAuraRangeBoostTemporary) {
-                    auraRangeDuration = Random.Range(maxAuraRangeBoostDurationRange.x, maxAuraRangeBoostDurationRange.y);
-                } else {
-                    auraRangeDuration = 0f;
-                }
+                auraRangeDuration = randomAuraRangeBoostTemporary
+                    ? Random.Range(maxAuraRangeBoostDurationRange.x, maxAuraRangeBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.AuraRangeBoost, auraRangeDuration, auraRangeBoost));
                 break;
             case "AuraDamageBoost":
                 auraDamageBoostMultiplier = Random.Range(maxAuraDamageBoostRange.x, maxAuraDamageBoostRange.y);
-                if (randomAuraDamageBoostTemporary) {
-                    auraDamageDuration = Random.Range(maxAuraDamageBoostDurationRange.x, maxAuraDamageBoostDurationRange.y);
-                } else {
-                    auraDamageDuration = 0f;
-                }
+                auraDamageDuration = randomAuraDamageBoostTemporary
+                    ? Random.Range(maxAuraDamageBoostDurationRange.x, maxAuraDamageBoostDurationRange.y)
+                    : 0f;
                 powerUps.Add(new PowerUpData(PowerUpType.AuraDamageBoost, auraDamageDuration, auraDamageBoostMultiplier));
                 break;
             default:
@@ -654,7 +633,6 @@ public class Collectables : MonoBehaviour
         if (numberOfStatsToGive < 1) {
             numberOfStatsToGive = 1;
         }
-
-        }
+    }
 
 }

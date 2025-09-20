@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
-        if (!TryGetComponent<Rigidbody2D>(out projectileBody)) {
+        if (!TryGetComponent(out projectileBody)) {
             Debug.LogError("No Rigidbody2D component found on " + gameObject.name);
         }
     }

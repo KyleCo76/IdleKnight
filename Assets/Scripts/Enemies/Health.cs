@@ -4,17 +4,17 @@ using Sirenix.OdinInspector;
 
 namespace Enemies
 {
-    public partial class Controller : MonoBehaviour
+    public partial class Controller
     {
         [FoldoutGroup("Health Settings"), SerializeField, Tooltip("The maximum amount of health the enemy has")]
         private float maxHealth = 10f;
         [FoldoutGroup("Health Settings"), SerializeField, Tooltip("The amount of resistance the enemy has the player's basic attack")]
-        private float armourValue = 0f;
+        private float armourValue;
 
-        private float shieldHealth = 0f;
+        private float shieldHealth;
         [SerializeField]
         private float currentHealth;
-        private bool isDead = false;
+        private bool isDead;
 
 
         public void ApplyShield(float _value)

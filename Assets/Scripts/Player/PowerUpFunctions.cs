@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Game;
+using Managers;
 
 namespace Player
 {
@@ -105,11 +106,11 @@ namespace Player
         }
 
 
-        private IEnumerator CoinMagnetCoroutine(float duration)
+        private IEnumerator CoinMagnetCoroutine(float _duration)
         {
             //float originalMagnetRadius = coinMagnetRadius;
             //coinMagnetRadius = 10f; // Example increased radius
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(_duration);
             //coinMagnetRadius = originalMagnetRadius; // Reset to original radius
         }
 
@@ -118,7 +119,7 @@ namespace Player
             float originalCooldown = attackCooldown;
             attackCooldown /= _multiplier; // Increase attack speed
             yield return new WaitForSeconds(_duration);
-            attackCooldown = originalCooldown; // Reset to original cooldown
+            attackCooldown = originalCooldown; // Reset to the original cooldown
         }
 
         private IEnumerator TemporaryHealthBoostCoroutine(float _amount, float _duration)
@@ -135,7 +136,7 @@ namespace Player
             float originalAmount = healthRegenAmount;
             healthRegenAmount *= _multiplier; // Increase regen amount
             yield return new WaitForSeconds(_duration);
-            healthRegenAmount = originalAmount; // Reset to original amount
+            healthRegenAmount = originalAmount; // Reset to the original amount
         }
 
         private IEnumerator TemporaryHealthRegenTickRateCoroutine(float _multiplier, float _duration)
@@ -143,7 +144,7 @@ namespace Player
             float originalInterval = healthRegenInterval;
             healthRegenInterval /= _multiplier; // Increase tick rate
             yield return new WaitForSeconds(_duration);
-            healthRegenInterval = originalInterval; // Reset to original interval
+            healthRegenInterval = originalInterval; // Reset to the original interval
         }
 
         private IEnumerator TemporaryMaxHealthBoostCoroutine(float _healthIncrease, float _duration)

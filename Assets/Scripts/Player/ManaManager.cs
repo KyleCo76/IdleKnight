@@ -1,11 +1,10 @@
+using Managers;
 using Sirenix.OdinInspector;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Player
 {
-    public partial class PlayerController : MonoBehaviour
+    public partial class PlayerController
     {
         [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The maximum mana the player can have.")]
         private float maxMana = 100f;
@@ -49,12 +48,12 @@ namespace Player
             ChangeMana(manaRegenRate);
         }
 
-        private bool ChangeMana(float amount)
+        private bool ChangeMana(float _amount)
         {
-            if (currentMana + amount < 0f) {
+            if (currentMana + _amount < 0f) {
                 return false; // Not enough mana
             }
-            currentMana = Mathf.Clamp(currentMana + amount, 0f, maxMana);
+            currentMana = Mathf.Clamp(currentMana + _amount, 0f, maxMana);
             UIManager.Instance.UpdateManaUI(currentMana, maxMana);
             return true;
         }
