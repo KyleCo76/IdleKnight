@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8129761666467477240}
   - component: {fileID: 5045834421131652288}
   - component: {fileID: 8066854347216426041}
-  - component: {fileID: 646048579394561140}
   - component: {fileID: 1866941085043167575}
   - component: {fileID: 602311083772124371}
   - component: {fileID: 871538063696491965}
@@ -139,18 +138,6 @@ MonoBehaviour:
   maxHealth: 8
   armourValue: 3
   currentHealth: 0
---- !u!114 &646048579394561140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7510659727359810073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e3a12c056d91047ab1d8f64945f62d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1866941085043167575
 MonoBehaviour:
   m_ObjectHideFlags: 0

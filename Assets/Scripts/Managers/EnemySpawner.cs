@@ -1,5 +1,7 @@
 // using System;
 // using System.Collections.Generic;
+
+using System.Collections;
 using Game;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,8 +22,11 @@ namespace Managers
         [SerializeField, Tooltip("Default maximum pool size for minions")]
         private int maxDefaultPoolSize = 40;
 
+        [HideInInspector]
+        public EnemySpawner Instance;
+
         private Player.PlayerController player;
-        private float timer;
+        //private float timer;
         private int currentLevel = 1;
 
         private const float SpawnRangeMin = 10.0f; // Minimum distance from player
@@ -35,6 +40,13 @@ namespace Managers
 
         private void Awake()
         {
+            if (Instance != null && Instance != this) {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            
             var playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null) {
                 if (!playerObj.TryGetComponent(out player)) {
@@ -67,6 +79,8 @@ namespace Managers
 
                 pooledMinions.PreWarm(enemy.Key, initialPoolSize, prefabMaxCount);
             }
+
+            StartCoroutine(MinionSpawnerTimer(spawnInterval));
         }
 
         private void OnEnable()
@@ -91,16 +105,8 @@ namespace Managers
             RunScoreManager.Instance.OnPlayerLeveledUp -= HandlePlayerLevelUp;
             Enemies.Controller.OnEnemyDeath -= HandleEnemyDeath;
         }
-
-        private void Update()
-        {
-            timer += Time.deltaTime;
-            if (timer >= spawnInterval) {
-                timer = 0f;
-                SpawnRandomEnemy();
-            }
-        }
-
+        
+        
         private void HandleEnemyDeath(AttackType _attackType, int _points, float _itemChance, Vector2 _position,
             GameObject _enemy)
         {
@@ -108,6 +114,8 @@ namespace Managers
             if (_attackType == AttackType.PlayerAttack) {
                 SpawnRandomEnemy();
             }
+
+            pooledMinions.Release(_enemy);
         }
 
         private void HandlePlayerLevelUp(int _newLevel)
@@ -146,8 +154,22 @@ namespace Managers
             var enemy = pooledMinions.GetFromPool(prefab, spawnPosition, Quaternion.identity);
 
             //Get the EnemyController component and set the player reference
-            if (enemy.TryGetComponent<Enemies.Controller>(out var newEnemy)) {
+            if (enemy && enemy.TryGetComponent<Enemies.Controller>(out var newEnemy)) {
                 newEnemy.SetPlayerTransform(player.transform);
+                newEnemy.OnTakenFromPool(prefab);
+            }
+        }
+
+        private IEnumerator MinionSpawnerTimer(float _interval)
+        {
+            var wait = new WaitForSeconds(_interval);
+            while (enabled) {
+                if (GameManager.Instance && !GameManager.Instance.IsPaused) {
+                    if (maxEnemies == 0 || spawnCount < maxEnemies) {
+                        SpawnRandomEnemy();
+                    }
+                }
+                yield return wait;
             }
         }
     }

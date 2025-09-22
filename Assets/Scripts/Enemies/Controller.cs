@@ -7,7 +7,7 @@ using Managers;
 
 namespace Enemies
 {
-    public partial class Controller : MonoBehaviour
+    public partial class Controller : MonoBehaviour, IPooledResettable
     {
         public static event System.Action<AttackType, int, float, Vector2, GameObject> OnEnemyDeath;
 
@@ -34,15 +34,17 @@ namespace Enemies
         private Seeker seeker;
         private Animator enemyAnimator;
         private readonly Dictionary<string, int> animatorHashes = new();
-        private PooledMinion spawnerInterface;
 
-        private bool isPartOfPool;
         private Path path;
         private readonly float pathUpdateRate = 0.5f; // How often to update the path
         private int currentWaypoint;
         private float attackTimer;
         private bool isFlipped;
         private float moveSpeed;
+        private bool isMinion;
+        private MinionSpawner parentSpawner;
+        
+        private GameObject sourcePrefab;
 
         private void Awake()
         {
@@ -87,7 +89,6 @@ namespace Enemies
                 return;
             }
 
-            //transform.position = Vector2.MoveTowards(transform.position, path.vectorPath[currentWaypoint], movementSpeed * Time.fixedDeltaTime);
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - (Vector2)transform.position).normalized;
             Vector2 force = moveSpeed * Time.fixedDeltaTime * direction;
             transform.position += (Vector3)force;
@@ -117,6 +118,28 @@ namespace Enemies
                 }
             }
         }
+        
+        public void OnTakenFromPool(GameObject _sourcePrefab)
+        {
+            sourcePrefab = _sourcePrefab;
+            currentHealth = maxHealth;
+            isDead = false;
+        }
+
+        public void OnTakenFromPool(GameObject _sourcePrefab, MinionSpawner _spawner)
+        {
+            isMinion = true;
+            parentSpawner = _spawner;
+            sourcePrefab = _sourcePrefab;
+            currentHealth = maxHealth;
+            isDead = false;
+        }
+
+        public GameObject GetSourcePrefab()
+        {
+            return sourcePrefab;
+        }
+        
 
         public void ApplySpeedBoost(float _multiplier)
         {
@@ -147,16 +170,7 @@ namespace Enemies
         {
             playerTransform = _player;
         }
-
-        internal void SetPooledMember()
-        {
-            if (!TryGetComponent(out spawnerInterface)) {
-                Debug.LogError("MinionSpawner component not found on " + gameObject.name + ".");
-                return;
-            }
-            isPartOfPool = true;
-        }
-
+        
         private void UpdatePath()
         {
             if (seeker.IsDone())

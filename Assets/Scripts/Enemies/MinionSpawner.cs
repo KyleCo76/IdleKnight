@@ -120,10 +120,8 @@ namespace Enemies
             GameObject minionPrefab = minionPrefabs[Random.Range(0, minionPrefabs.Length - 1)];
             GameObject newMinion = minionPool.GetFromPool(minionPrefab, spawnPosition, Quaternion.identity);
 
-            if (!newMinion) {
-                Debug.LogWarning("Failed to spawn minion.");
+            if (!newMinion)
                 return;
-            }
             
             newMinion.layer = minionLayerIndex;
 
@@ -145,7 +143,7 @@ namespace Enemies
         {
             var wait = new WaitForSeconds(spawnInterval);
             while (enabled) {
-                if (GameManager.Instance || !GameManager.Instance.IsPaused) {
+                if (GameManager.Instance && !GameManager.Instance.IsPaused) {
                     if (maxMinions == 0 || activeMinions.Count < maxMinions) {
                         SpawnMinion();
                     }

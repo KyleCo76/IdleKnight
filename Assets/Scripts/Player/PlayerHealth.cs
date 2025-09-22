@@ -34,7 +34,7 @@ namespace Player
                 if (invincibilityTimer <= 0f)
                     playerAnimatorHelper.SetHurt(false);
             }
-            if (currentHealth < maxHealth) {
+            if (currentHealth < maxHealth && invincibilityTimer <= 0f) {
                 healthRegenTimer -= Time.deltaTime;
                 if (healthRegenTimer <= 0f) {
                     ChangeHealth(healthRegenAmount);

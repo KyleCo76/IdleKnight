@@ -76,8 +76,9 @@ namespace Game
     // Optional hook for components that need resetting between uses
     public interface IPooledResettable
     {
-        void OnTakenFromPool(GameObject _instance, MinionSpawner _spawner);
-        void OnReturnedToPool();
+        public void OnTakenFromPool(GameObject _instance);
+        public void OnTakenFromPool(GameObject _instance, MinionSpawner _spawner);
+        public GameObject GetSourcePrefab();
     }
     
     public struct TrackedMinion : System.IEquatable<TrackedMinion>
@@ -161,9 +162,9 @@ namespace Game
                 if (!HasSpawnsAvailable(_prefab)) {
                     return null;
                 }
-                // if (globalMaxPrefabAmount > 0 && GetLiveCount(_prefab) >= globalMaxPrefabAmount) {
-                //     return null; // Ignore spawn if we reached the max number of prefabs
-                // }
+                if (globalMaxPrefabAmount > 0 && GetLiveCount(_prefab) >= globalMaxPrefabAmount) {
+                    return null; // Ignore spawn if we reached the max number of prefabs
+                }
                 go = Object.Instantiate(_prefab, poolRoot);
             }
 
@@ -223,21 +224,14 @@ namespace Game
             if (!_instance)
                 return;
             
-            var marker = _instance.GetComponent<PooledMinion>();
-            if (!marker || !marker.SourcePrefab) {
-                _instance.SetActive(false);
-                _instance.transform.SetParent(poolRoot, false);
+            var enemyMarker = _instance.GetComponent<IPooledResettable>();
+            if (enemyMarker == null) {
+                Debug.LogError("Instance does not have a IPooledResettable component for release.");
                 return;
             }
             
-            var prefab = marker.SourcePrefab;
+            var prefab = enemyMarker.GetSourcePrefab();
             EnsurePool(prefab);
-            
-            // Call Reset Hook
-            var hooks = _instance.GetComponents<IPooledResettable>();
-            foreach (var hook in hooks) {
-                hook.OnReturnedToPool();
-            }
             
             _instance.SetActive(false);
             _instance.transform.SetParent(poolRoot, false);

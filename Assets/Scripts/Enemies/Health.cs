@@ -15,6 +15,7 @@ namespace Enemies
         [SerializeField]
         private float currentHealth;
         private bool isDead;
+        private AttackType deathShotType;
 
 
         public void ApplyShield(float _value)
@@ -42,24 +43,26 @@ namespace Enemies
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
             if (currentHealth <= 0) {
-                Die(_attackType);
+                deathShotType = _attackType;
+                if (hasDeathAnimation) {
+                    enemyAnimator.SetTrigger(animatorHashes["Die"]);
+                    return;
+                }
+                Die();
             }
         }
 
-        private void Die(AttackType _attackType)
+        public void Die()
         {
             if (isDead) return;
             isDead = true;
             if (hasDeathAnimation)
                 enemyAnimator.SetTrigger(animatorHashes["Die"]);
-            if (isPartOfPool) {
-                spawnerInterface.ReturnToPool();
+            if (isMinion) {
+                parentSpawner.ReleaseMinion(this.gameObject);
                 return;
             }
-            if (TryGetComponent(out Collider2D enemyCollider))
-                enemyCollider.enabled = false;
-            OnEnemyDeath?.Invoke(_attackType, deathValue, itemSpawnChance, transform.position, gameObject);
-            Destroy(gameObject);
+            OnEnemyDeath?.Invoke(deathShotType, deathValue, itemSpawnChance, transform.position, this.gameObject);
         }
         
         public void ResetHealth()
