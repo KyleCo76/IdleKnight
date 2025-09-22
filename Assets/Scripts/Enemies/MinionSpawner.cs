@@ -143,12 +143,12 @@ namespace Enemies
         {
             var wait = new WaitForSeconds(spawnInterval);
             while (enabled) {
+                yield return wait;
                 if (GameManager.Instance && !GameManager.Instance.IsPaused) {
                     if (maxMinions == 0 || activeMinions.Count < maxMinions) {
                         SpawnMinion();
                     }
                 }
-                yield return wait;
             }
         }
     }

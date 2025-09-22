@@ -78,6 +78,9 @@ namespace Enemies
 
         private void Update()
         {
+            if (!GameManager.Instance || GameManager.Instance.IsPaused || isDead)
+                return;
+            
             if (attackTimer > 0f) {
                 attackTimer -= Time.deltaTime;
             }
@@ -85,7 +88,8 @@ namespace Enemies
 
         private void FixedUpdate()
         {
-            if (path == null || playerTransform == null || currentWaypoint >= path.vectorPath.Count) {
+            if (path == null || !playerTransform || currentWaypoint >= path.vectorPath.Count
+                || !GameManager.Instance || GameManager.Instance.IsPaused || isDead) {
                 return;
             }
 
@@ -106,6 +110,9 @@ namespace Enemies
 
         private void OnCollisionEnter2D(Collision2D _other)
         {
+            if (!GameManager.Instance || GameManager.Instance.IsPaused || isDead)
+                return;
+            
             if (_other.collider.CompareTag("Player") && attackTimer <= 0f)
             {
                 if (_other.collider.TryGetComponent<Player.PlayerController>(out var player))
@@ -124,6 +131,8 @@ namespace Enemies
             sourcePrefab = _sourcePrefab;
             currentHealth = maxHealth;
             isDead = false;
+            if (TryGetComponent(out Collider2D enemyCollider))
+                enemyCollider.enabled = true;
         }
 
         public void OnTakenFromPool(GameObject _sourcePrefab, MinionSpawner _spawner)
@@ -133,6 +142,8 @@ namespace Enemies
             sourcePrefab = _sourcePrefab;
             currentHealth = maxHealth;
             isDead = false;
+            if (TryGetComponent(out Collider2D enemyCollider))
+                enemyCollider.enabled = true;
         }
 
         public GameObject GetSourcePrefab()
@@ -173,6 +184,8 @@ namespace Enemies
         
         private void UpdatePath()
         {
+            if (!GameManager.Instance || GameManager.Instance.IsPaused || isDead)
+                return;
             if (seeker.IsDone())
             {
                 seeker.StartPath(transform.position, playerTransform.position, OnPathComplete);

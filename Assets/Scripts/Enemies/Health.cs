@@ -1,5 +1,6 @@
 using UnityEngine;
 using Game;
+using Managers;
 using Sirenix.OdinInspector;
 
 namespace Enemies
@@ -25,6 +26,9 @@ namespace Enemies
 
         public void ChangeHealth(float _amount, AttackType _attackType = AttackType.None, bool _ignoreShield = false)
         {
+            if (!GameManager.Instance || GameManager.Instance.IsPaused || isDead)
+                return;
+            
             if (shieldHealth > 0f && _amount < 0f && !_ignoreShield) {
                 shieldHealth += _amount;
                 if (shieldHealth < 0f) {
@@ -44,6 +48,11 @@ namespace Enemies
 
             if (currentHealth <= 0) {
                 deathShotType = _attackType;
+                isDead = true;
+                
+                if (TryGetComponent(out Collider2D enemyCollider))
+                    enemyCollider.enabled = false;
+                
                 if (hasDeathAnimation) {
                     enemyAnimator.SetTrigger(animatorHashes["Die"]);
                     return;
@@ -54,8 +63,6 @@ namespace Enemies
 
         public void Die()
         {
-            if (isDead) return;
-            isDead = true;
             if (hasDeathAnimation)
                 enemyAnimator.SetTrigger(animatorHashes["Die"]);
             if (isMinion) {

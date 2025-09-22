@@ -135,6 +135,7 @@ MonoBehaviour:
   deathValue: 2
   itemSpawnChance: 0
   hasAttackAnimation: 1
+  hasDeathAnimation: 1
   maxHealth: 10
   armourValue: 8
   currentHealth: 0

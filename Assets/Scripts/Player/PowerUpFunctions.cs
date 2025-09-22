@@ -7,8 +7,11 @@ namespace Player
 {
     public partial class PlayerController
     {
+        private int powerUpCount;
+        
         public void ActivatePowerUp(PowerUpData _powerUp)
         {
+            powerUpCount++;
             switch (_powerUp.Type)
             {
                 case PowerUpType.Invincibility:

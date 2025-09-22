@@ -15,6 +15,7 @@ namespace Managers
         public delegate void PlayerLeveledUpEventHandler(int _newLevel);
         public event PlayerLeveledUpEventHandler OnPlayerLeveledUp;
 
+        [SerializeField, Tooltip("The current score of the player")]
         private int runScore;
         public int CurrentScore => runScore;
         private int playerLevel = 1;

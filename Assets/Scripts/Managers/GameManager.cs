@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 namespace Managers
@@ -14,7 +14,7 @@ namespace Managers
 
         public bool IsPaused { get; private set; }
 
-        private static readonly HashSet<string> AssignedIDs = new();
+        //private static readonly HashSet<string> AssignedIDs = new();
 
         public delegate void GamePausedEventHandler();
         public event GamePausedEventHandler OnGamePaused;
@@ -52,7 +52,7 @@ namespace Managers
             }
         }
 
-        public void PauseGame()
+        private void PauseGame()
         {
             UIManager.Instance.ShowPauseMenu(true);
             IsPaused = true;
@@ -60,6 +60,12 @@ namespace Managers
             Time.timeScale = 0.0f;
         }
 
+        /// <summary>
+        /// Exits the application or stops play mode if running in the Unity Editor.
+        /// </summary>
+        /// <remarks>
+        /// This method is used to terminate the application when called. In the Unity Editor, it stops play mode instead of completely quitting the application.
+        /// </remarks>
         public void QuitGame()
         {
             Application.Quit();
@@ -80,6 +86,11 @@ namespace Managers
             OnGameResumed?.Invoke();
         }
 
+        /// <summary>
+        /// Introduces a delay before resuming the game.
+        /// </summary>
+        /// <param name="_delayTime">The duration of the delay in seconds before the game resumes.</param>
+        /// <returns>An IEnumerator to be used in a coroutine for handling the delay.</returns>
         private IEnumerator ResumeDelay(float _delayTime)
         {
             yield return new WaitForSecondsRealtime(_delayTime);
@@ -88,10 +99,18 @@ namespace Managers
             Time.timeScale = 1.0f;
         }
 
+        /// <summary>
+        /// Updates the A* pathfinding grid within a specified radius around the object.
+        /// </summary>
+        /// <remarks>This method recalculates and updates the A* graph in the area defined by the given radius,
+        /// ensuring that pathfinding data is accurate based on changes in the environment.</remarks>
+        /// <param name="_paintRadius">The radius around the object within which the A* grid should be updated, specified in world units.</param>
         public void UpdateAStarGrid(float _paintRadius)
         {
-            var updateBounds = new Bounds(transform.position, new(_paintRadius, _paintRadius, 1));
-            AstarPath.active.UpdateGraphs(updateBounds);
+            // var updateBounds = new Bounds(transform.position, new(_paintRadius, _paintRadius, 1));
+            // var graphBounds = new GraphUpdateObject(updateBounds);
+            // AstarPath.active.UpdateGraphs(graphBounds);
+            AstarPath.active.Scan();
         }
     }
 }
