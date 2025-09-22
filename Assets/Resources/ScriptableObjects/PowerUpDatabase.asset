@@ -174,7 +174,7 @@ MonoBehaviour:
   - PowerUpType: 3
     Weight: 0
   - PowerUpType: 4
-    Weight: 0.2
+    Weight: 0.4
   - PowerUpType: 5
     Weight: 0.1
   - PowerUpType: 6

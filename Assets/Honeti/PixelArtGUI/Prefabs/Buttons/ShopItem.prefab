@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5439904460537698483}
   - component: {fileID: 4119088874396645894}
   - component: {fileID: 6667815606388941269}
+  - component: {fileID: 6410722361398120105}
   - component: {fileID: 1174649497527158203}
   m_Layer: 5
   m_Name: ShopItem
@@ -202,6 +203,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6410722361398120105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120495350848708435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13d97f6c9b0ef9489ce912e1d84da9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 7531340494043126855}
+  icon: {fileID: 1539469912801631806}
+  nameText: {fileID: 6573419087477515710}
+  priceText: {fileID: 7570161241476425362}
+  Item: {fileID: 0}
 --- !u!114 &1174649497527158203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e0a5f6a8b36a783488c2151df8bd4ba5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fdfcb94b08b0d5489453c489a507ff7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -432,10 +450,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4765508726740099688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.6, y: -37.5}
+  m_SizeDelta: {x: 51.2, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1696080294922000940
 CanvasRenderer:
@@ -528,10 +546,10 @@ RectTransform:
   - {fileID: 6410829069519749158}
   m_Father: {fileID: 5855146801976691544}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 75}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 132.90259, y: -37.5}
+  m_SizeDelta: {x: 75.2, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6777815547929327960
 CanvasRenderer:
@@ -614,7 +632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5855146801976691544
 RectTransform:
   m_ObjectHideFlags: 0
@@ -838,7 +856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6859107581460563089, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
       propertyPath: m_text
-      value: 500
+      value: 3 500
       objectReference: {fileID: 0}
     - target: {fileID: 6859107581460563089, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
       propertyPath: m_fontSize
@@ -847,6 +865,10 @@ PrefabInstance:
     - target: {fileID: 6859107581460563089, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
       propertyPath: m_fontSizeBase
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859107581460563089, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 8120585544637858324, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -892,6 +914,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1410498111792201809, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
   m_PrefabInstance: {fileID: 3908824909023060483}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7531340494043126855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6825871323276787268, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
+  m_PrefabInstance: {fileID: 3908824909023060483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8709011303279264102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7570161241476425362 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6859107581460563089, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
+  m_PrefabInstance: {fileID: 3908824909023060483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8709011303279264102 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5684228997523055461, guid: a95a7eb542c79274fb87a372fb3a417f, type: 3}
@@ -1017,7 +1061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7905782917257072519, guid: 8c73876853b3dd24bba8cd89d43b33f0, type: 3}
       propertyPath: m_text
-      value: Magic Potion of Healing
+      value: The Destroyer
       objectReference: {fileID: 0}
     - target: {fileID: 7905782917257072519, guid: 8c73876853b3dd24bba8cd89d43b33f0, type: 3}
       propertyPath: m_fontStyle
@@ -1035,6 +1079,10 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7905782917257072519, guid: 8c73876853b3dd24bba8cd89d43b33f0, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1045,3 +1093,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 540009027234896365, guid: 8c73876853b3dd24bba8cd89d43b33f0, type: 3}
   m_PrefabInstance: {fileID: 3931504451938626105}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6573419087477515710 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7905782917257072519, guid: 8c73876853b3dd24bba8cd89d43b33f0, type: 3}
+  m_PrefabInstance: {fileID: 3931504451938626105}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afaab7f09ef465549b964b0770997d86, type: 3}
+  m_Name: ShopItemDatabase
+  m_EditorClassIdentifier: 
+  ShopItems:
+  - Id: 1
+    DisplayName: Large Blob
+    Icon: {fileID: 21300000, guid: 43752eccf2626f84fb3f6bc406716339, type: 3}
+    Cost: 120
+    LevelRequirement: 1
+  - Id: 2
+    DisplayName: Small Blob
+    Icon: {fileID: 21300000, guid: 34ba433dfa0420046a03131b99ca26c0, type: 3}
+    Cost: 60
+    LevelRequirement: 1
+  - Id: 3
+    DisplayName: Large Electricity
+    Icon: {fileID: 21300000, guid: 535d84c66f1e51e42a877cb46911232a, type: 3}
+    Cost: 240
+    LevelRequirement: 2
+  - Id: 4
+    DisplayName: Small Electricty
+    Icon: {fileID: 21300000, guid: f1e157227e04213479f1d8788c2ebb2a, type: 3}
+    Cost: 180
+    LevelRequirement: 2

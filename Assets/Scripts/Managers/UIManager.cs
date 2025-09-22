@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Managers
 {
-    public class UIManager : MonoBehaviour
+    public partial class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
 
@@ -13,25 +13,10 @@ namespace Managers
         private TextMeshProUGUI manaText;
         private Slider healthBubble;
         private TextMeshProUGUI healthText;
-        private GameObject shopCanvasObject;
         private GameObject uiCanvasObject;
         private GameObject pauseCanvasObject;
         private Toggle resumeButton;
         private Toggle quitButton;
-
-        private Button item1BuyIcon;
-        private Button item2BuyIcon;
-        private Button item3BuyIcon;
-        private Toggle leaveShopButton;
-        private TextMeshProUGUI leaveShopButtonText;
-        private Image item1IconImage;
-        private Image item2IconImage;
-        private Image item3IconImage;
-        private TextMeshProUGUI item1PriceText;
-        private TextMeshProUGUI item2PriceText;
-        private TextMeshProUGUI item3PriceText;
-        private GameObject activeShop;
-
 
         private void Awake()
         {
@@ -82,13 +67,6 @@ namespace Managers
                 return;
             }
 
-            shopCanvasObject = GameObject.Find("Shop");
-            if (shopCanvasObject == null) {
-                Debug.LogError("No Shop GameObject found in the scene.");
-                enabled = false;
-                return;
-            }
-
             pauseCanvasObject = GameObject.Find("PauseMenu");
             if (pauseCanvasObject == null) {
                 Debug.LogError("No PauseMenu GameObject found in the scene.");
@@ -133,170 +111,14 @@ namespace Managers
                 enabled = false;
                 return;
             }
-
-            var shopItemHolderObject = shopCanvasObject.transform.Find("ItemHolder");
-            if (shopItemHolderObject == null) {
-                Debug.LogError("No ShopItemHolder GameObject found in Shop.");
-                enabled = false;
-                return;
-            }
-            var item1Object = shopItemHolderObject.transform.Find("Item1");
-            if (item1Object == null) {
-                Debug.LogError("No Item1 GameObject found in Shop.");
-                enabled = false;
-                return;
-            }
-            item1BuyIcon = item1Object.GetComponentInChildren<Button>();
-            if (item1BuyIcon == null) {
-                Debug.LogError("No Buy Button found in Item1.");
-                enabled = false;
-                return;
-            }
-            var item1IconObject = item1Object.Find("Item1Icon");
-            if (item1IconObject == null) {
-                Debug.LogError("No Item1Icon GameObject found in Item1.");
-                enabled = false;
-                return;
-            }
-            item1IconImage = item1IconObject.GetComponent<Image>();
-            if (item1IconImage == null) {
-                Debug.LogError("No Icon Image found in Item1.");
-                enabled = false;
-                return;
-            }
-            item1PriceText = item1Object.GetComponentInChildren<TextMeshProUGUI>();
-            if (item1PriceText == null) {
-                Debug.LogError("No Price Text found in Item1.");
-                enabled = false;
-                return;
-            }
-
-            var item2Object = shopItemHolderObject.transform.Find("Item2");
-            if (item2Object == null) {
-                Debug.LogError("No Item2 GameObject found in Shop.");
-                enabled = false;
-                return;
-            }
-            item2BuyIcon = item2Object.GetComponentInChildren<Button>();
-            if (item2BuyIcon == null) {
-                Debug.LogError("No Buy Button found in Item2.");
-                enabled = false;
-                return;
-            }
-            var item2IconObject = item2Object.Find("Item2Icon");
-            if (item2IconObject == null) {
-                Debug.LogError("No Item2Icon GameObject found in Item2.");
-                enabled = false;
-                return;
-            }
-            item2IconImage = item2IconObject.GetComponent<Image>();
-            if (item2IconImage == null) {
-                Debug.LogError("No Icon Image found in Item2.");
-                enabled = false;
-                return;
-            }
-            item2PriceText = item2Object.GetComponentInChildren<TextMeshProUGUI>();
-            if (item2PriceText == null) {
-                Debug.LogError("No Price Text found in Item2.");
-                enabled = false;
-                return;
-            }
-            var item3Object = shopItemHolderObject.transform.Find("Item3");
-            if (item3Object == null) {
-                Debug.LogError("No Item3 GameObject found in Shop.");
-                enabled = false;
-                return;
-            }
-            item3BuyIcon = item3Object.GetComponentInChildren<Button>();
-            if (item3BuyIcon == null) {
-                Debug.LogError("No Buy Button found in Item3.");
-                enabled = false;
-                return;
-            }
-            var item3IconObject = item3Object.Find("Item3Icon");
-            if (item3IconObject == null) {
-                Debug.LogError("No Item3Icon GameObject found in Item3.");
-                enabled = false;
-                return;
-            }
-            item3IconImage = item3IconObject.GetComponent<Image>();
-            if (item3IconImage == null) {
-                Debug.LogError("No Icon Image found in Item3.");
-                enabled = false;
-                return;
-            }
-            item3PriceText = item3Object.GetComponentInChildren<TextMeshProUGUI>();
-            if (item3PriceText == null) {
-                Debug.LogError("No Price Text found in Item3.");
-                enabled = false;
-                return;
-            }
-            var leaveShopItemHolderObject = shopCanvasObject.transform.Find("LeaveShopHolder");
-            if (leaveShopItemHolderObject == null) {
-                Debug.LogError("No LeaveShopHolder GameObject found in Shop.");
-                enabled = false;
-                return;
-            }
-            var leaveShopButtonObject = leaveShopItemHolderObject.transform.Find("LeaveShopButton");
-            if (leaveShopButtonObject == null) {
-                Debug.LogError("No LeaveShopButton GameObject found in Shop.");
-                enabled = false;
-                return;
-            }
-            leaveShopButton = leaveShopButtonObject.GetComponent<Toggle>();
-            if (leaveShopButton == null) {
-                Debug.LogError("No LeaveShopButton found in Shop.");
-                enabled = false;
-                return;
-            }
-            leaveShopButtonText = leaveShopButtonObject.GetComponentInChildren<TextMeshProUGUI>();
-            if (leaveShopButtonText == null) {
-                Debug.LogError("No LeaveShopButtonText found in Shop.");
-                enabled = false;
-                return;
-            }
-
-            SetupShopSkipFunction();
-            SetupShopBuyFunctions();
+            
             SetupPauseMenu();
 
             uiCanvasObject.SetActive(true);
             pauseCanvasObject.SetActive(false);
-            shopCanvasObject.SetActive(false);
+            AwakeShopManager();
+        }
         
-        }
-
-
-
-        public void ActivateShop(bool _activate, GameObject _shop = null)
-        {
-            if (shopCanvasObject == null || uiCanvasObject == null) {
-                Debug.LogError("ShopCanvasObject or UICanvasObject is null in UIManager");
-                return;
-            }
-            if (ShopManager.Instance == null) {
-                Debug.LogError("ShopManager instance is null in UIManager");
-                return;
-            }
-            if (_activate) {
-                int playerLevel = RunScoreManager.Instance.GetPlayerLevel();
-                ShopManager.Instance.OpenShop(playerLevel);
-            }
-            if (_activate) {
-                // Reset toggles to off state when activating shop
-                if (leaveShopButton != null) leaveShopButton.isOn = true;
-                if (item1BuyIcon != null) item1BuyIcon.interactable = true;
-                if (item2BuyIcon != null) item2BuyIcon.interactable = true;
-                if (item3BuyIcon != null) item3BuyIcon.interactable = true;
-            }
-            
-            if (_shop)
-                activeShop = _shop;
-            
-            shopCanvasObject.SetActive(_activate);
-            uiCanvasObject.SetActive(!_activate);
-            //Time.timeScale = _activate ? 0.0f : 1.0f;
-        }
 
         public void ResetResumeButton()
         {
@@ -319,79 +141,51 @@ namespace Managers
             });
         }
 
-        private void SetupShopBuyFunctions()
-        {
-            if (item1BuyIcon == null || item2BuyIcon == null || item3BuyIcon == null) {
-                Debug.LogError("One or more item buy buttons are null in UIManager");
-                return;
-            }
-            item1BuyIcon.onClick.AddListener(() => {
-                ShopManager.Instance.BuyItem(1);
-            });
-            item2BuyIcon.onClick.AddListener(() => {
-                ShopManager.Instance.BuyItem(2);
-            });
-            item3BuyIcon.onClick.AddListener(() => {
-                ShopManager.Instance.BuyItem(3);
-            });
-        }
-
         public void SetShopItemCost(int _itemCost, int _itemIndex)
         {
-            if (_itemIndex < 1 || _itemIndex > 3) {
-                Debug.LogError("Invalid item index in SetShopItemCost");
-                return;
-            }
-            switch (_itemIndex) {
-                case 1:
-                    item1PriceText.text = _itemCost.ToString();
-                    break;
-                case 2:
-                    item2PriceText.text = _itemCost.ToString();
-                    break;
-                case 3:
-                    item3PriceText.text = _itemCost.ToString();
-                    break;
-            }
+            // if (_itemIndex < 1 || _itemIndex > 3) {
+            //     Debug.LogError("Invalid item index in SetShopItemCost");
+            //     return;
+            // }
+            // switch (_itemIndex) {
+            //     case 1:
+            //         item1PriceText.text = _itemCost.ToString();
+            //         break;
+            //     case 2:
+            //         item2PriceText.text = _itemCost.ToString();
+            //         break;
+            //     case 3:
+            //         item3PriceText.text = _itemCost.ToString();
+            //         break;
+            // }
         }
 
         public void SetShopItemIcon(Sprite _icon, RuntimeAnimatorController _animator, int _itemIndex)
         {
-            if (_itemIndex < 1 || _itemIndex > 3) {
-                Debug.LogError("Invalid item index in SetShopItemIcon");
-                return;
-            }
-            switch (_itemIndex) {
-                case 1:
-                    item1IconImage.sprite = _icon;
-                    if (item1IconImage.TryGetComponent<Animator>(out var item1IconAnimator)) {
-                        item1IconAnimator.runtimeAnimatorController = _animator;
-                    }
-                    break;
-                case 2:
-                    item2IconImage.sprite = _icon;
-                    if (item2IconImage.TryGetComponent<Animator>(out var item2IconAnimator)) {
-                        item2IconAnimator.runtimeAnimatorController = _animator;
-                    }
-                    break;
-                case 3:
-                    item3IconImage.sprite = _icon;
-                    if (item3IconImage.TryGetComponent<Animator>(out var item3IconAnimator)) {
-                        item3IconAnimator.runtimeAnimatorController = _animator;
-                    }
-                    break;
-            }
-        }
-
-        private void SetupShopSkipFunction()
-        {
-            if (leaveShopButton == null) {
-                Debug.LogError("leaveShopButton is null in UIManager");
-                return;
-            }
-            leaveShopButton.onValueChanged.AddListener(_ => {
-                SKipShop();
-            });
+            // if (_itemIndex < 1 || _itemIndex > 3) {
+            //     Debug.LogError("Invalid item index in SetShopItemIcon");
+            //     return;
+            // }
+            // switch (_itemIndex) {
+            //     case 1:
+            //         item1IconImage.sprite = _icon;
+            //         if (item1IconImage.TryGetComponent<Animator>(out var item1IconAnimator)) {
+            //             item1IconAnimator.runtimeAnimatorController = _animator;
+            //         }
+            //         break;
+            //     case 2:
+            //         item2IconImage.sprite = _icon;
+            //         if (item2IconImage.TryGetComponent<Animator>(out var item2IconAnimator)) {
+            //             item2IconAnimator.runtimeAnimatorController = _animator;
+            //         }
+            //         break;
+            //     case 3:
+            //         item3IconImage.sprite = _icon;
+            //         if (item3IconImage.TryGetComponent<Animator>(out var item3IconAnimator)) {
+            //             item3IconAnimator.runtimeAnimatorController = _animator;
+            //         }
+            //         break;
+            // }
         }
 
         public void ShowPauseMenu(bool _show)
@@ -406,19 +200,13 @@ namespace Managers
             shopCanvasObject.SetActive(false);
         }
 
-        private void SKipShop()
-        {
-            ShopSpawner.Instance.LeaveShop(activeShop);
-            ActivateShop(false);
-        }
-
         public void ToggleShopSkipButton(bool _showSkip)
         {
-            if (leaveShopButton == null) {
-                Debug.LogError("leaveShopButton is null in UIManager");
-                return;
-            }
-            leaveShopButtonText.text = _showSkip ? "Skip" : "Leave";
+            // if (leaveShopButton == null) {
+            //     Debug.LogError("leaveShopButton is null in UIManager");
+            //     return;
+            // }
+            // leaveShopButtonText.text = _showSkip ? "Skip" : "Leave";
         }
 
         public void UpdateHealthUI(float _currentHealth, float _maxHealth)

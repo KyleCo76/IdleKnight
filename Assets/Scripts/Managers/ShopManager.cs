@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Game;
 using Player;
+using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -155,5 +156,6 @@ namespace Managers
         public float Damage;
         public float Speed;
         public int Cost;
+        public string Name;
     }
 }

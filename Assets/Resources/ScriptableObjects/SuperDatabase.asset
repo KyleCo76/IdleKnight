@@ -13,71 +13,105 @@ MonoBehaviour:
   m_Name: SuperDatabase
   m_EditorClassIdentifier: 
   SuperPowerLevels:
-  - Type: 0
+  - Name: 
+    Type: 0
     PowerLevel: 99
     SpeedMultiplier: 0
     Prefab: {fileID: 0}
-  - Type: 1
+    BaseDamage: 0
+  - Name: Large Blob
+    Type: 1
     PowerLevel: 2
     SpeedMultiplier: 1
     Prefab: {fileID: 4070488597618118939, guid: 4e385cfc73a472a46a08c33c35eb7deb, type: 3}
-  - Type: 2
+    BaseDamage: 30
+  - Name: 
+    Type: 2
     PowerLevel: 1
     SpeedMultiplier: 1
     Prefab: {fileID: 5040541656771368860, guid: 9b1be700e6872b9438da9ce2e9da81c7, type: 3}
-  - Type: 3
+    BaseDamage: 20
+  - Name: 
+    Type: 3
     PowerLevel: 5
     SpeedMultiplier: 6
     Prefab: {fileID: 2880610739885013049, guid: 10ec472a16041ee4b85181bb8e15dec7, type: 3}
-  - Type: 4
+    BaseDamage: 0
+  - Name: 
+    Type: 4
     PowerLevel: 3
     SpeedMultiplier: 6
     Prefab: {fileID: 8209676496208518619, guid: 2c1e251b56287ef4097a3af8d2849e9b, type: 3}
-  - Type: 5
+    BaseDamage: 0
+  - Name: 
+    Type: 5
     PowerLevel: 7
     SpeedMultiplier: 4
     Prefab: {fileID: 2661422374702890701, guid: bef691f883f24c64ba5bddfcf3d45b87, type: 3}
-  - Type: 6
+    BaseDamage: 0
+  - Name: 
+    Type: 6
     PowerLevel: 5
     SpeedMultiplier: 4
     Prefab: {fileID: 4373732897414272093, guid: 6f78b59c69c4f8a48a516ad8c4ed3a98, type: 3}
-  - Type: 7
+    BaseDamage: 0
+  - Name: 
+    Type: 7
     PowerLevel: 8
     SpeedMultiplier: 6
     Prefab: {fileID: 6902317477265526146, guid: 00ce8d433b21c89479083e11f9b23d01, type: 3}
-  - Type: 8
+    BaseDamage: 0
+  - Name: 
+    Type: 8
     PowerLevel: 6
     SpeedMultiplier: 6
     Prefab: {fileID: 6092577068655494035, guid: 76990081acd710142950ae97f688ddbb, type: 3}
-  - Type: 9
+    BaseDamage: 0
+  - Name: 
+    Type: 9
     PowerLevel: 2
     SpeedMultiplier: 2
     Prefab: {fileID: 4603567176983631415, guid: b6eb77762e00c704d92585cfd1ba9c25, type: 3}
-  - Type: 10
+    BaseDamage: 0
+  - Name: 
+    Type: 10
     PowerLevel: 1
     SpeedMultiplier: 2
     Prefab: {fileID: 489800762747689296, guid: dbaa92c6b5dccbc42a2533ae49842423, type: 3}
-  - Type: 11
+    BaseDamage: 0
+  - Name: 
+    Type: 11
     PowerLevel: 6
     SpeedMultiplier: 3
     Prefab: {fileID: 6159788189156217184, guid: bdd32ab89f4bd434ca2437ffa36531f1, type: 3}
-  - Type: 12
+    BaseDamage: 0
+  - Name: 
+    Type: 12
     PowerLevel: 4
     SpeedMultiplier: 5
     Prefab: {fileID: 4607749593687739888, guid: 272d6b3a8e00de0419bc7a135d0d4776, type: 3}
-  - Type: 13
+    BaseDamage: 0
+  - Name: 
+    Type: 13
     PowerLevel: 4
     SpeedMultiplier: 3
     Prefab: {fileID: 1885687568239240616, guid: 50d16ab435a7daf4188dff73b1e68f53, type: 3}
-  - Type: 14
+    BaseDamage: 0
+  - Name: 
+    Type: 14
     PowerLevel: 2
     SpeedMultiplier: 3
     Prefab: {fileID: 8782020517923674998, guid: 9c0cc3f8f0228a444ae07a916b71f15b, type: 3}
-  - Type: 15
+    BaseDamage: 0
+  - Name: 
+    Type: 15
     PowerLevel: 10
     SpeedMultiplier: 5
     Prefab: {fileID: 6408147957381547424, guid: 317e3fd4888996141b1e84740aa358d4, type: 3}
-  - Type: 16
+    BaseDamage: 0
+  - Name: 
+    Type: 16
     PowerLevel: 7
     SpeedMultiplier: 6
     Prefab: {fileID: 3845885666697544864, guid: e9a99e0329258d84db46c0b655d2cd74, type: 3}
+    BaseDamage: 0
