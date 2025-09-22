@@ -14,9 +14,21 @@ namespace Managers
         private Slider healthBubble;
         private TextMeshProUGUI healthText;
         private GameObject uiCanvasObject;
-        private GameObject pauseCanvasObject;
+        private GameObject[] mainCanvasObjects;
+        private GameObject settingsCanvasObject;
+        private GameObject exitConfirmationObject;
+        private GameObject levelFailedObject;
+        private GameObject inventoryCanvasObject;
+        private GameObject questCanvasObject;
+        private GameObject skillsCanvasObject;
         private Toggle resumeButton;
         private Toggle quitButton;
+        private Button quitGameButton;
+        private Button floatingResumeButton;
+        private Toggle settingsMenuToggle;
+        private Toggle questMenuToggle;
+        private Toggle inventoryMenuToggle;
+        private Toggle skillsMenuToggle;
 
         private void Awake()
         {
@@ -29,7 +41,62 @@ namespace Managers
             // Don't destroy on load is handled by parent GameManager
 
             uiCanvasObject = GameObject.Find("UI");
+            if (!uiCanvasObject) {
+                Debug.LogError("No UI GameObject found in the scene.");
+                enabled = false;
+                return;
+            }
 
+            mainCanvasObjects = new GameObject[2];
+            var menuBackground = GameObject.Find("MenuBackground");
+            var menuItems = GameObject.Find("MainMenuItems");
+            if (!menuBackground || !menuItems) {
+                Debug.LogError("No MenuBackground or MainMenuMenuItems GameObject found under Canvas.");
+                enabled = false;
+                return;
+            }
+            mainCanvasObjects[0] = menuBackground.gameObject;
+            mainCanvasObjects[1] = menuItems.gameObject;
+
+            SetupMainMenuSelections();
+            
+            exitConfirmationObject = GameObject.Find("ExitConfirmation");
+            if (!exitConfirmationObject) {
+                Debug.LogError("No ExitConfirmation GameObject found in the scene.");
+                enabled = false;
+                return;           
+            }
+            
+            levelFailedObject = GameObject.Find("LevelFailed");
+            if (!levelFailedObject) {
+                Debug.LogError("No LevelFailed GameObject found in the scene.");
+                enabled = false;
+                return;           
+            }
+
+            SetupHealthAndMana();
+            AwakeShopManager();
+            
+            HideAllMenus();
+            uiCanvasObject.SetActive(true);
+        }
+
+
+        public void HideAllMenus()
+        {
+            settingsCanvasObject.SetActive(false);
+            mainCanvasObjects[0].SetActive(false);
+            mainCanvasObjects[1].SetActive(false);
+            levelFailedObject.SetActive(false);
+            exitConfirmationObject.SetActive(false);
+            inventoryCanvasObject.SetActive(false);
+            questCanvasObject.SetActive(false);
+            skillsCanvasObject.SetActive(false);
+            shopCanvasObject.SetActive(false);
+        }
+
+        private void SetupHealthAndMana()
+        {
             var manaBubbleObject = uiCanvasObject.transform.Find("ManaBubble");
             if (manaBubbleObject == null) {
                 Debug.LogError("No ManaBubble GameObject found under Canvas.");
@@ -64,151 +131,169 @@ namespace Managers
             if (healthText == null) {
                 Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
                 enabled = false;
-                return;
             }
 
-            pauseCanvasObject = GameObject.Find("PauseMenu");
-            if (pauseCanvasObject == null) {
-                Debug.LogError("No PauseMenu GameObject found in the scene.");
+        }
+
+        private void SetupMainMenuSelections()
+        {
+            // Get Menu Screens
+            inventoryCanvasObject = GameObject.Find("InventoryMenu");
+            if (!inventoryCanvasObject) {
+                Debug.LogError("No InventoryMenu GameObject found under MainMenuItems.");
                 enabled = false;
                 return;
+            }
+            questCanvasObject = GameObject.Find("QuestsMenu");
+            if (!questCanvasObject) {
+                Debug.LogError("No QuestsMenu GameObject found under MainMenuItems.");
+                enabled = false;
+                return;
+            }
+            skillsCanvasObject = GameObject.Find("SkillsMenu");
+            if (!skillsCanvasObject) {
+                Debug.LogError("No SkillsMenu GameObject found under MainMenuItems.");
+                enabled = false;
+                return;           
             }
 
-            var menuButtonObject = pauseCanvasObject.transform.Find("Menu");
-            if (menuButtonObject == null) {
-                Debug.LogError("No Menu GameObject found in PauseMenu.");
+            settingsCanvasObject = GameObject.Find("SettingsMenu");
+            // Get Menu Buttons
+            var settingsButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleSettings");
+            if (!settingsButtonObject) {
+                Debug.LogError("No PauseMenuToggleSettings GameObject found under MainMenuItems.");
                 enabled = false;
                 return;
             }
-            var holderButtonObject = menuButtonObject.transform.Find("ButtonHolder");
-            if (holderButtonObject == null) {
-                Debug.LogError("No ButtonHolder GameObject found in PauseMenu.");
+            if (!settingsButtonObject.TryGetComponent(out settingsMenuToggle)) {
+                Debug.LogError("No PauseMenuToggleSettings GameObject found under MainMenuItems.");
+                enabled = false;
+                return;           
+            }
+            
+            var questButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleQuests");
+            if (!questButtonObject) {
+                Debug.LogError("No PauseMenuToggleQuests GameObject found under MainMenuItems.");
                 enabled = false;
                 return;
             }
-            var resumeButtonObject = holderButtonObject.Find("ResumeGame");
-            if (resumeButtonObject == null) {
-                Debug.LogError("No ResumeGame GameObject found in PauseMenu.");
-                enabled = false;
-                return;
-            }
-            resumeButton = resumeButtonObject.GetComponent<Toggle>();
-            if (resumeButton == null) {
-                Debug.LogError("No ResumeGame found in PauseMenu.");
-                enabled = false;
-                return;
-            }
-
-            var quitButtonObject = holderButtonObject.transform.Find("QuitGame");
-            if (quitButtonObject == null) {
-                Debug.LogError("No QuitGame GameObject found in PauseMenu.");
-                enabled = false;
-                return;
-            }
-            quitButton = quitButtonObject.GetComponent<Toggle>();
-            if (quitButton == null) {
-                Debug.LogError("No QuitGame found in PauseMenu.");
+            if (!questButtonObject.TryGetComponent(out questMenuToggle)) {
+                Debug.LogError("No PauseMenuToggleQuests GameObject found under MainMenuItems.");
                 enabled = false;
                 return;
             }
             
-            SetupPauseMenu();
+            var inventoryButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleInventory");
+            if (!inventoryButtonObject) {
+                Debug.LogError("No PauseMenuToggleInventory GameObject found under MainMenuItems.");
+                enabled = false;
+                return;
+            }
 
-            uiCanvasObject.SetActive(true);
-            pauseCanvasObject.SetActive(false);
-            AwakeShopManager();
+            if (!inventoryButtonObject.TryGetComponent(out inventoryMenuToggle)) {
+                Debug.LogError("No PauseMenuToggleInventory GameObject found under MainMenuItems.");
+                enabled = false;
+                return;
+            }
+            
+            var skillsButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleSkills");
+            if (!skillsButtonObject) {
+                Debug.LogError("No PauseMenuToggleSkills GameObject found under MainMenuItems.");
+                enabled = false;
+                return;
+            }
+            if (!skillsButtonObject.TryGetComponent(out skillsMenuToggle)) {
+                Debug.LogError("No PauseMenuToggleSkills GameObject found under MainMenuItems.");
+                enabled = false;
+                return;
+            }
+            
+            var quitButtonObject = GameObject.Find("QuitGameButton");
+            if (!quitButtonObject) {
+                Debug.LogError("No QuitGameButton GameObject found in the scene.");
+                enabled = false;
+                return;           
+            }
+            quitGameButton = quitButtonObject.GetComponent<Button>();
+            
+            settingsMenuToggle.onValueChanged.RemoveAllListeners();
+            questMenuToggle.onValueChanged.RemoveAllListeners();
+            inventoryMenuToggle.onValueChanged.RemoveAllListeners();
+            skillsMenuToggle.onValueChanged.RemoveAllListeners();
+            
+            settingsMenuToggle.onValueChanged.AddListener(_isOn => { if (_isOn) ShowSettingsMenu(); });
+            questMenuToggle.onValueChanged.AddListener( _isOn => { if (_isOn) ShowQuestMenu(); });
+            inventoryMenuToggle.onValueChanged.AddListener(_isOn => { if (_isOn) ShowInventoryMenu(); });
+            skillsMenuToggle.onValueChanged.AddListener(_isOn => { if (_isOn) ShowSkillsMenu(); });
+            
+            quitGameButton.onClick.RemoveAllListeners();
+            quitGameButton.onClick.AddListener(GameManager.Instance.QuitGame);
+        }
+
+        private void SetupResumeButton(GameObject _parentObject)
+        {
+            var buttonX = _parentObject.transform.Find("ButtonX");
+            if (!buttonX) {
+                Debug.LogError("No ButtonX GameObject found under Canvas.");
+                return;
+            }
+
+            if (!buttonX.TryGetComponent(out Button button)) {
+                Debug.LogError("No Button component found on ButtonX GameObject.");
+                return;
+            }
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(GameManager.Instance.ResumeGame);
+        }
+
+        private void ShowInventoryMenu()
+        {
+            settingsCanvasObject.SetActive(false);
+            questCanvasObject.SetActive(false);
+            skillsCanvasObject.SetActive(false);
+            inventoryCanvasObject.SetActive(true);
+            mainCanvasObjects[0].SetActive(true);
+            mainCanvasObjects[1].SetActive(true);
+            SetupResumeButton(inventoryCanvasObject);
+        }
+
+        public void ShowSettingsMenu()
+        {
+            settingsCanvasObject.SetActive(true);
+            mainCanvasObjects[0].SetActive(true);
+            mainCanvasObjects[1].SetActive(true);
+            questCanvasObject.SetActive(false);
+            inventoryCanvasObject.SetActive(false);
+            skillsCanvasObject.SetActive(false);
+            SetupResumeButton(settingsCanvasObject);
+            settingsMenuToggle.isOn = true;
+            inventoryMenuToggle.isOn = false;
+            questMenuToggle.isOn = false;
+            skillsMenuToggle.isOn = false;
+        }
+
+        private void ShowSkillsMenu()
+        {
+            settingsCanvasObject.SetActive(false);
+            questCanvasObject.SetActive(false);
+            inventoryCanvasObject.SetActive(false);
+            skillsCanvasObject.SetActive(true);
+            mainCanvasObjects[0].SetActive(true);
+            mainCanvasObjects[1].SetActive(true);
+            SetupResumeButton(skillsCanvasObject);
+        }
+
+        private void ShowQuestMenu()
+        {
+            settingsCanvasObject.SetActive(false);
+            questCanvasObject.SetActive(true);
+            inventoryCanvasObject.SetActive(false);
+            skillsCanvasObject.SetActive(false);
+            mainCanvasObjects[0].SetActive(true);
+            mainCanvasObjects[1].SetActive(true);
+            SetupResumeButton(questCanvasObject);
         }
         
-
-        public void ResetResumeButton()
-        {
-            resumeButton.isOn = true;
-        }
-
-        private void SetupPauseMenu()
-        {
-            if (resumeButton == null || quitButton == null) {
-                Debug.LogError("ResumeButton or QuitButton is null in UIManager");
-                return;
-            }
-            resumeButton.onValueChanged.AddListener(_isOn => {
-                if (!_isOn)
-                    GameManager.Instance.ResumeGame();
-            });
-            quitButton.onValueChanged.AddListener(_isOn => {
-                if (!_isOn)
-                    GameManager.Instance.QuitGame();
-            });
-        }
-
-        public void SetShopItemCost(int _itemCost, int _itemIndex)
-        {
-            // if (_itemIndex < 1 || _itemIndex > 3) {
-            //     Debug.LogError("Invalid item index in SetShopItemCost");
-            //     return;
-            // }
-            // switch (_itemIndex) {
-            //     case 1:
-            //         item1PriceText.text = _itemCost.ToString();
-            //         break;
-            //     case 2:
-            //         item2PriceText.text = _itemCost.ToString();
-            //         break;
-            //     case 3:
-            //         item3PriceText.text = _itemCost.ToString();
-            //         break;
-            // }
-        }
-
-        public void SetShopItemIcon(Sprite _icon, RuntimeAnimatorController _animator, int _itemIndex)
-        {
-            // if (_itemIndex < 1 || _itemIndex > 3) {
-            //     Debug.LogError("Invalid item index in SetShopItemIcon");
-            //     return;
-            // }
-            // switch (_itemIndex) {
-            //     case 1:
-            //         item1IconImage.sprite = _icon;
-            //         if (item1IconImage.TryGetComponent<Animator>(out var item1IconAnimator)) {
-            //             item1IconAnimator.runtimeAnimatorController = _animator;
-            //         }
-            //         break;
-            //     case 2:
-            //         item2IconImage.sprite = _icon;
-            //         if (item2IconImage.TryGetComponent<Animator>(out var item2IconAnimator)) {
-            //             item2IconAnimator.runtimeAnimatorController = _animator;
-            //         }
-            //         break;
-            //     case 3:
-            //         item3IconImage.sprite = _icon;
-            //         if (item3IconImage.TryGetComponent<Animator>(out var item3IconAnimator)) {
-            //             item3IconAnimator.runtimeAnimatorController = _animator;
-            //         }
-            //         break;
-            // }
-        }
-
-        public void ShowPauseMenu(bool _show)
-        {
-            if (pauseCanvasObject == null || uiCanvasObject == null || shopCanvasObject == null) {
-                Debug.LogError("Missing component for ShowPauseMenu");
-                return;
-            }
-            pauseCanvasObject.SetActive(_show);
-            //resumeButton.isOn = _show;
-            uiCanvasObject.SetActive(!_show);
-            shopCanvasObject.SetActive(false);
-        }
-
-        public void ToggleShopSkipButton(bool _showSkip)
-        {
-            // if (leaveShopButton == null) {
-            //     Debug.LogError("leaveShopButton is null in UIManager");
-            //     return;
-            // }
-            // leaveShopButtonText.text = _showSkip ? "Skip" : "Leave";
-        }
-
         public void UpdateHealthUI(float _currentHealth, float _maxHealth)
         {
             if (healthBubble == null) {

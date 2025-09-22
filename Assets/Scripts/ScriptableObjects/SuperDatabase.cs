@@ -10,7 +10,6 @@ namespace ScriptableObjects
         [System.Serializable]
         public struct SuperEntry
         {
-            public string Name;
             public SuperType Type;
             public int PowerLevel;
             public float SpeedMultiplier;
@@ -53,16 +52,6 @@ namespace ScriptableObjects
             }
             Debug.LogWarning($"PowerLevel for SuperType {_superType} not found.");
             return -1;
-        }
-
-        public string GetNameForSuper(SuperType _superType)
-        {
-            foreach (var entry in SuperPowerLevels) {
-                if (entry.Type == _superType) {
-                    return entry.Name;
-                }   
-            }
-            return null;
         }
 
         public GameObject GetPrefabForSuper(SuperType _superType)

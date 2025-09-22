@@ -54,7 +54,7 @@ namespace Managers
 
         private void PauseGame()
         {
-            UIManager.Instance.ShowPauseMenu(true);
+            UIManager.Instance.ShowSettingsMenu();
             IsPaused = true;
             OnGamePaused?.Invoke();
             Time.timeScale = 0.0f;
@@ -81,7 +81,7 @@ namespace Managers
         /// duration is fixed and cannot be customized through this method.</remarks>
         public void ResumeGame()
         {
-            UIManager.Instance.ResetResumeButton();
+            //UIManager.Instance.ResetResumeButton();
             StartCoroutine(ResumeDelay(0.5f));
             OnGameResumed?.Invoke();
         }
@@ -94,7 +94,7 @@ namespace Managers
         private IEnumerator ResumeDelay(float _delayTime)
         {
             yield return new WaitForSecondsRealtime(_delayTime);
-            UIManager.Instance.ShowPauseMenu(false);
+            UIManager.Instance.HideAllMenus();
             IsPaused = false;
             Time.timeScale = 1.0f;
         }

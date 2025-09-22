@@ -9,14 +9,23 @@ namespace ScriptableObjects
     [CreateAssetMenu(fileName = "ShopItemDatabase", menuName = "Scriptable Objects/ShopItemDatabase")]
     public class ShopItemDatabase : ScriptableObject
     {
+        private SuperDatabase superDatabase;
+
+
+        private void OnEnable()
+        {
+            superDatabase = Resources.Load<SuperDatabase>("ScriptableObjects/SuperDatabase");
+            if (!superDatabase) {
+                Debug.LogError("No SuperDatabase found in Resources/ScriptableObjects.");
+            }
+        }
+
         [Serializable]
         public struct ShopItemEntry : IEquatable<ShopItemEntry>
         {
             public SuperType Id;
             public string DisplayName;
-            public Sprite Icon;
             public int Cost;
-            public int LevelRequirement;
         
             public bool Equals(ShopItemEntry _otherEntry)
             {
@@ -36,14 +45,15 @@ namespace ScriptableObjects
     
         public ShopItemEntry GetRandomShopItem(int _playerLevel)
         {
-            if (ShopItems.Length == 0)
+            if (ShopItems.Length == 0 || !superDatabase)
                 return new ShopItemEntry();
         
             var possiblePrefabs = new Dictionary<ShopItemEntry, int>();
             var totalWeight = 0;
             foreach (var entry in ShopItems) {
-                if (entry.LevelRequirement <= _playerLevel) {
-                    var weight = 1 + entry.LevelRequirement;
+                var levelRequirement = superDatabase.GetPowerLevelForSuper(entry.Id);
+                if (levelRequirement <= _playerLevel) {
+                    var weight = 1 + levelRequirement;
                     totalWeight += weight;
                     possiblePrefabs.Add(entry, weight);
                 }

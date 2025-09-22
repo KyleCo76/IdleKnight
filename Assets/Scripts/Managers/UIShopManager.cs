@@ -38,7 +38,7 @@ namespace Managers
                 Debug.LogError("Player not found or missing PlayerController component.");
                 return;
             }
-            shopCanvasObject = GameObject.Find("Shop");
+            shopCanvasObject = GameObject.Find("ShopMenu");
             if (!shopCanvasObject) {
                 Debug.LogError("No Shop GameObject found in scene.");
                 return;           
@@ -104,7 +104,6 @@ namespace Managers
             }
             
             SetupShopUI();
-            DisplayShopItems();
         }
         
         
@@ -174,6 +173,7 @@ namespace Managers
         {
             leaveShopButton.onClick.RemoveAllListeners();
             leaveShopButton.onClick.AddListener(ExitShop);
+            shopCanvasObject.SetActive(false);
         }
 
         private void ExitShop()
