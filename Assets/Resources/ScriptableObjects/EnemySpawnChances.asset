@@ -67,3 +67,9 @@ MonoBehaviour:
     DifficultyMultiplier: 0.5
     MaxSpawn: 1
     MaxSpawnCount: 4
+  - EnemyPrefab: {fileID: 449621982826032650, guid: 41c8e857158ec2541b88b36ab83811c9, type: 3}
+    LevelRequirement: 4
+    SpawnChance: 0.2
+    DifficultyMultiplier: 0.8
+    MaxSpawn: 1
+    MaxSpawnCount: 3

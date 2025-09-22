@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -57,5 +58,14 @@ public class EnemySpawnChances : ScriptableObject
             }
         }
         return null;
+    }
+
+    public Dictionary<GameObject, int> GetAllEnemyPrefabsWithCount()
+    {
+        Dictionary<GameObject, int> enemies = new();
+        foreach (var enemy in enemySpawnChances) {
+            enemies.Add(enemy.EnemyPrefab, enemy.MaxSpawnCount);
+        }
+        return enemies;
     }
 }

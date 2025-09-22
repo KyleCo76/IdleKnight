@@ -114,7 +114,7 @@ namespace Game
         private readonly Transform poolRoot;
         private readonly int initialSize;
         private readonly int globalMaxPrefabAmount;
-        private readonly Dictionary<GameObject, int> maxSizePerPrefab;
+        private readonly Dictionary<GameObject, int> maxSizePerPrefab = new();
         private readonly Dictionary<GameObject, Queue<GameObject>> pools = new();
         private readonly Dictionary<GameObject, int> liveCounts = new();
         
