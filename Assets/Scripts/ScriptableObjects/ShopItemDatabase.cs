@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace ScriptableObjects
@@ -21,12 +23,41 @@ namespace ScriptableObjects
         }
 
         [Serializable]
-        public struct ShopItemEntry : IEquatable<ShopItemEntry>
+        public struct ShopSuperEntry : IEquatable<ShopSuperEntry>
         {
             public SuperType Id;
             public string DisplayName;
             public int Cost;
         
+            public bool Equals(ShopSuperEntry _otherEntry)
+            {
+                return Id == _otherEntry.Id;
+            }
+            public override bool Equals(object _obj)
+            {
+                return _obj is ShopSuperEntry other && Equals(other);
+            }
+            public override int GetHashCode()
+            {
+                return (int) Id;
+            }
+        }
+
+        [Serializable]
+        public struct ShopItemEntry : IEquatable<ShopItemEntry>
+        {
+            public PowerUpType Id;
+            public string DisplayName;
+            public int Cost;
+            public float MultiplierMax;
+            public float AmountMax;
+            public Sprite Sprite;
+            public bool UseTickIcon;
+            public int LevelRequirement;
+            public float SpawnWeight;
+            
+            private float setItemMultiplier;
+            private float setItemAmount;
             public bool Equals(ShopItemEntry _otherEntry)
             {
                 return Id == _otherEntry.Id;
@@ -35,22 +66,34 @@ namespace ScriptableObjects
             {
                 return _obj is ShopItemEntry other && Equals(other);
             }
+
             public override int GetHashCode()
             {
                 return (int) Id;
             }
+            
+            public (float, float) GetItemMultiplierAndAmount()
+            {
+                return (setItemMultiplier, setItemAmount);
+            }
+            public void SetItemMultiplierAndAmount(float _multiplier, float _amount)
+            {
+                setItemMultiplier = _multiplier;
+                setItemAmount = _amount;
+            }
         }
     
+        [FormerlySerializedAs("ShopItems")] public ShopSuperEntry[] ShopSupers;
         public ShopItemEntry[] ShopItems;
     
-        public ShopItemEntry GetRandomShopItem(int _playerLevel)
+        public ShopSuperEntry GetRandomShopSuper(int _playerLevel)
         {
-            if (ShopItems.Length == 0 || !superDatabase)
-                return new ShopItemEntry();
+            if (ShopSupers.Length == 0 || !superDatabase)
+                return new ShopSuperEntry();
         
-            var possiblePrefabs = new Dictionary<ShopItemEntry, int>();
+            var possiblePrefabs = new Dictionary<ShopSuperEntry, float>();
             var totalWeight = 0;
-            foreach (var entry in ShopItems) {
+            foreach (var entry in ShopSupers) {
                 var levelRequirement = superDatabase.GetPowerLevelForSuper(entry.Id);
                 if (levelRequirement <= _playerLevel) {
                     var weight = 1 + levelRequirement;
@@ -58,21 +101,55 @@ namespace ScriptableObjects
                     possiblePrefabs.Add(entry, weight);
                 }
             }
-            var roll = Random.Range(0f, 1f);
-            var bias = Mathf.Pow(roll, 2);
-            roll = 1 + bias * (totalWeight - 1);
-        
+
+            if (possiblePrefabs.Count == 0) {
+                Debug.LogError("No supers found for player level.");
+                return new ShopSuperEntry();
+            } else if (possiblePrefabs.Count == 1) {
+                return possiblePrefabs.First().Key;
+            }
+            
+            return GetWeightedEntry(possiblePrefabs, totalWeight);
+        }
+
+        public ShopItemEntry GetRandomShopItem(int _playerLevel)
+        {
+            if (ShopItems.Length == 0)
+                return new ShopItemEntry();
+            
+            var possibleItems = new Dictionary<ShopItemEntry, float>();
+            var totalWeight = 0f;
+            foreach (var item in ShopItems) {
+                var levelRequirement = item.LevelRequirement;
+                if (levelRequirement <= _playerLevel) {
+                    totalWeight += item.SpawnWeight;
+                    possibleItems.Add(item, item.SpawnWeight);
+                }
+            }
+
+            if (possibleItems.Count == 0) {
+                Debug.LogError("No items found for player level.");
+                return new ShopItemEntry();
+            } else if (possibleItems.Count == 1) {
+                return possibleItems.First().Key;
+            }
+            
+            return GetWeightedEntry(possibleItems, totalWeight);
+        }
+
+        private static T GetWeightedEntry<T>(Dictionary<T, float> _entries, float _totalWeight)
+        {
+            var roll = Random.Range(0f, _totalWeight);
             var cumulativeWeight = 0f;
-            foreach (var entry in possiblePrefabs) {
+            foreach (var entry in _entries)
+            {
                 cumulativeWeight += entry.Value;
                 if (roll <= cumulativeWeight) {
                     return entry.Key;
                 }
             }
-        
-            // Fallback to a random item if no item is found
-            Debug.LogWarning("No item found for player level. Falling back to random item.");
-            return ShopItems[Random.Range(0, ShopItems.Length)];
+
+            return _entries.First().Key;
         }
     }
 }

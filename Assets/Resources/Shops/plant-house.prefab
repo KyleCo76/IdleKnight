@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7650973843048995652}
   - component: {fileID: 1533219244807825250}
   - component: {fileID: 2808847196739657604}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: plant-house
   m_TagString: Shop
   m_Icon: {fileID: 0}

@@ -1,6 +1,6 @@
 using System.Collections;
 using Game;
-using TMPro;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Managers
@@ -15,14 +15,15 @@ namespace Managers
         public delegate void PlayerLeveledUpEventHandler(int _newLevel);
         public event PlayerLeveledUpEventHandler OnPlayerLeveledUp;
 
-        [SerializeField, Tooltip("The current score of the player")]
-        private int runScore;
-        public int CurrentScore => runScore;
+        [Tooltip("The current score of the player")]
+        public int RunScore { get; private set; }
+        public int PowerUpScore { get; private set; }
+        public int GemsCount { get; private set; }
+
         private int playerLevel = 1;
         private int lastScoreLevelThreshold = 50;
 
         // Cached Components
-        private TextMeshProUGUI scoreText;
         private PlayerLevels playerLevels;
 
 
@@ -34,14 +35,6 @@ namespace Managers
             }
             Instance = this;
             // DontDestroyOnLoad is handled by parent GameManager
-
-            scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
-            if (scoreText == null) {
-                Debug.LogError("ScoreText UI element not found in the scene.");
-                enabled = false;
-                return;
-            }
-            scoreText.text = Mathf.FloorToInt(runScore).ToString();
 
             playerLevels = Resources.Load<PlayerLevels>("ScriptableObjects/PlayerLevels");
             if (playerLevels == null) {
@@ -61,9 +54,9 @@ namespace Managers
 
         private void Update()
         {
-            if (runScore >= lastScoreLevelThreshold + (lastScoreLevelThreshold * playerLevels.GetLevelMultiplier(playerLevel)))
+            if (RunScore >= lastScoreLevelThreshold + (lastScoreLevelThreshold * playerLevels.GetLevelMultiplier(playerLevel)))
             {
-                lastScoreLevelThreshold = runScore;
+                lastScoreLevelThreshold = RunScore;
                 playerLevel++;
                 OnPlayerLeveledUp?.Invoke(playerLevel);
                 Debug.Log($"Player leveled up to {playerLevel}!");
@@ -72,9 +65,16 @@ namespace Managers
 
         public void AddScore(int _points)
         {
-            runScore += _points;
-            runScore = Mathf.Max(0, runScore);
-            scoreText.text = Mathf.FloorToInt(runScore).ToString();
+            RunScore += _points;
+            RunScore = Mathf.Max(0, RunScore);
+            UIManager.Instance.UpdateScoreText();
+        }
+
+        public void AddPowerUpScore(int _points)
+        {
+            PowerUpScore += _points;
+            PowerUpScore = Mathf.Max(0, PowerUpScore);
+            UIManager.Instance.UpdatePowerUpScoreText();
         }
 
         public int GetPlayerLevel()

@@ -8,19 +8,22 @@ namespace Managers
     {
         [FoldoutGroup("Spawning"), SerializeField, Tooltip("Time interval between shop spawns")]
         private float spawnInterval = 500f;
-        [FoldoutGroup("Spawning"), SerializeField, Tooltip("Maximum number of shops allowed in the scene at once")]
-        private int maxShops = 1;
         [FoldoutGroup("Spawning"), SerializeField, Tooltip("Length of time the shop will remain on the map after being spawned")]
         private float timeToLive = 300f;
+        [FoldoutGroup("Spawning"), SerializeField, Tooltip("Layer to check for overlaps")]
+        private LayerMask shopLayer;
 
         [FoldoutGroup("Spawn Distance"), SerializeField, Tooltip("Minimum distance from player to spawn shops")]
         private float spawnRangeMin = 15f;
         [FoldoutGroup("Spawn Distance"), SerializeField, Tooltip("Maximum distance from player to spawn shops")]
         private float spawnRangeMax = 25f;
+        [FoldoutGroup("Spawn Distance"), SerializeField, Tooltip("Minimum distance from other shops to spawn shops")]
+        private float shopSpawnOffset = 10f;
 
         
         public static ShopSpawner Instance;
         
+        private const int MaxPlacementAttempts = 10;
         private GameObject[] shopPrefabs;
         private float spawnTimer;
         private readonly List<TrackedShop> activeShops = new();
@@ -85,34 +88,60 @@ namespace Managers
             }
         }
         
-        private Vector2 GetRandomSpawnPosition()
+        private Vector2 RandomPointInAnnulus(Vector2 _center, float _innerRadius, float _outerRadius)
         {
-            // Spawn at a random position outside the player's area
-            Vector2 spawningRange = new(Random.Range(spawnRangeMin, spawnRangeMax), Random.Range(spawnRangeMin, spawnRangeMax));
-            if (Random.value < 0.5f) {
-                spawningRange.x *= -1;
+            if (_outerRadius < _innerRadius) (_innerRadius, _outerRadius) = (_outerRadius, _innerRadius);
+            float angle = Random.Range(0f, 2f * Mathf.PI);
+            float u = Random.value;
+            float r = Mathf.Sqrt(Mathf.Lerp(_innerRadius * _innerRadius, _outerRadius * _outerRadius, u));
+            return _center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r;
+        }
+
+        private bool IsShopTooClose(Vector2 _position)
+        {
+            // Overlap any shop colliders within buffer distance
+            return Physics2D.OverlapCircle(_position, shopSpawnOffset, shopLayer) != null;
+        }
+
+        private bool TryGetValidShopPosition(out Vector3 _position)
+        {
+            _position = Vector3.zero;
+            if (!playerTransform) return false;
+
+            var center = (Vector2)playerTransform.position;
+
+            for (int i = 0; i < MaxPlacementAttempts; i++)
+            {
+                Vector2 candidate = RandomPointInAnnulus(center, spawnRangeMin, spawnRangeMax);
+
+                // If there is a shop within shopSpawnOffset, reject and retry
+                if (IsShopTooClose(candidate)) continue;
+
+                _position = new Vector3(candidate.x, candidate.y, 0f);
+                return true;
             }
-            if (Random.value < 0.5f) {
-                spawningRange.y *= -1;
-            }
-            return spawningRange;
+            return false;
         }
 
         private void SpawnShop()
         {
-            if (shopPrefabs.Length == 0 || activeShops.Count >= maxShops)
-                return;
+            if (shopPrefabs[0] == null || playerTransform == null) return;
 
-            int randomIndex = Random.Range(0, shopPrefabs.Length);
-            GameObject shop = Instantiate(shopPrefabs[randomIndex]);
-            shop.transform.position = (Vector2)playerTransform.position + GetRandomSpawnPosition();
-            activeShops.Add(new TrackedShop { Shop = shop, TimeToLive = timeToLive });
+            if (!TryGetValidShopPosition(out var spawnPos))
+            {
+                // Couldn't find a valid spot this frame; skip spawn to avoid overlaps
+                return;
+            }
+
+            var shop = Instantiate(shopPrefabs[0], spawnPos, Quaternion.identity);
+            activeShops.Add(new TrackedShop{ Shop = shop, SpawnPosition = spawnPos, TimeToLive = timeToLive});
         }
     }
 
     public struct TrackedShop : System.IEquatable<TrackedShop>
     {
         public GameObject Shop;
+        public Vector2 SpawnPosition;
         public float TimeToLive;
         
         public bool Equals(TrackedShop _other)

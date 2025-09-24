@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Game
 {
+    [System.Serializable]
     public class PowerUpData
     {
         public PowerUpType Type { get; private set; }

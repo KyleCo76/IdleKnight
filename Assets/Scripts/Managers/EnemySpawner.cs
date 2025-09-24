@@ -3,6 +3,7 @@
 
 using System.Collections;
 using Game;
+using ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -120,7 +121,7 @@ namespace Managers
 
         private void HandlePlayerLevelUp(int _newLevel)
         {
-            spawnInterval = Mathf.Max(0.25f, spawnInterval - 0.5f * (_newLevel - 1));
+            spawnInterval = Mathf.Max(0.1f, spawnInterval - 0.5f * (_newLevel - 1));
             currentLevel = _newLevel;
         }
 

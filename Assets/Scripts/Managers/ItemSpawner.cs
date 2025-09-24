@@ -1,4 +1,5 @@
 using Game;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Managers

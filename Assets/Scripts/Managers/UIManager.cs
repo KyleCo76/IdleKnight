@@ -9,12 +9,18 @@ namespace Managers
         public static UIManager Instance { get; private set; }
 
         // Cached Components
-        private Slider manaBubble;
         private TextMeshProUGUI manaText;
-        private Slider healthBubble;
         private TextMeshProUGUI healthText;
-        private GameObject uiCanvasObject;
+        private TextMeshProUGUI scoreText;
+        private TextMeshProUGUI powerUpText;
+        private TextMeshProUGUI gemsText;
+        private TextMeshProUGUI pauseScoreText;
+        private TextMeshProUGUI pausePowerUpText;
+        private TextMeshProUGUI pauseGemsText;
+        private Slider manaBubble;
+        private Slider healthBubble;
         private GameObject[] mainCanvasObjects;
+        private GameObject uiCanvasObject;
         private GameObject settingsCanvasObject;
         private GameObject exitConfirmationObject;
         private GameObject levelFailedObject;
@@ -23,12 +29,12 @@ namespace Managers
         private GameObject skillsCanvasObject;
         private Toggle resumeButton;
         private Toggle quitButton;
-        private Button quitGameButton;
-        private Button floatingResumeButton;
         private Toggle settingsMenuToggle;
         private Toggle questMenuToggle;
         private Toggle inventoryMenuToggle;
         private Toggle skillsMenuToggle;
+        private Button quitGameButton;
+        private Button floatingResumeButton;
 
         private void Awake()
         {
@@ -74,13 +80,14 @@ namespace Managers
                 return;           
             }
 
+            SetupScoreTexts();
             SetupHealthAndMana();
             AwakeShopManager();
             
             HideAllMenus();
             uiCanvasObject.SetActive(true);
         }
-
+        
 
         public void HideAllMenus()
         {
@@ -246,6 +253,47 @@ namespace Managers
             button.onClick.AddListener(GameManager.Instance.ResumeGame);
         }
 
+        private void SetupScoreTexts()
+        {
+            scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+            if (scoreText == null) {
+                Debug.LogError("ScoreText UI element not found in the scene.");
+                enabled = false;
+                return;
+            }
+            scoreText.text = Mathf.FloorToInt(RunScoreManager.Instance.RunScore).ToString();
+            
+            powerUpText = GameObject.Find("PowerUpText").GetComponent<TextMeshProUGUI>();
+            if (!powerUpText) {
+                Debug.LogError("PowerUpText UI element not found in the scene.");
+                enabled = false;
+                return;
+            }
+            powerUpText.text = "0";
+            
+            gemsText = GameObject.Find("GemsText").GetComponent<TextMeshProUGUI>();
+            if (!gemsText) {
+                Debug.LogError("GemsText UI element not found in the scene.");
+                enabled = false;
+                return;
+            }
+            gemsText.text = "0";
+            
+            pauseScoreText = GameObject.Find("PauseScoreText").GetComponent<TextMeshProUGUI>();
+            if (!pauseScoreText) {
+                Debug.LogError("PauseScoreText UI element not found in the scene.");
+                enabled = false;
+            }
+            pausePowerUpText = GameObject.Find("PausePowerUpText").GetComponent<TextMeshProUGUI>();
+            if (!pausePowerUpText) {
+                Debug.LogError("PausePowerUpText UI element not found in the scene.");
+            }
+            pauseGemsText = GameObject.Find("PauseGemsText").GetComponent<TextMeshProUGUI>();
+            if (!pauseGemsText) {
+                Debug.LogError("PauseGemsText UI element not found in the scene.");
+            }
+        }
+        
         private void ShowInventoryMenu()
         {
             settingsCanvasObject.SetActive(false);
@@ -270,6 +318,11 @@ namespace Managers
             inventoryMenuToggle.isOn = false;
             questMenuToggle.isOn = false;
             skillsMenuToggle.isOn = false;
+            shopCanvasObject.SetActive(false);
+            isShopOpen = false;
+            pauseScoreText.text = (RunScoreManager.Instance.RunScore).ToString();
+            pausePowerUpText.text = (RunScoreManager.Instance.PowerUpScore).ToString();
+            pauseGemsText.text = (RunScoreManager.Instance.GemsCount).ToString();
         }
 
         private void ShowSkillsMenu()
@@ -296,7 +349,7 @@ namespace Managers
         
         public void UpdateHealthUI(float _currentHealth, float _maxHealth)
         {
-            if (healthBubble == null) {
+            if (!healthBubble) {
                 Debug.LogError("healthBubble is null in UIManager");
                 return;
             }
@@ -306,12 +359,30 @@ namespace Managers
         }
         public void UpdateManaUI(float _currentMana, float _maxMana)
         {
-            if (manaBubble == null) {
+            if (!manaBubble) {
                 Debug.LogError("manaBubble is null in UIManager");
                 return;
             }
             manaBubble.value = Mathf.Clamp01(_currentMana / _maxMana);
             manaText.text = $"{_currentMana}/{_maxMana}";
+        }
+
+        public void UpdateScoreText(int _score = -1)
+        {
+            if (_score >= 0) {
+                scoreText.text = _score.ToString();
+                return;
+            }
+            scoreText.text = Mathf.FloorToInt(RunScoreManager.Instance.RunScore).ToString();
+        }
+
+        public void UpdatePowerUpScoreText(int _score = -1)
+        {
+            if (_score >= 0) {
+                powerUpText.text = _score.ToString();
+                return;
+            }
+            powerUpText.text = RunScoreManager.Instance.PowerUpScore.ToString();
         }
     }
 }

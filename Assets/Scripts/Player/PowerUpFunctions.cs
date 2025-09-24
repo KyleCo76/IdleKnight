@@ -11,7 +11,11 @@ namespace Player
         
         public void ActivatePowerUp(PowerUpData _powerUp)
         {
-            powerUpCount++;
+            if (_powerUp.Duration <= 0)
+                RunScoreManager.Instance.AddPowerUpScore(2);
+            else
+                RunScoreManager.Instance.AddPowerUpScore(1);
+            
             switch (_powerUp.Type)
             {
                 case PowerUpType.Invincibility:

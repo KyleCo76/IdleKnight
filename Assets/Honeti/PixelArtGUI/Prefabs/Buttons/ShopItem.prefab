@@ -216,10 +216,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 7531340494043126855}
+  currencyIcon: {fileID: 129712232305518966}
   icon: {fileID: 1539469912801631806}
   nameText: {fileID: 6573419087477515710}
   priceText: {fileID: 7570161241476425362}
-  Item: {fileID: 0}
+  badge: {fileID: 7179247313082946724}
+  badgeText: {fileID: 2879078148532127418}
+  Super:
+    Id: 0
+    DisplayName: 
+    Cost: 0
+  Item:
+    Id: 0
+    DisplayName: 
+    Cost: 0
+    MultiplierMax: 0
+    AmountMax: 0
+    Sprite: {fileID: 0}
+    UseTickIcon: 0
+    LevelRequirement: 0
+    SpawnWeight: 0
+  silverIcon: {fileID: 21300000, guid: 80d18985e1ff7164a8a3fa44e6202fc1, type: 3}
 --- !u!114 &1174649497527158203
 MonoBehaviour:
   m_ObjectHideFlags: 0

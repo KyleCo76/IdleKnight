@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 276f58a9acae2424ba2a707919fea8b5
+guid: 12087a146cedb18478aee70723848dec
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,7 +46,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 8
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,10 +106,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 205222
-  packageName: Pixel Art Full GUI / UI Kit + 151 icons!
-  packageVersion: 1.2.1
-  assetPath: Assets/Honeti/PixelArtGUI/Textures/Icons/32/Potion01Outlined.png
-  uploadId: 728182
