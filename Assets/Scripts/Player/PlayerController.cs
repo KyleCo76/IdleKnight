@@ -39,6 +39,43 @@ namespace Player
         private float currentMovementSpeed;
         private float currentSprintSpeedMultiplier;
 
+        // Public getters for player stats
+        public float BaseAttackSpeed { get; private set; }
+        public float AttackSpeedBuff { get; private set; }
+        public float AttackSpeedBuffTemp { get; private set; }
+        
+        public float BaseRangedDamage { get; private set; }
+        public float RangedDamageBuff { get; private set; }
+        public float RangedDamageBuffTemp { get; private set; }
+        
+        public float BaseMeleeDamage { get; private set; }
+        public float MeleeDamageBuff { get; private set; }
+        public float MeleeDamageBuffTemp { get; private set; }
+        
+        public float BaseSpeed => movementSpeed;
+        public float SpeedBuff { get; private set; }
+        public float SpeedBuffTemp { get; private set; }
+        
+        public float BaseAuraDamage { get; private set; }
+        public float AuraDamageBuff { get; private set; }
+        public float AuraDamageBuffTemp { get; private set; }
+        
+        public float BaseAuraDamageInterval { get; private set; }
+        public float AuraDamageIntervalBuff { get; private set; }
+        public float AuraDamageIntervalBuffTemp { get; private set; }
+        
+        public float BaseAuraRange { get; private set; }
+        public float AuraRangeBuff { get; private set; }
+        public float AuraRangeBuffTemp { get; private set; }
+        
+        public float BaseSuperDamage => superDamage;
+        public float SuperDamageBuff { get; private set; }
+        public float SuperDamageBuffTemp { get; private set; }
+        
+        public float BaseSuperCooldown => superCooldown;
+        public float SuperCooldownBuff { get; private set; }
+        public float SuperCooldownBuffTemp { get; private set; }
+        
 
         // Attack type variables
         private bool attackTripleAttack;

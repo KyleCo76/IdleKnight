@@ -15,23 +15,176 @@ MonoBehaviour:
   ShopSupers:
   - Id: 1
     DisplayName: Large Blob
-    Cost: 120
+    Cost: 45
   - Id: 2
     DisplayName: Small Blob
-    Cost: 60
+    Cost: 30
   - Id: 3
     DisplayName: Large Electricity
-    Cost: 240
+    Cost: 100
   - Id: 4
     DisplayName: Small Electricty
+    Cost: 60
+  - Id: 5
+    DisplayName: Large Energy
+    Cost: 140
+  - Id: 6
+    DisplayName: Small Energy
+    Cost: 75
+  - Id: 7
+    DisplayName: Large Fireball
     Cost: 180
+  - Id: 8
+    DisplayName: Small Fireball
+    Cost: 155
+  - Id: 9
+    DisplayName: Large Laser
+    Cost: 20
+  - Id: 10
+    DisplayName: Small Laser
+    Cost: 10
+  - Id: 11
+    DisplayName: Large Magic Missle
+    Cost: 120
+  - Id: 12
+    DisplayName: Small Magic Missle
+    Cost: 80
+  - Id: 13
+    DisplayName: Large Rock
+    Cost: 65
+  - Id: 14
+    DisplayName: Small Rock
+    Cost: 50
+  - Id: 15
+    DisplayName: Large Slash
+    Cost: 200
+  - Id: 16
+    DisplayName: Small Slash
+    Cost: 170
   ShopItems:
   - Id: 4
     DisplayName: Attack Speed Boost
-    Cost: 120
-    MultiplierMax: 1.2
+    Cost: 40
+    MultiplierMax: 1.4
     AmountMax: 0
     Sprite: {fileID: 21300000, guid: 6e3aa9da91b4b0949a1deb33a2fb68fc, type: 3}
     UseTickIcon: 1
     LevelRequirement: 1
-    SpawnWeight: 0
+    SpawnWeight: 1
+  - Id: 5
+    DisplayName: Range Damage Boost
+    Cost: 8
+    MultiplierMax: 1.3
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 6e3aa9da91b4b0949a1deb33a2fb68fc, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 6
+    DisplayName: Melee Damage Boost
+    Cost: 5
+    MultiplierMax: 1.3
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 3b379c106eee34349b2d8c3d57720ad5, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 7
+    DisplayName: Health Regen Rate
+    Cost: 10
+    MultiplierMax: 1.3
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 34a9425ab5f6c274abaf231901d5f088, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 8
+    DisplayName: Health Regen Amount
+    Cost: 10
+    MultiplierMax: 1.3
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 34a9425ab5f6c274abaf231901d5f088, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 11
+    DisplayName: Mana Regen Rate
+    Cost: 12
+    MultiplierMax: 1.3
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 6454958f578fdfe4c94259efcaed7747, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 12
+    DisplayName: Mana Regen Amount
+    Cost: 10
+    MultiplierMax: 1.3
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 6454958f578fdfe4c94259efcaed7747, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 14
+    DisplayName: Max Mana Buff
+    Cost: 18
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 0083c0a8095636e4d8ed8d97a4eca201, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 15
+    DisplayName: Speed Boost
+    Cost: 11
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 2c4288dff3e04eb41b45986ba19de367, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 16
+    DisplayName: Aura Tick Speed
+    Cost: 20
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 075fcaeceb49d63489581502a8c03251, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 17
+    DisplayName: Aura Range Buff
+    Cost: 25
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: e510d049a19303e40aaca72ed7729ce0, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 18
+    DisplayName: Aura Damage Buff
+    Cost: 25
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: d947e2cefa8aa7e4bbef65e0708ef66e, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 19
+    DisplayName: Super Cooldown Reduction
+    Cost: 30
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 9ad21647b3eeb3a459aa48407278d302, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2
+  - Id: 20
+    DisplayName: Super Damagge Buff
+    Cost: 20
+    MultiplierMax: 1.2
+    AmountMax: 0
+    Sprite: {fileID: 21300000, guid: 9ad21647b3eeb3a459aa48407278d302, type: 3}
+    UseTickIcon: 0
+    LevelRequirement: 1
+    SpawnWeight: 2

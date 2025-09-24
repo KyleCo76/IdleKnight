@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Game;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +22,7 @@ namespace Managers
         private TextMeshProUGUI pauseGemsText;
         private Slider manaBubble;
         private Slider healthBubble;
+        private GameObject statsParent;
         private GameObject[] mainCanvasObjects;
         private GameObject uiCanvasObject;
         private GameObject settingsCanvasObject;
@@ -35,6 +39,9 @@ namespace Managers
         private Toggle skillsMenuToggle;
         private Button quitGameButton;
         private Button floatingResumeButton;
+        
+        // Stats Panel Components
+        private readonly List<(TextMeshProUGUI[], PowerUpType)> stats = new();
 
         private void Awake()
         {
@@ -81,13 +88,99 @@ namespace Managers
             }
 
             SetupScoreTexts();
+            FindStatsScreen();
             SetupHealthAndMana();
             AwakeShopManager();
             
             HideAllMenus();
             uiCanvasObject.SetActive(true);
         }
-        
+
+
+        private void FindStatsScreen()
+        {
+            statsParent = GameObject.Find("StatsPanel");
+            if (!statsParent) {
+                Debug.LogError("No StatsPanel GameObject found in the scene.");
+                return;
+            }
+            
+            for (int i = 0; i < statsParent.transform.childCount; i++) {
+                var child = statsParent.transform.GetChild(i);
+                var baseParent = child.transform.Find("BaseScore");
+                if (!baseParent) {
+                    Debug.LogError("No BaseScore GameObject found under StatsPanel.");
+                    return;
+                }
+                var baseText = baseParent.GetComponentInChildren<TextMeshProUGUI>();
+                if (!baseText) {
+                    Debug.LogError("No TextMeshProUGUI component found on BaseScore GameObject.");
+                    return;
+                }
+                var buffParent = child.transform.Find("BuffScore");
+                if (!buffParent) {
+                    Debug.LogError("No BuffScore GameObject found under StatsPanel.");
+                }
+                var buffText = buffParent.GetComponentInChildren<TextMeshProUGUI>();
+                if (!buffText) {
+                    Debug.LogError("No TextMeshProUGUI component found on BuffScore GameObject.");
+                }
+                var tempParent = child.transform.Find("TempScore");
+                if (!tempParent) {
+                    Debug.LogError("No TempScore GameObject found under StatsPanel.");
+                    return;
+                }
+                var tempText = tempParent.GetComponentInChildren<TextMeshProUGUI>();
+                if (!tempText) {
+                    Debug.LogError("No TextMeshProUGUI component found on TempScore GameObject.");
+                    return;
+                }
+                
+                PowerUpType type;
+                switch (child.name) {
+                    case "AttackSpeed":
+                        type = PowerUpType.AttackSpeedBoost;
+                        break;
+                    case "RangedDamage":
+                        type = PowerUpType.RangedDamageBoost;
+                        break;
+                    case "MeleeDamage":
+                        type = PowerUpType.MeleeDamageBoost;
+                        break;
+                    case "HealthRegen":
+                        type = PowerUpType.HealthRegenAmount;
+                        break;
+                    case "ManaRegen":
+                        type = PowerUpType.ManaRegenAmount;
+                        break;
+                    case "Speed":
+                        type = PowerUpType.SpeedBoost;
+                        break;
+                    case "AuraDamage":
+                        type = PowerUpType.AuraDamageBoost;
+                        break;
+                    case "AuraRange":
+                        type = PowerUpType.AuraRangeBoost;
+                        break;
+                    case "SuperDamage":
+                        type = PowerUpType.SuperDamageBoost;
+                        break;
+                    case "SuperCooldown":
+                        type = PowerUpType.SuperCooldownReduction;
+                        break;
+                    default:
+                        Debug.LogError("Unknown PowerUpType in StatsPanel.");
+                        enabled = false;
+                        return;
+                }
+
+                var tmProGUIArray = new TextMeshProUGUI[3];
+                tmProGUIArray[0] = baseText;
+                tmProGUIArray[1] = buffText;
+                tmProGUIArray[2] = tempText;
+                stats.Add((tmProGUIArray, type));
+            }
+        }
 
         public void HideAllMenus()
         {
@@ -107,37 +200,31 @@ namespace Managers
             var manaBubbleObject = uiCanvasObject.transform.Find("ManaBubble");
             if (manaBubbleObject == null) {
                 Debug.LogError("No ManaBubble GameObject found under Canvas.");
-                enabled = false;
                 return;
             }
             if (!manaBubbleObject.TryGetComponent(out manaBubble)) {
                 Debug.LogError("No Slider component found on ManaBubble GameObject.");
-                enabled = false;
                 return;
             }
             manaText = manaBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
             if (manaText == null) {
                 Debug.LogError("No TextMeshProUGUI component found on ManaText GameObject.");
-                enabled = false;
                 return;
             }
 
             var healthBubbleObject = uiCanvasObject.transform.Find("HealthBubble");
             if (healthBubbleObject == null) {
                 Debug.LogError("No HealthBubble GameObject found under Canvas.");
-                enabled = false;
                 return;
             }
             if (!healthBubbleObject.TryGetComponent(out healthBubble)) {
                 Debug.LogError("No HealthBubble GameObject found under Canvas.");
-                enabled = false;
                 return;
             }
 
             healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
             if (healthText == null) {
                 Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
-                enabled = false;
             }
 
         }
@@ -148,19 +235,16 @@ namespace Managers
             inventoryCanvasObject = GameObject.Find("InventoryMenu");
             if (!inventoryCanvasObject) {
                 Debug.LogError("No InventoryMenu GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             questCanvasObject = GameObject.Find("QuestsMenu");
             if (!questCanvasObject) {
                 Debug.LogError("No QuestsMenu GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             skillsCanvasObject = GameObject.Find("SkillsMenu");
             if (!skillsCanvasObject) {
                 Debug.LogError("No SkillsMenu GameObject found under MainMenuItems.");
-                enabled = false;
                 return;           
             }
 
@@ -169,56 +253,47 @@ namespace Managers
             var settingsButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleSettings");
             if (!settingsButtonObject) {
                 Debug.LogError("No PauseMenuToggleSettings GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             if (!settingsButtonObject.TryGetComponent(out settingsMenuToggle)) {
                 Debug.LogError("No PauseMenuToggleSettings GameObject found under MainMenuItems.");
-                enabled = false;
                 return;           
             }
             
             var questButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleQuests");
             if (!questButtonObject) {
                 Debug.LogError("No PauseMenuToggleQuests GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             if (!questButtonObject.TryGetComponent(out questMenuToggle)) {
                 Debug.LogError("No PauseMenuToggleQuests GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             
             var inventoryButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleInventory");
             if (!inventoryButtonObject) {
                 Debug.LogError("No PauseMenuToggleInventory GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
 
             if (!inventoryButtonObject.TryGetComponent(out inventoryMenuToggle)) {
                 Debug.LogError("No PauseMenuToggleInventory GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             
             var skillsButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleSkills");
             if (!skillsButtonObject) {
                 Debug.LogError("No PauseMenuToggleSkills GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             if (!skillsButtonObject.TryGetComponent(out skillsMenuToggle)) {
                 Debug.LogError("No PauseMenuToggleSkills GameObject found under MainMenuItems.");
-                enabled = false;
                 return;
             }
             
             var quitButtonObject = GameObject.Find("QuitGameButton");
             if (!quitButtonObject) {
                 Debug.LogError("No QuitGameButton GameObject found in the scene.");
-                enabled = false;
                 return;           
             }
             quitGameButton = quitButtonObject.GetComponent<Button>();
@@ -293,6 +368,84 @@ namespace Managers
                 Debug.LogError("PauseGemsText UI element not found in the scene.");
             }
         }
+
+        private void SetupStatsScreen()
+        {
+            foreach (var (textArray, powerUpType) in stats) {
+                var stats1 = GetPlayerStats(powerUpType);
+
+                var useSecondStat = false;
+                float3 stats2 = float3.zero;
+                switch (powerUpType) {
+                    case PowerUpType.HealthRegenAmount:
+                        stats2 = new float3(playerController.BaseHealthRegenInterval,
+                            playerController.HealthRegenIntervalBuff, playerController.HealthRegenIntervalTempBuff);
+                        useSecondStat = true;
+                        break;
+                    case PowerUpType.ManaRegenAmount:
+                        stats2 = new float3(playerController.BaseManaRegenInterval,
+                            playerController.ManaRegenIntervalBuff, playerController.ManaRegenIntervalTempBuff);
+                        useSecondStat = true;
+                        break;
+                    case PowerUpType.AuraDamageBoost:
+                        stats2 = new float3(playerController.BaseAuraDamageInterval,
+                            playerController.AuraDamageIntervalBuff, playerController.AuraDamageIntervalBuffTemp);
+                        useSecondStat = true;
+                        break;
+                }
+
+                var baseText = $"{stats1.x}";
+                var buffText = $"{stats1.y}";
+                var tempText = $"{stats1.z}";
+                if (useSecondStat) {
+                    baseText = $"{baseText}/{stats2.x}s";
+                    buffText = $"{buffText}/{stats2.y}s";
+                    tempText = $"{tempText}/{stats2.z}s";
+                }
+                textArray[0].text = baseText;
+                textArray[1].text = buffText;
+                textArray[2].text = tempText;
+            }
+        }
+
+        private float3 GetPlayerStats(PowerUpType _powerUpType)
+        {
+            switch (_powerUpType) {
+                case PowerUpType.AttackSpeedBoost:
+                    return new float3(playerController.BaseAttackSpeed, playerController.AttackSpeedBuff,
+                        playerController.AttackSpeedBuffTemp);
+                case PowerUpType.RangedDamageBoost:
+                    return new float3(playerController.BaseRangedDamage, playerController.RangedDamageBuff,
+                        playerController.RangedDamageBuffTemp);
+                case PowerUpType.MeleeDamageBoost:
+                    return new float3(playerController.BaseMeleeDamage, playerController.MeleeDamageBuff,
+                        playerController.MeleeDamageBuffTemp);
+                case PowerUpType.HealthRegenAmount:
+                    return new float3(playerController.BaseHealthRegenAmount, playerController.HealthRegenAmountBuff,
+                        playerController.HealthRegenAmountTempBuff);
+                case PowerUpType.ManaRegenAmount:
+                    return new float3(playerController.BaseManaRegenRate, playerController.ManaRegenRateBuff,
+                        playerController.ManaRegenRateTempBuff);
+                case PowerUpType.SpeedBoost:
+                    return new float3(playerController.BaseSpeed, playerController.SpeedBuff,
+                        playerController.SpeedBuffTemp);
+                case PowerUpType.AuraDamageBoost:
+                    return new float3(playerController.BaseAuraDamage, playerController.AuraDamageBuff,
+                        playerController.AuraDamageBuffTemp);
+                case PowerUpType.AuraRangeBoost:
+                    return new float3(playerController.BaseAuraRange, playerController.AuraRangeBuff,
+                        playerController.AuraRangeBuffTemp);
+                case PowerUpType.SuperDamageBoost:
+                    return new float3(playerController.BaseSuperDamage, playerController.SuperDamageBuff,
+                        playerController.SuperDamageBuffTemp);
+                case PowerUpType.SuperCooldownReduction:
+                    return new float3(playerController.BaseSuperCooldown, playerController.SuperCooldownBuff,
+                        playerController.SuperCooldownBuffTemp);
+                default:
+                    Debug.LogError("Unknown PowerUpType in StatsPanel.");
+                    return new float3();
+            }
+        }
         
         private void ShowInventoryMenu()
         {
@@ -302,10 +455,27 @@ namespace Managers
             inventoryCanvasObject.SetActive(true);
             mainCanvasObjects[0].SetActive(true);
             mainCanvasObjects[1].SetActive(true);
+            statsParent.SetActive(true);
             SetupResumeButton(inventoryCanvasObject);
         }
 
-        public void ShowSettingsMenu()
+        public void ShowPauseMenu()
+        {
+            shopCanvasObject.SetActive(false);
+            isShopOpen = false;
+            pauseScoreText.text = (RunScoreManager.Instance.RunScore).ToString();
+            pausePowerUpText.text = (RunScoreManager.Instance.PowerUpScore).ToString();
+            pauseGemsText.text = (RunScoreManager.Instance.GemsCount).ToString();
+            settingsMenuToggle.isOn = true;
+            inventoryMenuToggle.isOn = false;
+            questMenuToggle.isOn = false;
+            skillsMenuToggle.isOn = false;
+            ShowSettingsMenu();
+            SetupStatsScreen();
+            statsParent.SetActive(true);
+        }
+
+        private void ShowSettingsMenu()
         {
             settingsCanvasObject.SetActive(true);
             mainCanvasObjects[0].SetActive(true);
@@ -313,16 +483,8 @@ namespace Managers
             questCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
+            statsParent.SetActive(true);
             SetupResumeButton(settingsCanvasObject);
-            settingsMenuToggle.isOn = true;
-            inventoryMenuToggle.isOn = false;
-            questMenuToggle.isOn = false;
-            skillsMenuToggle.isOn = false;
-            shopCanvasObject.SetActive(false);
-            isShopOpen = false;
-            pauseScoreText.text = (RunScoreManager.Instance.RunScore).ToString();
-            pausePowerUpText.text = (RunScoreManager.Instance.PowerUpScore).ToString();
-            pauseGemsText.text = (RunScoreManager.Instance.GemsCount).ToString();
         }
 
         private void ShowSkillsMenu()
@@ -333,6 +495,7 @@ namespace Managers
             skillsCanvasObject.SetActive(true);
             mainCanvasObjects[0].SetActive(true);
             mainCanvasObjects[1].SetActive(true);
+            statsParent.SetActive(false);
             SetupResumeButton(skillsCanvasObject);
         }
 
@@ -344,6 +507,7 @@ namespace Managers
             skillsCanvasObject.SetActive(false);
             mainCanvasObjects[0].SetActive(true);
             mainCanvasObjects[1].SetActive(true);
+            statsParent.SetActive(true);
             SetupResumeButton(questCanvasObject);
         }
         

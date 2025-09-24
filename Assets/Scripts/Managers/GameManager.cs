@@ -54,7 +54,7 @@ namespace Managers
 
         private void PauseGame()
         {
-            UIManager.Instance.ShowSettingsMenu();
+            UIManager.Instance.ShowPauseMenu();
             IsPaused = true;
             OnGamePaused?.Invoke();
             Time.timeScale = 0.0f;

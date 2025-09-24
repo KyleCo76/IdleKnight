@@ -14,6 +14,15 @@ namespace Player
         [SerializeField, Tooltip("The amount of health regenerated each tick")]
         private float healthRegenAmount = 2.0f;
 
+        // Public getters for player stats
+        public float BaseHealthRegenAmount => healthRegenAmount;
+        public float HealthRegenAmountBuff { get; private set; }
+        public float HealthRegenAmountTempBuff { get; private set; }
+        public float BaseHealthRegenInterval => healthRegenInterval;
+        public float HealthRegenIntervalBuff { get; private set; }
+        public float HealthRegenIntervalTempBuff { get; private set; }
+
+        
         private float currentHealth;
         private float invincibilityTimer;
         private float healthRegenTimer;

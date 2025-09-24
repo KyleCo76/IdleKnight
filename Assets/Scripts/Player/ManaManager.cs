@@ -19,6 +19,14 @@ namespace Player
         [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The amount of mana consumed per tick while sprinting.")]
         private float sprintManaCostPerTick = 2f;
 
+        // Public getters for player stats
+        public float BaseManaRegenRate => manaRegenRate;
+        public float ManaRegenRateBuff { get; private set; }
+        public float ManaRegenRateTempBuff { get; private set; }
+        public float BaseManaRegenInterval => manaRegenInterval;
+        public float ManaRegenIntervalBuff { get; private set; }
+        public float ManaRegenIntervalTempBuff { get; private set; }
+        
         private float currentMana;
         private float manaRegenTimer;
 

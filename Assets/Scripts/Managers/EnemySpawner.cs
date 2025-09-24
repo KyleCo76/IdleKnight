@@ -124,6 +124,15 @@ namespace Managers
             spawnInterval = Mathf.Max(0.1f, spawnInterval - 0.5f * (_newLevel - 1));
             currentLevel = _newLevel;
         }
+        
+        private Vector2 RandomPointInAnnulus(Vector2 _center, float _innerRadius, float _outerRadius)
+        {
+            if (_outerRadius < _innerRadius) (_innerRadius, _outerRadius) = (_outerRadius, _innerRadius);
+            float angle = Random.Range(0f, 2f * Mathf.PI);
+            float u = Random.value;
+            float r = Mathf.Sqrt(Mathf.Lerp(_innerRadius * _innerRadius, _outerRadius * _outerRadius, u));
+            return _center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r;
+        }
 
         private void SpawnRandomEnemy()
         {
@@ -140,16 +149,8 @@ namespace Managers
 
 
             // Spawn at a random position outside the player's area
-            bool useNegative = Random.value < 0.5f; // Randomly decide if we want to use negative or positive range
-            Vector2 spawningRange = new(Random.Range(SpawnRangeMin, SpawnRangeMax),
-                Random.Range(SpawnRangeMin, SpawnRangeMax));
-
-            if (useNegative) {
-                spawningRange.x *= -1;
-                spawningRange.y *= -1;
-            }
-
-            Vector3 spawnPosition = player.transform.position + (Vector3)spawningRange;
+            
+            Vector3 spawnPosition = RandomPointInAnnulus(player.transform.position, SpawnRangeMin, SpawnRangeMax);
 
             spawnCount++;
             var enemy = pooledMinions.GetFromPool(prefab, spawnPosition, Quaternion.identity);

@@ -188,13 +188,13 @@ MonoBehaviour:
   - PowerUpType: 10
     Weight: 0.5
   - PowerUpType: 11
-    Weight: 0
+    Weight: 0.31
   - PowerUpType: 12
-    Weight: 0
+    Weight: 0.266
   - PowerUpType: 13
-    Weight: 0
+    Weight: 0.521
   - PowerUpType: 14
-    Weight: 0
+    Weight: 0.222
   - PowerUpType: 15
     Weight: 0.19
   - PowerUpType: 16
