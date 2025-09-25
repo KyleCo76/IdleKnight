@@ -31,9 +31,13 @@ namespace Player
 
         private void HealthAwake()
         {
+            HealthRegenAmountBuff = 1f;
+            HealthRegenAmountTempBuff = 1f;
+            HealthRegenIntervalBuff = 1f;
+            HealthRegenIntervalTempBuff = 1f;
             currentHealth = maxHealth;
             UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
-            healthRegenTimer = healthRegenInterval;
+            healthRegenTimer = BaseHealthRegenInterval / HealthRegenAmountBuff / HealthRegenAmountTempBuff;
         }
 
         private void HealthUpdate()
@@ -46,8 +50,8 @@ namespace Player
             if (currentHealth < maxHealth && invincibilityTimer <= 0f) {
                 healthRegenTimer -= Time.deltaTime;
                 if (healthRegenTimer <= 0f) {
-                    ChangeHealth(healthRegenAmount);
-                    healthRegenTimer = healthRegenInterval;
+                    ChangeHealth(BaseHealthRegenAmount * HealthRegenAmountBuff * HealthRegenAmountTempBuff);
+                    healthRegenTimer = BaseHealthRegenInterval / HealthRegenAmountBuff / HealthRegenAmountTempBuff;
                 }
             }
         }

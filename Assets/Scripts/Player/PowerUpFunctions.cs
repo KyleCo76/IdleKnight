@@ -11,10 +11,7 @@ namespace Player
         
         public void ActivatePowerUp(PowerUpData _powerUp)
         {
-            if (_powerUp.Duration <= 0)
-                RunScoreManager.Instance.AddPowerUpScore(2);
-            else
-                RunScoreManager.Instance.AddPowerUpScore(1);
+            RunScoreManager.Instance.AddPowerUpScore(!Mathf.Approximately(_powerUp.Duration, 0f) ? 1 : 2);
             
             switch (_powerUp.Type)
             {
@@ -31,32 +28,32 @@ namespace Player
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryAttackSpeedBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
                     else
-                        attackCooldown /= _powerUp.Multiplier;
+                        AttackSpeedBuff *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.MeleeDamageBoost:
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryMeleeDamageBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
                     else
-                        meleeDamage *= _powerUp.Multiplier;
+                        MeleeDamageBuff *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.RangedDamageBoost:
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryRangedDamageBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
                     else
-                        rangedDamage *= _powerUp.Multiplier;
+                        RangedDamageBuff *= _powerUp.Multiplier;
                     break;
 
                 case PowerUpType.HealthRegenTickRate:
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryHealthRegenTickRateCoroutine(_powerUp.Multiplier, _powerUp.Duration));
                     else
-                        healthRegenInterval /= _powerUp.Multiplier;
+                        HealthRegenIntervalBuff *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.HealthRegenAmount:
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporaryHealthRegenAmountCoroutine(_powerUp.Multiplier, _powerUp.Duration));
                     else
-                        healthRegenAmount *= _powerUp.Multiplier;
+                        HealthRegenAmountBuff *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.MaxHealthBoost:
                     float healthIncrease = (maxHealth + _powerUp.Amount) - maxHealth;
@@ -73,12 +70,35 @@ namespace Player
                     else
                         ChangeHealth(maxHealth + _powerUp.Amount);
                     break;
-
+                case PowerUpType.ManaBoost:
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryManaBoostCoroutine(_powerUp.Amount, _powerUp.Duration));
+                    else
+                        ChangeMana(_powerUp.Amount);
+                    break;
+                case PowerUpType.MaxManaBoost:
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryMaxManaBoostCoroutine(_powerUp.Amount, _powerUp.Duration));
+                    else
+                        ChangeMaxMana(_powerUp.Amount);
+                    break;
+                case PowerUpType.ManaRegenAmount:
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryManaRegenAmountCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        ManaRegenRateBuff *= _powerUp.Multiplier;
+                    break;
+                case PowerUpType.ManaRegenTickRate:
+                    if (_powerUp.Duration > 0)
+                        StartCoroutine(TemporaryManaIntervalCoroutine(_powerUp.Multiplier, _powerUp.Duration));
+                    else
+                        ManaRegenIntervalBuff *= _powerUp.Multiplier;
+                    break;
                 case PowerUpType.SpeedBoost:
                     if (_powerUp.Duration > 0)
                         StartCoroutine(TemporarySpeedBoostCoroutine(_powerUp.Multiplier, _powerUp.Duration));
                     else
-                        movementSpeed *= _powerUp.Multiplier;
+                        SpeedBuff *= _powerUp.Multiplier;
                     break;
                 case PowerUpType.AuraTickSpeedBoost:
                     if (_powerUp.Duration > 0)
@@ -99,10 +119,10 @@ namespace Player
                         playerAuraManager.ChangeAuraDamage(_powerUp.Multiplier);
                     break;
                 case PowerUpType.SuperCooldownReduction:
-                    superCooldownTimer = Mathf.Max(0f, superCooldownTimer - _powerUp.Amount);
+                    SuperCooldownBuff -= _powerUp.Amount;
                     break;
                 case PowerUpType.SuperDamageBoost:
-                    superDamageMultiplier *= _powerUp.Multiplier;
+                    SuperDamageBuff *= _powerUp.Multiplier;
                     break;
                 default:
                     Debug.LogWarning("Unknown power-up type: " + _powerUp.Type);
@@ -115,18 +135,16 @@ namespace Player
 
         private IEnumerator CoinMagnetCoroutine(float _duration)
         {
-            //float originalMagnetRadius = coinMagnetRadius;
-            //coinMagnetRadius = 10f; // Example increased radius
+
             yield return new WaitForSeconds(_duration);
-            //coinMagnetRadius = originalMagnetRadius; // Reset to original radius
+
         }
 
         private IEnumerator TemporaryAttackSpeedBoostCoroutine(float _multiplier, float _duration)
         {
-            float originalCooldown = attackCooldown;
-            attackCooldown /= _multiplier; // Increase attack speed
+            AttackSpeedBuffTemp *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            attackCooldown = originalCooldown; // Reset to the original cooldown
+            AttackSpeedBuffTemp /= _multiplier;
         }
 
         private IEnumerator TemporaryHealthBoostCoroutine(float _amount, float _duration)
@@ -140,18 +158,44 @@ namespace Player
 
         private IEnumerator TemporaryHealthRegenAmountCoroutine(float _multiplier, float _duration)
         {
-            float originalAmount = healthRegenAmount;
-            healthRegenAmount *= _multiplier; // Increase regen amount
+            HealthRegenAmountTempBuff *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            healthRegenAmount = originalAmount; // Reset to the original amount
+            HealthRegenAmountTempBuff /= _multiplier;
         }
 
         private IEnumerator TemporaryHealthRegenTickRateCoroutine(float _multiplier, float _duration)
         {
-            float originalInterval = healthRegenInterval;
-            healthRegenInterval /= _multiplier; // Increase tick rate
+            HealthRegenIntervalTempBuff *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            healthRegenInterval = originalInterval; // Reset to the original interval
+            HealthRegenIntervalTempBuff /= _multiplier;
+        }
+
+        private IEnumerator TemporaryManaBoostCoroutine(float _amount, float _duration)
+        {
+            ChangeMana(_amount);
+            yield return new WaitForSeconds(_duration);
+            ChangeMana(-_amount);
+        }
+
+        private IEnumerator TemporaryManaIntervalCoroutine(float _multiplier, float _duration)
+        {
+            ManaRegenIntervalTempBuff *= _multiplier;
+            yield return new WaitForSeconds(_duration);
+            ManaRegenIntervalTempBuff /= _multiplier;
+        }
+
+        private IEnumerator TemporaryManaRegenAmountCoroutine(float _multiplier, float _duration)
+        {
+            ManaRegenRateTempBuff *= _multiplier;
+            yield return new WaitForSeconds(_duration);
+            ManaRegenRateTempBuff /= _multiplier;
+        }
+
+        private IEnumerator TemporaryMaxManaBoostCoroutine(float _amount, float _duration)
+        {
+            ChangeMaxMana(_amount);
+            yield return new WaitForSeconds(_duration);
+            ChangeMaxMana(-_amount);
         }
 
         private IEnumerator TemporaryMaxHealthBoostCoroutine(float _healthIncrease, float _duration)
@@ -165,26 +209,23 @@ namespace Player
 
         private IEnumerator TemporaryMeleeDamageBoostCoroutine(float _multiplier, float _duration)
         {
-            float originalDamage = meleeDamage;
-            meleeDamage *= _multiplier; // Increase melee damage
+            MeleeDamageBuffTemp *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            meleeDamage = originalDamage; // Reset to original damage
+            MeleeDamageBuffTemp /= _multiplier;
         }
 
         private IEnumerator TemporaryRangedDamageBoostCoroutine(float _multiplier, float _duration)
         {
-            float originalDamage = rangedDamage;
-            rangedDamage *= _multiplier; // Increase ranged damage
+            RangedDamageBuffTemp *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            rangedDamage = originalDamage; // Reset to original damage
+            RangedDamageBuffTemp /= _multiplier;
         }
 
         private IEnumerator TemporarySpeedBoostCoroutine(float _multiplier, float _duration)
         {
-            float originalSpeed = movementSpeed;
-            movementSpeed *= _multiplier; // Increase speed
+            SpeedBuffTemp *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            movementSpeed = originalSpeed; // Reset to original speed
+            SpeedBuffTemp /= _multiplier;
         }
     }
 }

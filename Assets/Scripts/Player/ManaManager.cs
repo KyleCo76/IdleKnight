@@ -35,34 +35,50 @@ namespace Player
         {
             currentMana = startingMana;
             UIManager.Instance.UpdateManaUI(currentMana, maxMana);
+            ManaRegenRateBuff = 1f;
+            ManaRegenRateTempBuff = 1f;
+            ManaRegenIntervalBuff = 1f;
+            ManaRegenIntervalTempBuff = 1f;
+            manaRegenTimer = BaseManaRegenInterval / ManaRegenRateBuff / ManaRegenRateTempBuff;
         }
 
         void StaminaUpdate()
         {
-            if (manaRegenTimer < manaRegenInterval) {
-                manaRegenTimer += Time.deltaTime;
+            if (manaRegenTimer > 0f) {
+                manaRegenTimer -= Time.deltaTime;
             } else {
                 if (sprintPressed && moveInput.magnitude > 0.1f) {
                     ChangeMana(-sprintManaCostPerTick);
                 } else
                     RegenerateMana();
-                manaRegenTimer = 0f;
+                manaRegenTimer = BaseManaRegenInterval / ManaRegenRateBuff / ManaRegenRateTempBuff;
             }
         }
 
 
-        private void RegenerateMana()
+        private void ChangeMana(float _amount)
         {
-            ChangeMana(manaRegenRate);
+            currentMana = Mathf.Clamp(currentMana + _amount, 0f, maxMana);
+            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
         }
 
-        private bool ChangeMana(float _amount)
+        private void ChangeMaxMana(float _amount)
+        {
+            maxMana += _amount;
+            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
+        }
+
+        private void RegenerateMana()
+        {
+            ChangeMana(BaseManaRegenRate * ManaRegenRateBuff * ManaRegenRateTempBuff);
+        }
+
+        private bool TryChangeMana(float _amount)
         {
             if (currentMana + _amount < 0f) {
                 return false; // Not enough mana
             }
-            currentMana = Mathf.Clamp(currentMana + _amount, 0f, maxMana);
-            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
+            ChangeMana(_amount);
             return true;
         }
     }

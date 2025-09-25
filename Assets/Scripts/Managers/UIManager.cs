@@ -388,8 +388,7 @@ namespace Managers
                         useSecondStat = true;
                         break;
                     case PowerUpType.AuraDamageBoost:
-                        stats2 = new float3(playerController.BaseAuraDamageInterval,
-                            playerController.AuraDamageIntervalBuff, playerController.AuraDamageIntervalBuffTemp);
+                        stats2 = new float3(playerController.GetAuraDamageStats());
                         useSecondStat = true;
                         break;
                 }
@@ -430,17 +429,13 @@ namespace Managers
                     return new float3(playerController.BaseSpeed, playerController.SpeedBuff,
                         playerController.SpeedBuffTemp);
                 case PowerUpType.AuraDamageBoost:
-                    return new float3(playerController.BaseAuraDamage, playerController.AuraDamageBuff,
-                        playerController.AuraDamageBuffTemp);
+                    return new float3(playerController.GetAuraDamageStats());
                 case PowerUpType.AuraRangeBoost:
-                    return new float3(playerController.BaseAuraRange, playerController.AuraRangeBuff,
-                        playerController.AuraRangeBuffTemp);
+                    return new float3(playerController.GetAuraRangeStats());
                 case PowerUpType.SuperDamageBoost:
-                    return new float3(playerController.BaseSuperDamage, playerController.SuperDamageBuff,
-                        playerController.SuperDamageBuffTemp);
+                    return new float3(playerController.BaseSuperDamage, playerController.SuperDamageBuff, 0f);
                 case PowerUpType.SuperCooldownReduction:
-                    return new float3(playerController.BaseSuperCooldown, playerController.SuperCooldownBuff,
-                        playerController.SuperCooldownBuffTemp);
+                    return new float3(playerController.BaseSuperCooldown, playerController.SuperCooldownBuff, 0f);
                 default:
                     Debug.LogError("Unknown PowerUpType in StatsPanel.");
                     return new float3();

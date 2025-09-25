@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game;
 using Managers;
+using Unity.Mathematics;
 
 namespace Player
 {
@@ -33,22 +34,21 @@ namespace Player
         private bool gamePaused;
         private bool isFlipped;
         private float attackCooldownTimer;
-        private float superDamageMultiplier = 1f;
         private float superSpeed = 600f;
         private const float ArrowSpreadAmount = 15f;
         private float currentMovementSpeed;
-        private float currentSprintSpeedMultiplier;
+        private float speedDebuffs;
 
         // Public getters for player stats
-        public float BaseAttackSpeed { get; private set; }
+        public float BaseAttackSpeed => attackCooldown;
         public float AttackSpeedBuff { get; private set; }
         public float AttackSpeedBuffTemp { get; private set; }
         
-        public float BaseRangedDamage { get; private set; }
+        public float BaseRangedDamage => rangedDamage;
         public float RangedDamageBuff { get; private set; }
         public float RangedDamageBuffTemp { get; private set; }
         
-        public float BaseMeleeDamage { get; private set; }
+        public float BaseMeleeDamage => meleeDamage;
         public float MeleeDamageBuff { get; private set; }
         public float MeleeDamageBuffTemp { get; private set; }
         
@@ -56,26 +56,11 @@ namespace Player
         public float SpeedBuff { get; private set; }
         public float SpeedBuffTemp { get; private set; }
         
-        public float BaseAuraDamage { get; private set; }
-        public float AuraDamageBuff { get; private set; }
-        public float AuraDamageBuffTemp { get; private set; }
-        
-        public float BaseAuraDamageInterval { get; private set; }
-        public float AuraDamageIntervalBuff { get; private set; }
-        public float AuraDamageIntervalBuffTemp { get; private set; }
-        
-        public float BaseAuraRange { get; private set; }
-        public float AuraRangeBuff { get; private set; }
-        public float AuraRangeBuffTemp { get; private set; }
-        
         public float BaseSuperDamage => superDamage;
         public float SuperDamageBuff { get; private set; }
-        public float SuperDamageBuffTemp { get; private set; }
         
         public float BaseSuperCooldown => superCooldown;
         public float SuperCooldownBuff { get; private set; }
-        public float SuperCooldownBuffTemp { get; private set; }
-        
 
         // Attack type variables
         private bool attackTripleAttack;
@@ -179,6 +164,17 @@ namespace Player
             
             playerAnimatorHelper.Init(playerAnimator);
             mainCamera = Camera.main;
+
+            AttackSpeedBuff = 1f;
+            AttackSpeedBuffTemp = 1f;
+            RangedDamageBuff = 1f;
+            RangedDamageBuffTemp = 1f;
+            MeleeDamageBuff = 1f;
+            MeleeDamageBuffTemp = 1f;
+            SpeedBuff = 1f;
+            SpeedBuffTemp = 1f;
+            SuperDamageBuff = 1f;
+            SuperCooldownBuff = 1f;
         }
         
         private void OnEnable()
@@ -208,7 +204,6 @@ namespace Player
                 GameManager.InputActions.Player.SetCallbacks(this);
             }
             currentMovementSpeed = movementSpeed;
-            currentSprintSpeedMultiplier = sprintSpeedMultiplier;
         }
 
         private void Update()
@@ -216,6 +211,10 @@ namespace Player
             if (gamePaused)
                 return;
 
+            currentMovementSpeed = Mathf.Approximately(speedDebuffs, 0f)
+                ? BaseSpeed * SpeedBuff * SpeedBuffTemp
+                : BaseSpeed * speedDebuffs;
+            
             HealthUpdate();
             StaminaUpdate();
 
@@ -250,35 +249,35 @@ namespace Player
 
         private void ActivateSuper()
         {
-            if (!ChangeMana(-specialAttackManaCost))
+            if (!TryChangeMana(-specialAttackManaCost))
                 return;
 
-            superCooldownTimer = superCooldown;
+            superCooldownTimer = (BaseSuperCooldown - SuperCooldownBuff);
             var (rotation, attackPoint) = GetProjectileData();
 
             var projectile = Instantiate(currentSuperPrefab, playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
             if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
-                projComponent.Initialize(attackPoint.normalized, superSpeed, superDamage * superDamageMultiplier, AttackType.PlayerAttack, true);
+                projComponent.Initialize(attackPoint.normalized, superSpeed,
+                    BaseSuperDamage * SuperDamageBuff, AttackType.PlayerAttack, true);
             }
         }
 
         public void ApplySlow(float _multiplier)
         {
-            currentMovementSpeed *= _multiplier;
-            currentSprintSpeedMultiplier *= _multiplier;
+            speedDebuffs = _multiplier;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("ReSharper", "Unity.PreferNonAllocApi")]
         private void Attack()
         {
-            attackCooldownTimer = attackCooldown;
+            attackCooldownTimer = BaseAttackSpeed / AttackSpeedBuff / AttackSpeedBuffTemp;
 
             RaycastHit2D[] hits = Physics2D.CircleCastAll(playerTransform.position, attackRange, Vector2.zero);
             foreach (var hit in hits) {
                 if (hit.collider && hit.collider.CompareTag("Enemy")) {
                     if (hit.collider.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
-                        enemyHealth.ChangeHealth(-meleeDamage, AttackType.PlayerAttack);
-                    }
+                        enemyHealth.ChangeHealth(-BaseMeleeDamage * MeleeDamageBuff * MeleeDamageBuffTemp , AttackType.PlayerAttack);
+                    }   
                 }
             }
 
@@ -306,18 +305,18 @@ namespace Player
                 if (attackDoubleAttack) {
                     var projectileLeft = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation + 15f));
                     if (projectileLeft.TryGetComponent<Projectile>(out var projComponentLeft)) {
-                        projComponentLeft.Initialize(leftDirection, 400f, rangedDamage, AttackType.PlayerAttack, false);
+                        projComponentLeft.Initialize(leftDirection, 400f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
                     }
                 }
                 if (attackTripleAttack) {
                     var projectileRight = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation - 15f));
                     if (projectileRight.TryGetComponent<Projectile>(out var projComponentRight)) {
-                        projComponentRight.Initialize(rightDirection, 400f, rangedDamage, AttackType.PlayerAttack, false);
+                        projComponentRight.Initialize(rightDirection, 400f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
                     }
                 }
                 var projectile = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
                 if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
-                    projComponent.Initialize(mainDirection, 400f, rangedDamage, AttackType.PlayerAttack, false);
+                    projComponent.Initialize(mainDirection, 400f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
                 }
             }
         }
@@ -338,6 +337,16 @@ namespace Player
             }
         }
 
+        public float3 GetAuraDamageStats()
+        {
+            return playerAuraManager.GetDamageStats();
+        }
+
+        public float3 GetAuraRangeStats()
+        {
+            return playerAuraManager.GetRangeStats();
+        }
+
         private (float, Vector2) GetProjectileData()
         {
             var attackPoint = GameManager.InputActions.Player.AttackPoint.ReadValue<Vector2>();
@@ -353,19 +362,15 @@ namespace Player
         private void HandleGamePause()
         {
             gamePaused = !gamePaused;
-            //if (!gamePaused)
-            //    return;
-            //moveInput = Vector2.zero;
-            //sprintPressed = false;
-            //attackPressed = false;
-            //isInteracting = false;
-            //playerAnimatorHelper.SetWalking(false, playerAnimator);
-            //ResetRotation();
         }
 
         private void MovePlayer()
         {
-            playerTransform.position = Vector2.MoveTowards(playerTransform.position, playerTransform.position + (Vector3)moveInput, Time.deltaTime * (sprintPressed ? (currentSprintSpeedMultiplier * currentMovementSpeed) : currentMovementSpeed));
+            playerTransform.position = Vector2.MoveTowards(playerTransform.position,
+                playerTransform.position + (Vector3)moveInput,
+                Time.deltaTime * (sprintPressed
+                    ? (sprintSpeedMultiplier * currentMovementSpeed)
+                    : currentMovementSpeed));
             if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y)) {
                 // Moving horizontally
                 ResetRotation();
@@ -402,8 +407,7 @@ namespace Player
 
         public void RemoveSlow()
         {
-            currentMovementSpeed = movementSpeed;
-            currentSprintSpeedMultiplier = sprintSpeedMultiplier;
+            speedDebuffs = 0f;
         }
 
         private void ResetRotation()

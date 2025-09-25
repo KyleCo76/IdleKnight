@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Player
@@ -11,6 +12,18 @@ namespace Player
         [SerializeField, Tooltip("Amount of damage dealt by the aura")]
         private float damageAmount = 1.0f;
 
+        private float BaseAuraDamage => damageAmount;
+        private float auraDamageBuff = 1f;
+        private float auraDamageBuffTemp = 1f;
+        
+        private float BaseAuraDamageInterval => damageSpeed;
+        private float auraDamageIntervalBuff = 1f;
+        private float auraDamageIntervalBuffTemp = 1f;
+
+        private const float BaseAuraRange = 1f;
+        private float auraRangeBuff = 1f;
+        private float auraRangeBuffTemp = 1f;
+        
         private float damageTimer; // Timer to track damage application
         private readonly HashSet<Enemies.Controller> enemiesInAura = new();
 
@@ -34,7 +47,7 @@ namespace Player
 
         void Start()
         {
-            damageTimer = damageSpeed;
+            damageTimer = BaseAuraDamageInterval / auraDamageIntervalBuff / auraDamageIntervalBuffTemp;
         }
 
         void Update()
@@ -43,17 +56,17 @@ namespace Player
             if (damageTimer <= 0.0f) {
                 foreach (var enemy in new List<Enemies.Controller>(enemiesInAura)) {
                     if (enemy != null) {
-                        enemy.ChangeHealth(-damageAmount);
+                        enemy.ChangeHealth(-BaseAuraDamage * auraDamageBuff * auraDamageBuffTemp);
                     }
                 }
-                damageTimer = damageSpeed; // Reset the timer
+                damageTimer = BaseAuraDamageInterval / auraDamageIntervalBuff / auraDamageIntervalBuffTemp;
             }
         }
 
 
         public void ChangeAuraDamage(float _multiplier)
         {
-            damageAmount *= _multiplier;
+            auraDamageBuff *= _multiplier;
         }
 
         public void ChangeAuraDamage(float _multiplier, float _duration)
@@ -63,6 +76,7 @@ namespace Player
 
         public void ChangeAuraRange(float _multiplier)
         {
+            auraRangeBuff *= _multiplier;
             transform.localScale *= _multiplier;
         }
 
@@ -73,7 +87,7 @@ namespace Player
 
         public void ChangeAuraTickRate(float _multiplier)
         {
-            damageSpeed /= _multiplier;
+            auraDamageIntervalBuff *= _multiplier;
         }
 
         public void ChangeAuraTickRate(float _multiplier, float _duration)
@@ -81,29 +95,38 @@ namespace Player
             StartCoroutine(TemporaryAuraTickRateCoroutine(_multiplier, _duration));
         }
 
+        public float3 GetDamageStats()
+        {
+            return new float3(BaseAuraDamage, auraDamageBuff, auraDamageBuffTemp);
+        }
+
+        public float3 GetRangeStats()
+        {
+            return new float3(BaseAuraRange, auraRangeBuff, auraRangeBuffTemp);
+        }
 
         private IEnumerator TemporaryAuraDamageCoroutine(float _multiplier, float _duration)
         {
-            float originalDamage = damageAmount;
-            damageAmount *= _multiplier; // Increase damage
+            auraDamageBuffTemp *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            damageAmount = originalDamage; // Reset to original damage
+            auraDamageBuffTemp /= _multiplier;
         }
 
         private IEnumerator TemporaryAuraRangeCoroutine(float _multiplier, float _duration)
         {
+            auraRangeBuffTemp *= _multiplier;
             Vector3 originalRadius = transform.localScale;
             transform.localScale *= _multiplier; // Increase range
             yield return new WaitForSeconds(_duration);
-            transform.localScale = originalRadius; // Reset to original radius
+            transform.localScale = originalRadius; // Reset to original radius\
+            auraRangeBuffTemp /= _multiplier;
         }
 
         private IEnumerator TemporaryAuraTickRateCoroutine(float _multiplier, float _duration)
         {
-            float originalSpeed = damageSpeed;
-            damageSpeed /= _multiplier; // Increase tick rate
+            auraDamageIntervalBuffTemp *= _multiplier;
             yield return new WaitForSeconds(_duration);
-            damageSpeed = originalSpeed; // Reset to original speed
+            auraDamageIntervalBuffTemp /= _multiplier;
         }
     }
 }
