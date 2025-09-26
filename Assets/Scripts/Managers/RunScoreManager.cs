@@ -45,11 +45,15 @@ namespace Managers
         private void OnEnable()
         {
             Enemies.Controller.OnEnemyDeath += HandleEnemyDeath;
+            GameManager.Instance.OnGameOver += HandleGameOver;
+            GameSceneManager.Instance.OnSceneLoaded += HandleSceneLoaded;
         }
 
         private void OnDisable()
         {
             Enemies.Controller.OnEnemyDeath -= HandleEnemyDeath;
+            GameManager.Instance.OnGameOver -= HandleGameOver;
+            GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
         }
 
         private void Update()
@@ -86,6 +90,19 @@ namespace Managers
         {
             int pointValue = Mathf.FloorToInt(_points * (_attackType == AttackType.PlayerAttack ? playerAttackMultiplier : 1f));
             AddScore(pointValue);
+        }
+
+        private void HandleGameOver()
+        {
+            PowerUpScore = 0;
+            RunScore = 0;
+            GemsCount = 0;
+            playerLevel = 1;
+        }
+
+        private void HandleSceneLoaded(int _)
+        {
+            HandleGameOver();
         }
 
         public void ModifyPointMultiplier(float _duration)

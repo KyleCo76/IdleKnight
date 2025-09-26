@@ -39,6 +39,9 @@ namespace Player
         private float currentMovementSpeed;
         private float speedDebuffs;
 
+        public delegate void HandleSuperCooldownUI(float _amount, float _timer);
+        public event HandleSuperCooldownUI OnSuperCooldownChange;
+
         // Public getters for player stats
         public float BaseAttackSpeed => attackCooldown;
         public float AttackSpeedBuff { get; private set; }
@@ -126,7 +129,7 @@ namespace Player
             if (superCooldownTimer > 0f || currentSuperPrefab == null)
                 return;
 
-            if (!gamePaused && _context.performed) {
+            if (!gamePaused && !isDead && _context.performed) {
                 ActivateSuper();
             }
         }
@@ -136,7 +139,6 @@ namespace Player
         */
         private void Awake()
         {
-            //ColliderAwake();
             HealthAwake();
             StaminaAwake();
 
@@ -185,6 +187,7 @@ namespace Player
             }
             GameManager.Instance.OnGamePaused += HandleGamePause;
             GameManager.Instance.OnGameResumed += HandleGamePause;
+            GameSceneManager.Instance.OnSceneLoaded += HandleSceneLoaded;
         }
 
         private void OnDisable()
@@ -193,6 +196,7 @@ namespace Player
                 return;
             GameManager.Instance.OnGamePaused -= HandleGamePause;
             GameManager.Instance.OnGameResumed -= HandleGamePause;
+            GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -204,11 +208,13 @@ namespace Player
                 GameManager.InputActions.Player.SetCallbacks(this);
             }
             currentMovementSpeed = movementSpeed;
+            HealthStart();
+            StaminaStart();
         }
 
         private void Update()
         {
-            if (gamePaused)
+            if (gamePaused || isDead)
                 return;
 
             currentMovementSpeed = Mathf.Approximately(speedDebuffs, 0f)
@@ -224,6 +230,7 @@ namespace Player
 
             if (superCooldownTimer > 0f) {
                 superCooldownTimer -= Time.deltaTime;
+                OnSuperCooldownChange?.Invoke(superCooldownTimer, BaseSuperCooldown / SuperCooldownBuff);
             }
 
             attackDoubleAttack = rangedDamage >= doubleAttackDamageActivationPoint;
@@ -232,7 +239,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (gamePaused)
+            if (gamePaused || isDead)
                 return;
 
             if (moveInput != Vector2.zero) {
@@ -244,6 +251,11 @@ namespace Player
             if (attackPressed && attackCooldownTimer <= 0f) {
                 Attack();
             }
+        }
+
+        private void OnDestroy()
+        {
+            GameManager.InputActions.Player.SetCallbacks(null);
         }
 
 
@@ -362,6 +374,11 @@ namespace Player
         private void HandleGamePause()
         {
             gamePaused = !gamePaused;
+        }
+
+        private void HandleSceneLoaded(int _sceneIndex)
+        {
+            OnSuperCooldownChange?.Invoke(superCooldown, BaseSuperCooldown / SuperCooldownBuff);
         }
 
         private void MovePlayer()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game;
+using Player;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Managers
         private TextMeshProUGUI pauseGemsText;
         private Slider manaBubble;
         private Slider healthBubble;
+        private Slider superCooldownBar;
         private GameObject statsParent;
         private GameObject[] mainCanvasObjects;
         private GameObject uiCanvasObject;
@@ -39,10 +41,13 @@ namespace Managers
         private Toggle skillsMenuToggle;
         private Button quitGameButton;
         private Button floatingResumeButton;
+        private Button levelFailedHomeButton;
+        private Button levelFailedRetryButton;
         
         // Stats Panel Components
         private readonly List<(TextMeshProUGUI[], PowerUpType)> stats = new();
 
+        
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -52,50 +57,49 @@ namespace Managers
             }
             Instance = this;
             // Don't destroy on load is handled by parent GameManager
-
-            uiCanvasObject = GameObject.Find("UI");
-            if (!uiCanvasObject) {
-                Debug.LogError("No UI GameObject found in the scene.");
-                enabled = false;
-                return;
-            }
-
-            mainCanvasObjects = new GameObject[2];
-            var menuBackground = GameObject.Find("MenuBackground");
-            var menuItems = GameObject.Find("MainMenuItems");
-            if (!menuBackground || !menuItems) {
-                Debug.LogError("No MenuBackground or MainMenuMenuItems GameObject found under Canvas.");
-                enabled = false;
-                return;
-            }
-            mainCanvasObjects[0] = menuBackground.gameObject;
-            mainCanvasObjects[1] = menuItems.gameObject;
-
-            SetupMainMenuSelections();
-            
-            exitConfirmationObject = GameObject.Find("ExitConfirmation");
-            if (!exitConfirmationObject) {
-                Debug.LogError("No ExitConfirmation GameObject found in the scene.");
-                enabled = false;
-                return;           
-            }
-            
-            levelFailedObject = GameObject.Find("LevelFailed");
-            if (!levelFailedObject) {
-                Debug.LogError("No LevelFailed GameObject found in the scene.");
-                enabled = false;
-                return;           
-            }
-
-            SetupScoreTexts();
-            FindStatsScreen();
-            SetupHealthAndMana();
-            AwakeShopManager();
-            
-            HideAllMenus();
-            uiCanvasObject.SetActive(true);
         }
 
+        private void OnEnable()
+        {
+            if (!GameManager.Instance) {
+                Debug.LogError("GameManager not found.");
+                return;
+            }
+
+            GameManager.Instance.OnGameOver += GameOver;
+            if (!GameSceneManager.Instance) {
+                Debug.LogError("GameSceneManager not found.");
+                return;           
+            }
+            GameSceneManager.Instance.OnSceneLoaded += NewSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            if (!GameManager.Instance)
+                return;
+            GameManager.Instance.OnGameOver -= GameOver;
+            GameSceneManager.Instance.OnSceneLoaded -= NewSceneLoaded;
+            if (playerController)
+                playerController.OnSuperCooldownChange -= UpdateSuperUI;
+        }
+
+
+        private void FindPlayerAndCache()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) {
+                Debug.LogError("Player not found.");
+                return;
+            }
+
+            if (player.TryGetComponent(out PlayerController controller)) {
+                controller.OnSuperCooldownChange += UpdateSuperUI;
+                playerController = controller;
+            } else {
+                Debug.LogError("Player not found.");
+            }
+        }
 
         private void FindStatsScreen()
         {
@@ -182,6 +186,68 @@ namespace Managers
             }
         }
 
+        private void FindUIComponents()
+        {
+            uiCanvasObject = GameObject.Find("UI");
+            if (!uiCanvasObject) {
+                Debug.LogError("No UI GameObject found in the scene.");
+                enabled = false;
+                return;
+            }
+
+            mainCanvasObjects = new GameObject[2];
+            var menuBackground = GameObject.Find("MenuBackground");
+            var menuItems = GameObject.Find("MainMenuItems");
+            if (!menuBackground || !menuItems) {
+                Debug.LogError("No MenuBackground or MainMenuMenuItems GameObject found under Canvas.");
+                enabled = false;
+                return;
+            }
+            mainCanvasObjects[0] = menuBackground.gameObject;
+            mainCanvasObjects[1] = menuItems.gameObject;
+
+            SetupMainMenuSelections();
+            
+            exitConfirmationObject = GameObject.Find("ExitConfirmation");
+            if (!exitConfirmationObject) {
+                Debug.LogError("No ExitConfirmation GameObject found in the scene.");
+                enabled = false;
+                return;           
+            }
+            
+            levelFailedObject = GameObject.Find("LevelFailed");
+            if (!levelFailedObject) {
+                Debug.LogError("No LevelFailed GameObject found in the scene.");
+                enabled = false;
+                return;           
+            }
+            
+            var levelFailedHomeButtonObject = GameObject.Find("LevelFailedHomeButton");
+            if (!levelFailedHomeButtonObject) {
+                Debug.LogError("No LevelFailedHomeButton GameObject found under LevelFailed.");
+                return;           
+            }
+            levelFailedHomeButton = levelFailedHomeButtonObject.GetComponent<Button>();
+            levelFailedHomeButton.onClick.RemoveAllListeners();
+            levelFailedHomeButton.onClick.AddListener(() => GameSceneManager.Instance.LoadScene(SceneNames.PlayerHome));
+            
+            var levelFailedRetryButtonObject = GameObject.Find("LevelFailedRetryButton");
+            if (!levelFailedRetryButtonObject) {
+                Debug.LogError("No LevelFailedRetryButton GameObject found under LevelFailed.");
+                return;           
+            }
+            levelFailedRetryButton = levelFailedRetryButtonObject.GetComponent<Button>();
+            levelFailedRetryButton.onClick.RemoveAllListeners();
+            levelFailedRetryButton.onClick.AddListener(() => GameSceneManager.Instance.ReloadScene());
+        }
+
+        private void GameOver()
+        {
+            HideAllMenus();
+            uiCanvasObject.SetActive(false);
+            levelFailedObject.SetActive(true);
+        }
+
         public void HideAllMenus()
         {
             settingsCanvasObject.SetActive(false);
@@ -193,6 +259,21 @@ namespace Managers
             questCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
             shopCanvasObject.SetActive(false);
+        }
+
+        private void NewSceneLoaded(int _sceneIndex)
+        {
+            if (_sceneIndex is SceneNames.PlayerHome or SceneNames.MainMenu) {
+                return;
+            }
+            FindUIComponents();
+            SetupScoreTexts();
+            FindStatsScreen();
+            SetupHealthAndMana();
+            FindPlayerAndCache();
+            AwakeShopManager();
+            HideAllMenus();
+            uiCanvasObject.SetActive(true);
         }
 
         private void SetupHealthAndMana()
@@ -225,8 +306,18 @@ namespace Managers
             healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
             if (healthText == null) {
                 Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
+                return;
             }
 
+            var superCooldownBarObject = uiCanvasObject.transform.Find("SuperCooldownBar");
+            if (superCooldownBarObject == null) {
+                Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
+                return;
+            }
+
+            if (!superCooldownBarObject.TryGetComponent(out superCooldownBar)) {
+                Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
+            }
         }
 
         private void SetupMainMenuSelections()
@@ -523,7 +614,7 @@ namespace Managers
                 return;
             }
             manaBubble.value = Mathf.Clamp01(_currentMana / _maxMana);
-            manaText.text = $"{_currentMana}/{_maxMana}";
+            manaText.text = $"{Mathf.RoundToInt(_currentMana)}/{Mathf.RoundToInt(_maxMana)}";
         }
 
         public void UpdateScoreText(int _score = -1)
@@ -533,6 +624,11 @@ namespace Managers
                 return;
             }
             scoreText.text = Mathf.FloorToInt(RunScoreManager.Instance.RunScore).ToString();
+        }
+
+        private void UpdateSuperUI(float _cooldownAmount, float _cooldownTimer)
+        {
+            superCooldownBar.value = Mathf.Clamp01((_cooldownTimer - _cooldownAmount)/_cooldownTimer);
         }
 
         public void UpdatePowerUpScoreText(int _score = -1)

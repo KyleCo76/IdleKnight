@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -28,6 +30,7 @@ namespace Managers
         private float spawnTimer;
         private readonly List<TrackedShop> activeShops = new();
         private Transform playerTransform;
+        private bool shouldSpawn;
 
 
         void Awake()
@@ -39,16 +42,21 @@ namespace Managers
             Instance = this;
             
             shopPrefabs = Resources.LoadAll<GameObject>("Shops");
-            var playerObject = GameObject.FindGameObjectWithTag("Player");
-            if (playerObject == null || !playerObject.TryGetComponent(out playerTransform)) {
-                Debug.LogError("Player GameObject not found or missing Transform component.");
-                enabled = false;
-            }
+        }
+
+        private void OnEnable()
+        {
+            GameSceneManager.Instance.OnSceneLoaded += HandleSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
         }
 
         void Update()
         {
-            if (GameManager.Instance == null || GameManager.Instance.IsPaused)
+            if (!GameManager.Instance || GameManager.Instance.IsPaused)
                 return;
 
             // Update TTL for active shops
@@ -67,6 +75,9 @@ namespace Managers
                 }
             }
 
+            if (!shouldSpawn)
+                return;
+            
             spawnTimer += Time.deltaTime;
             if (spawnTimer >= spawnInterval)
             {
@@ -76,6 +87,22 @@ namespace Managers
 
         }
 
+
+        private void HandleSceneLoaded(int _sceneIndex)
+        {
+            if (_sceneIndex is SceneNames.MainMenu or SceneNames.PlayerHome) {
+                shouldSpawn = false;
+                return;
+            }
+            var playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null) {
+                playerTransform = playerObj.transform;
+                shouldSpawn = true;
+            } else {
+                shouldSpawn = false;
+                Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
+            }
+        }
 
         public void LeaveShop(GameObject _shop)
         {

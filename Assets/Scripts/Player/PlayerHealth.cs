@@ -21,12 +21,12 @@ namespace Player
         public float BaseHealthRegenInterval => healthRegenInterval;
         public float HealthRegenIntervalBuff { get; private set; }
         public float HealthRegenIntervalTempBuff { get; private set; }
-
         
         private float currentHealth;
         private float invincibilityTimer;
         private float healthRegenTimer;
         private bool allowOverHeal;
+        private bool isDead;
 
 
         private void HealthAwake()
@@ -36,6 +36,10 @@ namespace Player
             HealthRegenIntervalBuff = 1f;
             HealthRegenIntervalTempBuff = 1f;
             currentHealth = maxHealth;
+        }
+
+        private void HealthStart()
+        {
             UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
             healthRegenTimer = BaseHealthRegenInterval / HealthRegenAmountBuff / HealthRegenAmountTempBuff;
         }
@@ -71,8 +75,7 @@ namespace Player
                 currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
             if (currentHealth <= 0f) {
-                Debug.Log($"{gameObject.name} has died.");
-                // Handle player death (e.g., trigger game over, respawn, etc.)
+                PlayerDied();
                 return;
             }
             UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
@@ -84,6 +87,19 @@ namespace Player
             maxHealth = Mathf.Max(1f, maxHealth); // Ensure max health is at least 1
             currentHealth = Mathf.Min(currentHealth, maxHealth); // Adjust current health if necessary
             UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
+        }
+
+        private void PlayerDied()
+        {
+            if (!GameManager.Instance) {
+                Debug.LogError("GameManager instance missing from scene");
+                return;
+            }
+
+            currentHealth = 0f;
+            UIManager.Instance.UpdateHealthUI(currentHealth, maxHealth);
+            isDead = true;
+            GameManager.Instance.PlayerDied();
         }
     }
 }

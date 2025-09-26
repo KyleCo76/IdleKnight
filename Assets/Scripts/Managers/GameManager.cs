@@ -1,6 +1,7 @@
 using System.Collections;
-using Pathfinding;
+using Game;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -20,8 +21,15 @@ namespace Managers
         public event GamePausedEventHandler OnGamePaused;
         public delegate void GameResumedEventHandler();
         public event GameResumedEventHandler OnGameResumed;
+        public delegate void GameOverEventHandler();
+        public event GameOverEventHandler OnGameOver;
+
 
         public int DifficultyLevel { get; private set; } = 1;
+        
+        // Cached Components
+        private RectTransform cursorTransform;
+        private Slider cursorSizeSlider;
 
 
         private void Awake()
@@ -32,17 +40,16 @@ namespace Managers
             }
             Instance = this;
             // DontDestroyOnLoad is handled by parent object
+        }
 
-            InputActions = new InputSystem_Actions();
-            InputActions.Player.Enable();
-            InputActions.UI.Enable();
-            InputActions.UI.Pause.performed += _ => {
-                if (IsPaused) {
-                    ResumeGame();
-                } else {
-                    PauseGame();
-                }
-            };
+        private void OnEnable()
+        {
+            GameSceneManager.Instance.OnSceneLoaded += HandleSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
         }
 
         private void OnDestroy()
@@ -52,11 +59,33 @@ namespace Managers
             }
         }
 
+
+        private void HandleSceneLoaded(int _sceneIndex)
+        {
+            if (_sceneIndex is SceneNames.MainMenu or SceneNames.PlayerHome)
+                return;
+            
+            if (InputActions != null) {
+                InputActions.Player.Disable();
+                InputActions.UI.Disable();
+                InputActions.Dispose();
+                InputActions = null;           
+            }
+            Time.timeScale = 1.0f;
+            StartupComponents();
+        }
+
         private void PauseGame()
         {
             UIManager.Instance.ShowPauseMenu();
             IsPaused = true;
             OnGamePaused?.Invoke();
+            Time.timeScale = 0.0f;
+        }
+
+        public void PlayerDied()
+        {
+            OnGameOver?.Invoke();
             Time.timeScale = 0.0f;
         }
 
@@ -84,6 +113,35 @@ namespace Managers
             //UIManager.Instance.ResetResumeButton();
             StartCoroutine(ResumeDelay(0.5f));
             OnGameResumed?.Invoke();
+        }
+
+        private void StartupComponents()
+        {
+            InputActions = new InputSystem_Actions();
+            InputActions.Player.Enable();
+            InputActions.UI.Enable();
+            InputActions.UI.Pause.performed += _ => {
+                if (IsPaused) {
+                    ResumeGame();
+                } else {
+                    PauseGame();
+                }
+            };
+            
+            cursorTransform = GameObject.Find("CursorImage").GetComponent<RectTransform>();
+            var cursorSizeSliderParent = GameObject.Find("CursorSizeSlider");
+            if (!cursorSizeSliderParent) {
+                Debug.LogError("No CursorSizeSlider GameObject found in scene.");
+                return;
+            }
+
+            if (!cursorSizeSliderParent.TryGetComponent(out cursorSizeSlider)) {
+                Debug.LogError("No CursorSizeSlider found in scene.");
+                return;           
+            }
+            cursorSizeSlider.onValueChanged.AddListener(_value => {
+                cursorTransform.localScale = new Vector3(_value + 1, _value + 1, 1);
+            });
         }
 
         /// <summary>

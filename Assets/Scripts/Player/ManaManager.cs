@@ -31,10 +31,9 @@ namespace Player
         private float manaRegenTimer;
 
 
-        void StaminaAwake()
+        private void StaminaAwake()
         {
             currentMana = startingMana;
-            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
             ManaRegenRateBuff = 1f;
             ManaRegenRateTempBuff = 1f;
             ManaRegenIntervalBuff = 1f;
@@ -42,7 +41,11 @@ namespace Player
             manaRegenTimer = BaseManaRegenInterval / ManaRegenRateBuff / ManaRegenRateTempBuff;
         }
 
-        void StaminaUpdate()
+        private void StaminaStart()
+        {
+            UIManager.Instance.UpdateManaUI(currentMana, maxMana);
+        }
+        private void StaminaUpdate()
         {
             if (manaRegenTimer > 0f) {
                 manaRegenTimer -= Time.deltaTime;

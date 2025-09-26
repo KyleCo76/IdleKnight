@@ -27,8 +27,9 @@ namespace Managers
         public EnemySpawner Instance;
 
         private Player.PlayerController player;
-        //private float timer;
         private int currentLevel = 1;
+        private bool shouldSpawn;
+        private float currentSpawnTime;
 
         private const float SpawnRangeMin = 10.0f; // Minimum distance from player
         private const float SpawnRangeMax = 20.0f; // Maximum distance from player
@@ -47,41 +48,6 @@ namespace Managers
             }
 
             Instance = this;
-            
-            var playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null) {
-                if (!playerObj.TryGetComponent(out player)) {
-                    Debug.LogError("Player GameObject does not have a PlayerController component.");
-                    enabled = false;
-                    return;
-                }
-            } else {
-                Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
-                enabled = false;
-                return;
-            }
-
-            enemySpawnChances = Resources.Load<EnemySpawnChances>("ScriptableObjects/EnemySpawnChances");
-            if (enemySpawnChances == null) {
-                Debug.LogError("EnemySpawnChances ScriptableObject not found in Resources/ScriptableObjects!");
-                enabled = false;
-                return;
-            }
-
-            // Initialize the pooled minion manager
-            pooledMinions = new PooledMinionManager(initialDefaultPoolSize);
-            var allEnemyPrefabs = enemySpawnChances.GetAllEnemyPrefabsWithCount();
-            foreach (var enemy in allEnemyPrefabs) {
-                var initialPoolSize = initialDefaultPoolSize;
-                var prefabMaxCount = enemy.Value == 0 ? maxDefaultPoolSize : enemy.Value;
-                if (initialPoolSize > prefabMaxCount) {
-                    initialPoolSize = prefabMaxCount / 2;
-                }
-
-                pooledMinions.PreWarm(enemy.Key, initialPoolSize, prefabMaxCount);
-            }
-
-            StartCoroutine(MinionSpawnerTimer(spawnInterval));
         }
 
         private void OnEnable()
@@ -95,6 +61,7 @@ namespace Managers
 
             Enemies.Controller.OnEnemyDeath += HandleEnemyDeath;
             RunScoreManager.Instance.OnPlayerLeveledUp += HandlePlayerLevelUp;
+            GameSceneManager.Instance.OnSceneLoaded += StartupComponents;
         }
 
         private void OnDisable()
@@ -105,6 +72,7 @@ namespace Managers
 
             RunScoreManager.Instance.OnPlayerLeveledUp -= HandlePlayerLevelUp;
             Enemies.Controller.OnEnemyDeath -= HandleEnemyDeath;
+            GameSceneManager.Instance.OnSceneLoaded -= StartupComponents;
         }
         
         
@@ -121,8 +89,10 @@ namespace Managers
 
         private void HandlePlayerLevelUp(int _newLevel)
         {
-            spawnInterval = Mathf.Max(0.1f, spawnInterval - 0.5f * (_newLevel - 1));
+            currentSpawnTime = Mathf.Max(0.1f, spawnInterval - 0.1f * (_newLevel - 1));
             currentLevel = _newLevel;
+            StopAllCoroutines();
+            StartCoroutine(MinionSpawnerTimer(currentSpawnTime));
         }
         
         private Vector2 RandomPointInAnnulus(Vector2 _center, float _innerRadius, float _outerRadius)
@@ -162,11 +132,61 @@ namespace Managers
             }
         }
 
+        private void StartupComponents(int _sceneIndex)
+        {
+            StopAllCoroutines();
+            if (_sceneIndex is SceneNames.MainMenu or SceneNames.PlayerHome) {
+                shouldSpawn = false;
+                return;
+            } else {
+                shouldSpawn = true;
+            }
+
+            spawnCount = 0;
+            
+            var playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null) {
+                if (!playerObj.TryGetComponent(out player)) {
+                    Debug.LogError("Player GameObject does not have a PlayerController component.");
+                    enabled = false;
+                    return;
+                }
+            } else {
+                Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
+                enabled = false;
+                return;
+            }
+
+            enemySpawnChances = Resources.Load<EnemySpawnChances>("ScriptableObjects/EnemySpawnChances");
+            if (enemySpawnChances == null) {
+                Debug.LogError("EnemySpawnChances ScriptableObject not found in Resources/ScriptableObjects!");
+                enabled = false;
+                return;
+            }
+
+            // Initialize the pooled minion manager
+            pooledMinions = new PooledMinionManager(initialDefaultPoolSize);
+            var allEnemyPrefabs = enemySpawnChances.GetAllEnemyPrefabsWithCount();
+            foreach (var enemy in allEnemyPrefabs) {
+                var initialPoolSize = initialDefaultPoolSize;
+                var prefabMaxCount = enemy.Value == 0 ? maxDefaultPoolSize : enemy.Value;
+                if (initialPoolSize > prefabMaxCount) {
+                    initialPoolSize = prefabMaxCount / 2;
+                }
+
+                pooledMinions.PreWarm(enemy.Key, initialPoolSize, prefabMaxCount);
+            }
+            
+            shouldSpawn = true;
+            
+            StartCoroutine(MinionSpawnerTimer(spawnInterval));
+        }
+
         private IEnumerator MinionSpawnerTimer(float _interval)
         {
             var wait = new WaitForSeconds(_interval);
             while (enabled) {
-                if (GameManager.Instance && !GameManager.Instance.IsPaused) {
+                if (GameManager.Instance && !GameManager.Instance.IsPaused && shouldSpawn) {
                     if (maxEnemies == 0 || spawnCount < maxEnemies) {
                         SpawnRandomEnemy();
                     }

@@ -20,6 +20,12 @@ namespace Game
         }
     }
 
+    public static class SceneNames
+    {
+        public const int MainMenu = 0;
+        public const int PlayerHome = 1;
+    }
+
     public enum AttackType
     {
         None,
