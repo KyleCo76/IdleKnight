@@ -1,10 +1,11 @@
 using Game;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Collectables : MonoBehaviour
+public class Collectables : MonoBehaviour, IPooledResettable
 {
     [FoldoutGroup("Collectable Settings")]
     [FoldoutGroup("Collectable Settings/General Settings"), SerializeField, Tooltip("Should this object be collected on pickup?")]
@@ -225,6 +226,8 @@ public class Collectables : MonoBehaviour
     // Cached Component
     private Collider2D collectableCollider;
     private SpriteRenderer spriteRenderer;
+    private ItemSpawner spawnerReference;
+    private GameObject prefabReference;
 
 
     private void Awake()
@@ -266,7 +269,10 @@ public class Collectables : MonoBehaviour
         if (pickupDelayTimer <= 0) {
             timeToLiveTimer -= Time.deltaTime;
             if (timeToLiveTimer <= 0f) {
-                Destroy(gameObject);
+                if (spawnerReference != null)
+                    spawnerReference.ReleasePowerUp(gameObject);
+                else
+                    Destroy(gameObject);
             }
             spriteFlashTimer -= Time.deltaTime;
             if (timeToLiveTimer <= 5f && spriteFlashTimer <= 0f) {
@@ -280,21 +286,34 @@ public class Collectables : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D _other)
     {
-        if (_other.CompareTag("Player")) {
-            if (collectOnPickup) {
-                Collect(_other);
-            }
-            if (pickupSound != null) {
-                AudioSource.PlayClipAtPoint(pickupSound, transform.position, pickupSoundVolume);
-            }
-            if (destroyOnPickup) {
-                Destroy(gameObject);
-            }
+        if (!_other.CompareTag("Player"))
+            return;
+        
+        if (collectOnPickup) {
+            Collect(_other);
         }
+        if (pickupSound != null) {
+            AudioSource.PlayClipAtPoint(pickupSound, transform.position, pickupSoundVolume);
+        }
+
+        if (!destroyOnPickup)
+            return;
+        
+        if (spawnerReference != null)
+            spawnerReference.ReleasePowerUp(gameObject);
+        else
+            Destroy(gameObject);
+    }
+
+    public GameObject GetSourcePrefab()
+    {
+        return prefabReference;
     }
 
     public void Initialize(PowerUpData _data)
     {
+        spawnerReference = _data.SpawnerObject;
+        prefabReference = _data.PrefabReference;
         powerUps.Add(_data);
     }
 
@@ -368,6 +387,16 @@ public class Collectables : MonoBehaviour
         if (!Mathf.Approximately(auraDamageBoostMultiplier, 1)) {
             powerUps.Add(new PowerUpData(PowerUpType.AuraDamageBoost, auraDamageDuration, auraDamageBoostMultiplier));
         }
+    }
+
+    public void OnTakenFromPool(GameObject _g, Enemies.MinionSpawner _m)
+    {
+        
+    }
+
+    public void OnTakenFromPool(GameObject _g)
+    {
+        
     }
 
     private void RandomizeSprite()
@@ -630,7 +659,7 @@ public class Collectables : MonoBehaviour
         if (!randomGiveAuraDamageBoost) {
             weightAuraDamageBoost = 0f;
         }
-        if (numberOfStatsToGive < 1) {
+        if (numberOfStatsToGive < 2) {
             numberOfStatsToGive = 1;
         }
     }

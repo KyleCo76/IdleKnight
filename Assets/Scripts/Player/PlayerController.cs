@@ -233,8 +233,8 @@ namespace Player
                 OnSuperCooldownChange?.Invoke(superCooldownTimer, BaseSuperCooldown / SuperCooldownBuff);
             }
 
-            attackDoubleAttack = rangedDamage >= doubleAttackDamageActivationPoint;
-            attackTripleAttack = rangedDamage >= tripleAttackDamageActivationPoint;
+            attackDoubleAttack = BaseAttackSpeed * AttackSpeedBuff * AttackSpeedBuffTemp >= doubleAttackDamageActivationPoint;
+            attackTripleAttack = BaseAttackSpeed * AttackSpeedBuff * AttackSpeedBuffTemp >= tripleAttackDamageActivationPoint;
         }
 
         private void FixedUpdate()
@@ -315,20 +315,27 @@ namespace Player
                 }
 
                 if (attackDoubleAttack) {
-                    var projectileLeft = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation + 15f));
+                    var projectileLeft = Instantiate(projectiles[0], playerTransform.position,
+                        Quaternion.Euler(0f, 0f, rotation + 15f));
                     if (projectileLeft.TryGetComponent<Projectile>(out var projComponentLeft)) {
-                        projComponentLeft.Initialize(leftDirection, 400f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
+                        projComponentLeft.Initialize(leftDirection, 400f,
+                            BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
                     }
                 }
                 if (attackTripleAttack) {
-                    var projectileRight = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation - 15f));
+                    var projectileRight = Instantiate(projectiles[0], playerTransform.position,
+                        Quaternion.Euler(0f, 0f, rotation - 15f));
                     if (projectileRight.TryGetComponent<Projectile>(out var projComponentRight)) {
-                        projComponentRight.Initialize(rightDirection, 400f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
+                        projComponentRight.Initialize(rightDirection, 400f,
+                            BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
                     }
                 }
-                var projectile = Instantiate(projectiles[0], playerTransform.position, Quaternion.Euler(0f, 0f, rotation));
+
+                var projectile = Instantiate(projectiles[0], playerTransform.position,
+                    Quaternion.Euler(0f, 0f, rotation));
                 if (projectile.TryGetComponent<Projectile>(out var projComponent)) {
-                    projComponent.Initialize(mainDirection, 400f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
+                    projComponent.Initialize(mainDirection, 400f,
+                        BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
                 }
             }
         }

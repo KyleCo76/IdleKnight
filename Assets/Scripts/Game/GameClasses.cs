@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Enemies;
+using Managers;
 using UnityEngine;
 
 namespace Game
@@ -7,10 +8,22 @@ namespace Game
     [System.Serializable]
     public class PowerUpData
     {
+        public ItemSpawner SpawnerObject;
+        public GameObject PrefabReference;
         public PowerUpType Type { get; private set; }
         public float Duration { get; private set; }
         public float Multiplier { get; private set; }
         public float Amount { get; private set; }
+        public PowerUpData(ItemSpawner _spawner, GameObject _prefabReference, PowerUpType _type, float _duration = 0f, float _multiplier = 1f, float _amount = 0f)
+        {
+            SpawnerObject = _spawner;
+            PrefabReference = _prefabReference;
+            Type = _type;
+            Duration = _duration;
+            Multiplier = _multiplier;
+            Amount = _amount;
+        }
+        
         public PowerUpData(PowerUpType _type, float _duration = 0f, float _multiplier = 1f, float _amount = 0f)
         {
             Type = _type;

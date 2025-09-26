@@ -21,7 +21,7 @@ namespace Managers
         public int GemsCount { get; private set; }
 
         private int playerLevel = 1;
-        private int lastScoreLevelThreshold = 50;
+        private int lastScoreLevelThreshold;
 
         // Cached Components
         private PlayerLevels playerLevels;
@@ -35,12 +35,6 @@ namespace Managers
             }
             Instance = this;
             // DontDestroyOnLoad is handled by parent GameManager
-
-            playerLevels = Resources.Load<PlayerLevels>("ScriptableObjects/PlayerLevels");
-            if (playerLevels == null) {
-                Debug.LogError("PlayerLevels not found in Resources/ScriptableObjects.");
-                enabled = false;
-            }
         }
         private void OnEnable()
         {
@@ -98,10 +92,19 @@ namespace Managers
             RunScore = 0;
             GemsCount = 0;
             playerLevel = 1;
+            lastScoreLevelThreshold = playerLevels.BaseExperienceToLevelUp;
         }
 
         private void HandleSceneLoaded(int _)
         {
+            if (playerLevels != null)
+                return;
+            
+            playerLevels = Resources.Load<PlayerLevels>("ScriptableObjects/PlayerLevels");
+            if (playerLevels == null) {
+                Debug.LogError("PlayerLevels not found in Resources/ScriptableObjects.");
+                return;
+            }
             HandleGameOver();
         }
 

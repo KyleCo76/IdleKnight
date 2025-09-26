@@ -36,6 +36,14 @@ namespace ScriptableObjects
         public ItemSpawnWeightEntry[] SpawnWeights;
 
 
+        public GameObject[] GetAllPrefabs()
+        {
+            var allPrefabs = new GameObject[Prefabs.Length];
+            for (int i = 0; i < allPrefabs.Length; i++)
+                allPrefabs[i] = Prefabs[i].Prefab;
+            
+            return allPrefabs;
+        }
         public GameObject GetPrefabForPowerUpType(PowerUpType _powerUpType, bool _isTemporary)
         {
             var typeUsesTickIcon = false;
