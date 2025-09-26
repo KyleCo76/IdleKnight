@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Game;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -21,16 +24,21 @@ namespace Managers
         private float spawnRangeMax = 25f;
         [FoldoutGroup("Spawn Distance"), SerializeField, Tooltip("Minimum distance from other shops to spawn shops")]
         private float shopSpawnOffset = 10f;
+        [FoldoutGroup("Spawn Distance"), SerializeField, Tooltip("Maximum distance the shop can be from the player before being culled")]
+        private float cullDistance = 20f;
 
         
         public static ShopSpawner Instance;
         
         private const int MaxPlacementAttempts = 10;
         private GameObject[] shopPrefabs;
-        private float spawnTimer;
-        private readonly List<TrackedShop> activeShops = new();
+        private readonly Dictionary<string, TrackedShop> activeShops = new();
         private Transform playerTransform;
         private bool shouldSpawn;
+        
+        private readonly List<ShopLocationData> shopLocations = new();
+        private readonly Queue<string> shopsToCull = new();
+        private bool jobRunning;
 
 
         void Awake()
@@ -56,40 +64,37 @@ namespace Managers
 
         void Update()
         {
-            if (!GameManager.Instance || GameManager.Instance.IsPaused)
+            if (!shouldSpawn || !GameManager.Instance || GameManager.Instance.IsPaused)
                 return;
 
-            // Update TTL for active shops
-            for (int i = activeShops.Count - 1; i >= 0; i--)
-            {
-                TrackedShop trackedShop = activeShops[i];
+            while (shopsToCull.Count > 0) {
+                var shop = shopsToCull.Dequeue();
+                if (String.IsNullOrEmpty(shop))
+                    continue;
+                Destroy(activeShops[shop].Shop);
+                activeShops.Remove(shop);
+            }
+
+            if (!jobRunning) {
+                TryShopCull();
+            }
+
+            foreach (var shop in activeShops) {
+                var trackedShop = shop.Value;
                 trackedShop.TimeToLive -= Time.deltaTime;
-                if (trackedShop.TimeToLive <= 0f)
-                {
-                    Destroy(trackedShop.Shop);
-                    activeShops.RemoveAt(i);
+                if (trackedShop.TimeToLive > 0) {
+                    activeShops[shop.Key] = trackedShop;
+                    continue;
                 }
-                else
-                {
-                    activeShops[i] = trackedShop;
-                }
+                Destroy(shop.Value.Shop);
+                activeShops.Remove(shop.Key);
             }
-
-            if (!shouldSpawn)
-                return;
-            
-            spawnTimer += Time.deltaTime;
-            if (spawnTimer >= spawnInterval)
-            {
-                SpawnShop();
-                spawnTimer = 0f;
-            }
-
         }
 
 
         private void HandleSceneLoaded(int _sceneIndex)
         {
+            StopAllCoroutines();
             if (_sceneIndex is SceneNames.MainMenu or SceneNames.PlayerHome) {
                 shouldSpawn = false;
                 return;
@@ -102,13 +107,21 @@ namespace Managers
                 shouldSpawn = false;
                 Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
             }
+
+            StartCoroutine(ShopSpawnerCoroutine(spawnInterval));
+        }
+        
+        private bool IsShopTooClose(Vector2 _position)
+        {
+            // Overlap any shop colliders within buffer distance
+            return !Physics2D.OverlapCircle(_position, shopSpawnOffset, shopLayer);
         }
 
         public void LeaveShop(GameObject _shop)
         {
             foreach (var shop in activeShops) {
-                if (shop.Shop == _shop) {
-                    activeShops.Remove(shop);
+                if (shop.Value.Shop == _shop) {
+                    activeShops.Remove(shop.Key);
                     Destroy(_shop);
                     break;
                 }
@@ -124,16 +137,45 @@ namespace Managers
             return _center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r;
         }
 
-        private bool IsShopTooClose(Vector2 _position)
+        private void TryShopCull()
         {
-            // Overlap any shop colliders within buffer distance
-            return Physics2D.OverlapCircle(_position, shopSpawnOffset, shopLayer) != null;
+            shopLocations.Clear();
+            foreach (var shop in activeShops) {
+                var locationData = new ShopLocationData
+                {
+                    PlayerPosition = playerTransform.position, ShopPosition = shop.Value.Shop.transform.position, Guid = shop.Key
+                };
+                shopLocations.Add(locationData);
+            }
+            jobRunning = true;
+            float cullDistSqr = cullDistance * cullDistance;
+                
+            Task.Run(() =>
+                {
+                    var cullList = new List<string>();
+                    foreach (var shopData in shopLocations) {
+                        if ((shopData.ShopPosition - shopData.PlayerPosition).sqrMagnitude < cullDistSqr) {
+                            cullList.Add(shopData.Guid);
+                        }
+                    }
+
+                    return cullList;
+                })
+                .ContinueWith(_task =>
+                {
+                    if (_task.Status == TaskStatus.RanToCompletion) {
+                        foreach (var guid in _task.Result)
+                            shopsToCull.Enqueue(guid);
+                    }
+                    jobRunning = false;
+                }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private bool TryGetValidShopPosition(out Vector3 _position)
         {
             _position = Vector3.zero;
-            if (!playerTransform) return false;
+            if (!playerTransform)
+                return false;
 
             var center = (Vector2)playerTransform.position;
 
@@ -142,7 +184,8 @@ namespace Managers
                 Vector2 candidate = RandomPointInAnnulus(center, spawnRangeMin, spawnRangeMax);
 
                 // If there is a shop within shopSpawnOffset, reject and retry
-                if (IsShopTooClose(candidate)) continue;
+                if (IsShopTooClose(candidate))
+                    continue;
 
                 _position = new Vector3(candidate.x, candidate.y, 0f);
                 return true;
@@ -152,20 +195,29 @@ namespace Managers
 
         private void SpawnShop()
         {
-            if (shopPrefabs[0] == null || playerTransform == null) return;
+            if (!shopPrefabs[0] || !playerTransform) return;
 
             if (!TryGetValidShopPosition(out var spawnPos))
-            {
-                // Couldn't find a valid spot this frame; skip spawn to avoid overlaps
                 return;
-            }
 
             var shop = Instantiate(shopPrefabs[0], spawnPos, Quaternion.identity);
-            activeShops.Add(new TrackedShop{ Shop = shop, SpawnPosition = spawnPos, TimeToLive = timeToLive});
+            var id = Guid.NewGuid().ToString();
+            activeShops.Add(id, new TrackedShop{ Shop = shop, SpawnPosition = spawnPos, TimeToLive = timeToLive });
+        }
+
+        private IEnumerator ShopSpawnerCoroutine(float _interval)
+        {
+            var wait = new WaitForSeconds(_interval);
+            while (enabled) {
+                if (GameManager.Instance && !GameManager.Instance.IsPaused && shouldSpawn) {
+                    SpawnShop();
+                }
+                yield return wait;
+            }
         }
     }
 
-    public struct TrackedShop : System.IEquatable<TrackedShop>
+    public struct TrackedShop : IEquatable<TrackedShop>
     {
         public GameObject Shop;
         public Vector2 SpawnPosition;
@@ -184,5 +236,12 @@ namespace Managers
         {
             return Shop.GetHashCode();
         }
+    }
+
+    public struct ShopLocationData
+    {
+        public Vector2 PlayerPosition;
+        public Vector2 ShopPosition;
+        public string Guid;
     }
 }

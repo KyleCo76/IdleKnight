@@ -44,12 +44,6 @@ namespace Managers
             Enemies.Controller.OnEnemyDeath -= EnemyDeath;
         }
 
-        private bool ChoosePowerUpTemporary()
-        {
-            float roll = Random.Range(0f, 1f);
-            return roll <= 0.5f; // 50% chance
-        }
-
         private PowerUpType ChoosePowerUpType()
         {
             var roll = Random.Range(0f, 1f);
@@ -101,13 +95,13 @@ namespace Managers
         {
             switch (_type) {
                 case PowerUpType.Invincibility:
-                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration + 1, maxTemporaryDuration)));
                     break;
                 case PowerUpType.DoublePoints:
-                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration + 1, maxTemporaryDuration)));
                     break;
                 case PowerUpType.CoinMagnet:
-                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(_type, _duration: RandomBiasedNumber(minTemporaryDuration + 1, maxTemporaryDuration)));
                     break;
                 case PowerUpType.MaxHealthBoost:
                 case PowerUpType.HealAmount:

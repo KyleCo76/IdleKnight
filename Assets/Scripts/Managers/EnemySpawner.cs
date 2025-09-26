@@ -27,7 +27,7 @@ namespace Managers
         public EnemySpawner Instance;
 
         private Player.PlayerController player;
-        private int currentLevel = 1;
+        private int currentPlayerLevel = 1;
         private bool shouldSpawn;
         private float currentSpawnTime;
 
@@ -90,7 +90,7 @@ namespace Managers
         private void HandlePlayerLevelUp(int _newLevel)
         {
             currentSpawnTime = Mathf.Max(0.1f, spawnInterval - 0.1f * (_newLevel - 1));
-            currentLevel = _newLevel;
+            currentPlayerLevel = _newLevel;
             StopAllCoroutines();
             StartCoroutine(MinionSpawnerTimer(currentSpawnTime));
         }
@@ -114,7 +114,7 @@ namespace Managers
 
             while (!prefab && loopCount < 5) {
                 loopCount++;
-                prefab = enemySpawnChances.GetRandomEnemy(GameManager.Instance.DifficultyLevel, currentLevel);
+                prefab = enemySpawnChances.GetRandomEnemy(GameManager.Instance.DifficultyLevel, currentPlayerLevel);
             }
 
 
@@ -143,6 +143,7 @@ namespace Managers
             }
 
             spawnCount = 0;
+            currentPlayerLevel = 1;
             
             var playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null) {
