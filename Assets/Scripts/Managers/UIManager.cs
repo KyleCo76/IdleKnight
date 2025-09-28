@@ -43,6 +43,7 @@ namespace Managers
         private Button floatingResumeButton;
         private Button levelFailedHomeButton;
         private Button levelFailedRetryButton;
+        private TMP_Dropdown cursorPointerDropdown;
         
         // Stats Panel Components
         private readonly List<(TextMeshProUGUI[], PowerUpType)> stats = new();
@@ -239,6 +240,18 @@ namespace Managers
             levelFailedRetryButton = levelFailedRetryButtonObject.GetComponent<Button>();
             levelFailedRetryButton.onClick.RemoveAllListeners();
             levelFailedRetryButton.onClick.AddListener(() => GameSceneManager.Instance.ReloadScene());
+            
+            var cursorPointerDropdownObject =  GameObject.Find("CursorPointerDropdown");
+            if (!cursorPointerDropdownObject) {
+                Debug.LogError("No cursorPointerDropdown GameObject found in the scene.");
+                return;
+            }
+
+            if (!cursorPointerDropdownObject.TryGetComponent(out cursorPointerDropdown)) {
+                Debug.LogError("No cursorPointerDropdown GameObject found in the scene.");
+            }
+            cursorPointerDropdown.onValueChanged.RemoveAllListeners();
+            cursorPointerDropdown.onValueChanged.AddListener(GameManager.Instance.SetCursorImage);
         }
 
         private void GameOver()
@@ -314,7 +327,7 @@ namespace Managers
                 Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
                 return;
             }
-
+            
             if (!superCooldownBarObject.TryGetComponent(out superCooldownBar)) {
                 Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
             }

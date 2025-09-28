@@ -4,6 +4,7 @@
 using System.Collections;
 using Game;
 using ScriptableObjects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,11 +29,12 @@ namespace Managers
 
         private Player.PlayerController player;
         private int currentPlayerLevel = 1;
+        [ShowInInspector]
         private bool shouldSpawn;
         private float currentSpawnTime;
 
-        private const float SpawnRangeMin = 10.0f; // Minimum distance from player
-        private const float SpawnRangeMax = 20.0f; // Maximum distance from player
+        private const float SpawnRange = 3.0f;
+        private const float SpawnMargin = 3.0f;
 
         private EnemySpawnChances enemySpawnChances;
         private PooledMinionManager pooledMinions;
@@ -120,7 +122,36 @@ namespace Managers
 
             // Spawn at a random position outside the player's area
             
-            Vector3 spawnPosition = RandomPointInAnnulus(player.transform.position, SpawnRangeMin, SpawnRangeMax);
+            // Vector3 spawnPosition = RandomPointInAnnulus(player.transform.position, spawnRangeMin, spawnRangeMax);
+            var camBounds = GameManager.Instance.GetCameraWorldBounds();
+            int direction = Random.Range(0, 4); // 0=left, 1=right, 2=top, 3=bottom
+            float x = 0;
+            float y = 0;
+            float min;
+            float max;
+            switch (direction) {
+                case 0:
+                    max = camBounds.min.x - SpawnMargin;
+                    x = Random.Range(max - SpawnRange, max);
+                    y = Random.Range(camBounds.min.y, camBounds.max.y);
+                    break;
+                case 1:
+                    min = camBounds.max.x + SpawnMargin;
+                    x = Random.Range(min, min + SpawnRange);
+                    y = Random.Range(camBounds.min.y, camBounds.max.y);
+                    break;
+                case 2:
+                    min = camBounds.max.y + SpawnMargin;
+                    y = Random.Range(min, min + SpawnRange);
+                    x = Random.Range(camBounds.min.x, camBounds.max.x);
+                    break;
+                case 3:
+                    max = camBounds.min.y - SpawnMargin;
+                    y = Random.Range(max - SpawnRange, max);
+                    x = Random.Range(camBounds.min.x, camBounds.max.x);
+                    break;
+            }
+            Vector2 spawnPosition = new Vector2(x, y);
 
             spawnCount++;
             var enemy = pooledMinions.GetFromPool(prefab, spawnPosition, Quaternion.identity);

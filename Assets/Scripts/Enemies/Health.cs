@@ -32,7 +32,7 @@ namespace Enemies
             if (shieldHealth > 0f && _amount < 0f && !_ignoreShield) {
                 shieldHealth += _amount;
                 if (shieldHealth < 0f) {
-                    _amount = shieldHealth; // Remaining damage after shield is depleted
+                    _amount = shieldHealth; // Remaining damage after the shield is depleted
                     shieldHealth = 0f;
                 } else {
                     return;

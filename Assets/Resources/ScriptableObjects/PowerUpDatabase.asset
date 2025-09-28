@@ -186,7 +186,7 @@ MonoBehaviour:
   - PowerUpType: 9
     Weight: 0.01
   - PowerUpType: 10
-    Weight: 0.5
+    Weight: 0.274
   - PowerUpType: 11
     Weight: 0.31
   - PowerUpType: 12

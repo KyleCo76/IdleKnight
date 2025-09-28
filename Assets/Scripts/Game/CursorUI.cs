@@ -8,7 +8,7 @@ namespace Game
         private RectTransform cursorImg;
 
         private CursorUI instance;
-        private readonly Vector2 hotspot = new(4f, 3f);
+        private Vector2 hotspot = new(4f, 3f);
 
         private void Awake()
         {
@@ -33,6 +33,11 @@ namespace Game
                 out var pos
             );
             cursorImg.localPosition = pos - hotspot;
+        }
+
+        public void SetHotspot(Vector2 _hotspot)
+        {
+            hotspot = _hotspot;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using Game;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Managers
@@ -26,10 +27,19 @@ namespace Managers
 
 
         public int DifficultyLevel { get; private set; } = 1;
+
+        private int attackTrigger;
+        private bool animateCursor;
+
+        private readonly Vector2 basicCursorHotspot = new Vector2(4f, 3f);
+        private readonly Vector2 swingingSwordCursorHotspot = new Vector2(4f, 3f);
+        private readonly Vector2 wobbleCursorHotspot = new Vector2(17f, -2f);
         
         // Cached Components
         private RectTransform cursorTransform;
         private Slider cursorSizeSlider;
+        private Animator cursorAnimator;
+        private CursorUI cursorUI;
 
 
         private void Awake()
@@ -39,7 +49,12 @@ namespace Managers
                 return;
             }
             Instance = this;
-            // DontDestroyOnLoad is handled by parent object
+            // DontDestroyOnLoad is handled by the parent object
+
+            attackTrigger = Animator.StringToHash("Attack");
+            if (!TryGetComponent(out cursorUI)) {
+                Debug.LogError("Could not find CursorUI");
+            }
         }
 
         private void OnEnable()
@@ -49,6 +64,7 @@ namespace Managers
 
         private void OnDisable()
         {
+            InputActions.Player.Attack.performed -= TriggerCursorAnimator;
             GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
         }
 
@@ -59,6 +75,16 @@ namespace Managers
             }
         }
 
+
+        public Bounds GetCameraWorldBounds(Camera _camera = null)
+        {
+            if (_camera == null)
+                _camera = Camera.main;
+            
+            float height = 2f * _camera.orthographicSize;
+            float width = height * _camera.aspect;
+            return new Bounds(_camera.transform.position, new Vector3(width, height, _camera.transform.position.z));
+        }
 
         private void HandleSceneLoaded(int _sceneIndex)
         {
@@ -115,10 +141,53 @@ namespace Managers
             OnGameResumed?.Invoke();
         }
 
+        public void SetCursorImage(int _dropdownSelection)
+        {
+            if (!cursorTransform.gameObject.TryGetComponent(out Image cursorImage)) {
+                Debug.LogError("No Sprite Renderer found on CursorTransform");
+                return;
+            }
+            switch (_dropdownSelection) {
+                case 0:
+                    cursorImage.sprite = Resources.Load<Sprite>("CursorImages/BloodiedSword");
+                    cursorAnimator.enabled = false;
+                    animateCursor = false;
+                    cursorUI.SetHotspot(basicCursorHotspot);
+                    break;
+                case 1:
+                    cursorImage.sprite = Resources.Load<Sprite>("CursorImages/RedCursor");
+                    cursorAnimator.enabled = false;
+                    animateCursor = false;
+                    cursorUI.SetHotspot(basicCursorHotspot);
+                    break;
+                case 2:
+                    cursorImage.sprite = Resources.Load<Sprite>("CursorImages/SwingingSword");
+                    //cursorImage.overrideSprite = Resources.Load<Sprite>("CursorImages/SwingingSword");
+                    cursorAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("CursorImages/SwingingSwordController");
+                    cursorAnimator.enabled = true;
+                    animateCursor = true;
+                    cursorUI.SetHotspot(swingingSwordCursorHotspot);
+                    break;
+                case 3:
+                    cursorAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("CursorImages/WobbleShieldController");
+                    cursorImage.sprite = Resources.Load<Sprite>("CursorImages/WobbleShield");
+                    //cursorImage.overrideSprite = Resources.Load<Sprite>("CursorImages/WobbleShield");
+                    cursorAnimator.enabled = true;
+                    animateCursor = false;
+                    cursorUI.SetHotspot(wobbleCursorHotspot);
+                    break;
+                default:
+                    Debug.LogWarning("Unknown Sprite Selection " + _dropdownSelection);
+                    break;
+            }
+        }
+
         private void StartupComponents()
         {
+            
             InputActions = new InputSystem_Actions();
             InputActions.Player.Enable();
+            InputActions.Player.Attack.performed += TriggerCursorAnimator;
             InputActions.UI.Enable();
             InputActions.UI.Pause.performed += _ => {
                 if (IsPaused) {
@@ -134,7 +203,6 @@ namespace Managers
                 Debug.LogError("No CursorSizeSlider GameObject found in scene.");
                 return;
             }
-
             if (!cursorSizeSliderParent.TryGetComponent(out cursorSizeSlider)) {
                 Debug.LogError("No CursorSizeSlider found in scene.");
                 return;           
@@ -142,6 +210,18 @@ namespace Managers
             cursorSizeSlider.onValueChanged.AddListener(_value => {
                 cursorTransform.localScale = new Vector3(_value + 1, _value + 1, 1);
             });
+            if (!cursorTransform.gameObject.TryGetComponent(out cursorAnimator)) {
+                Debug.LogError("No CursorAnimator GameObject found in scene.");
+                return;
+            }
+            
+            cursorAnimator.enabled = animateCursor;
+        }
+
+        private void TriggerCursorAnimator(InputAction.CallbackContext _action)
+        {
+            if (_action.performed && animateCursor)
+                cursorAnimator.SetTrigger(attackTrigger);
         }
 
         /// <summary>

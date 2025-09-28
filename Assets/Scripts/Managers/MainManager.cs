@@ -7,16 +7,16 @@ namespace Managers
     /// </summary>
     public class MainManager : MonoBehaviour
     {
-        private static MainManager Instance;
+        private static MainManager _instance;
         
         
         private void Awake()
         {
-            if (Instance != null && Instance != this) {
+            if (_instance != null && _instance != this) {
                 Destroy(gameObject);
                 return;
             }
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }

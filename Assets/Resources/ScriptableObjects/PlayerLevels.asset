@@ -33,4 +33,4 @@ MonoBehaviour:
     ExperienceMultiplierRequired: 1.1
   - Level: 10
     ExperienceMultiplierRequired: 1.1
-  BaseExperienceToLevelUp: 150
+  BaseExperienceToLevelUp: 200
