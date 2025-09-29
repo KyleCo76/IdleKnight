@@ -248,9 +248,16 @@ namespace Managers
             }
 
             RunScoreManager.Instance.AddScore(-_super.Cost);
-            playerController.SetSuper(superDatabase.GetPrefabForSuper(_super.Id),
-                superDatabase.GetBaseDamageForSuper(_super.Id),
-                superDatabase.GetSpeedMultiplierForSuper(_super.Id) * baseItemSpeed);
+            
+            // Check for Secondary effect data
+            if (superDatabase.GetSecondaryDataForSuper(_super.Id, out var frequency, out var damage, out var maxCount))
+                playerController.SetSuper(superDatabase.GetPrefabForSuper(_super.Id),
+                    superDatabase.GetBaseDamageForSuper(_super.Id),
+                    superDatabase.GetSpeedMultiplierForSuper(_super.Id) * baseItemSpeed, frequency, damage, maxCount);
+            else
+                playerController.SetSuper(superDatabase.GetPrefabForSuper(_super.Id),
+                    superDatabase.GetBaseDamageForSuper(_super.Id),
+                    superDatabase.GetSpeedMultiplierForSuper(_super.Id) * baseItemSpeed);
 
             foreach (var view in shopItemViews) {
                 if (view.Super.Id == _super.Id) {

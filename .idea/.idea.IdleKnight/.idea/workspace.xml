@@ -6,23 +6,34 @@
   <component name="ChangeListManager">
     <list default="true" id="15ae1284-60ed-4133-865b-d4de2b4115dd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.plastic/plastic.selector" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.selector" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/LightingData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/LightingData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/LightingData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/LightingData.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Bloby.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Bloby.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie0.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie0.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level2/Demon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level2/Demon.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditLeader.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditLeader.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSpawner.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSpawner.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSword.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSword.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricityLargeBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricityLargeBlue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergyLargeBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergyLargeBlue.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergySmallBlue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/EnemySpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/EnemySpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PowerUpFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PowerUpFunctions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/SuperDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/SuperDatabase.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,12 +46,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;KyleCo76&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KyleCo76/IdleKnight.git&quot;,
+    &quot;accountId&quot;: &quot;29aa35b1-7223-4f44-8a2e-4ca34b3c3b51&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Player/PlayerController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Projectile.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@be6c4fd0abf5/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="SWEA" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -50,24 +76,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/WinDevBuilds\IdleKnight.exe" />
@@ -119,10 +145,10 @@
       <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17528">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18232">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="17528" />
+      <option name="pid" value="18232" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -148,7 +174,8 @@
       <updated>1758882765177</updated>
       <workItem from="1758882767433" duration="1336000" />
       <workItem from="1758954675030" duration="3625000" />
-      <workItem from="1758958639953" duration="34609000" />
+      <workItem from="1758958639953" duration="43513000" />
+      <workItem from="1759176833212" duration="1713000" />
     </task>
     <task id="LOCAL-00001" summary="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
       <option name="closed" value="true" />
@@ -158,7 +185,23 @@
       <option name="project" value="LOCAL" />
       <updated>1759030671241</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implemented a simple EntropyGenerator in GameManager that will be gradually pulling in more and more entropy. This will be called in place of Random.Range and Random.value as that has been not randomy enough.&#10;Added a lightning/tesla effect to the EnergySmallBlue.prefab that will zap nearby enemies.">
+      <option name="closed" value="true" />
+      <created>1759130729254</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759130729254</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fixed a logic bug in collider detection. The larger collider will always be touching something that the smaller collider is also touching so we were always returning when we needed to deal damage.">
+      <option name="closed" value="true" />
+      <created>1759132367211</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1759132367211</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,7 +219,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Items spawns are now fully pooled to reduce load on main thread during gameplay." />
     <MESSAGE value="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files." />
+    <MESSAGE value="Implemented a simple EntropyGenerator in GameManager that will be gradually pulling in more and more entropy. This will be called in place of Random.Range and Random.value as that has been not randomy enough.&#10;Added a lightning/tesla effect to the EnergySmallBlue.prefab that will zap nearby enemies." />
+    <MESSAGE value="Fixed a logic bug in collider detection. The larger collider will always be touching something that the smaller collider is also touching so we were always returning when we needed to deal damage." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed a logic bug in collider detection. The larger collider will always be touching something that the smaller collider is also touching so we were always returning when we needed to deal damage." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -194,43 +239,30 @@
           <option name="timeStamp" value="3" />
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs</url>
-          <line>199</line>
-          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Managers\GameManager.cs" containingFunctionPresentation="Method 'SetCursorImage'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs</url>
+          <line>41</line>
+          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Effects\Projectiles\EnergySuperEffects.cs" containingFunctionPresentation="Method 'Awake'">
             <startOffsets>
-              <option value="6502" />
+              <option value="1431" />
             </startOffsets>
             <endOffsets>
-              <option value="6573" />
+              <option value="1534" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs</url>
-          <line>70</line>
-          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Managers\ShopSpawner.cs" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="2602" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2635" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs</url>
-          <line>95</line>
-          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Effects\Projectiles\EnergySuperEffects.cs" containingFunctionPresentation="Method 'EjectFromLists'">
+          <line>28</line>
+          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Effects\Projectiles\EnergySuperEffects.cs" containingFunctionPresentation="Method 'Awake'">
             <startOffsets>
-              <option value="3135" />
+              <option value="921" />
             </startOffsets>
             <endOffsets>
-              <option value="3161" />
+              <option value="939" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="15" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

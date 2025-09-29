@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   movementSpeed: 3
   nextWaypointDistance: 0.5
-  contactDamage: 1
+  contactDamage: 5
   damageInterval: 3
   deathValue: 1
   itemSpawnChance: 0

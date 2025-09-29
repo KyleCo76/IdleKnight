@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
 {
     private Rigidbody2D projectileBody;
 
-    private float timeToLive = 4.0f; // Time in seconds before the projectile is destroyed
+    private float timeToLive = 6.0f; // Time in seconds before the projectile is destroyed
     private bool isSuper;
 
     // Projectile Damage Variables
@@ -25,6 +25,14 @@ public class Projectile : MonoBehaviour
         // Assumes only one collider will be on the main parent object
         if (!TryGetComponent(out mainCollider))
             Debug.LogError("No main collider found on " + gameObject.name);
+        
+        var colliders = GetComponentsInChildren<Collider2D>();
+        foreach (var c in colliders) {
+            if (c.isTrigger && c != mainCollider) {
+                hasColliders = true;
+                break;
+            }
+        }
     }
 
     private void Update()

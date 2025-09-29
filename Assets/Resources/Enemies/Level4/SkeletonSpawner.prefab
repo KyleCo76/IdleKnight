@@ -132,11 +132,11 @@ MonoBehaviour:
   nextWaypointDistance: 0.3
   contactDamage: 30
   damageInterval: 1
-  deathValue: 4
-  itemSpawnChance: 0.2
+  deathValue: 8
+  itemSpawnChance: 0.8
   hasAttackAnimation: 1
   hasDeathAnimation: 0
-  maxHealth: 10
+  maxHealth: 35
   armourValue: 8
   currentHealth: 0
 --- !u!114 &5938151221763639763

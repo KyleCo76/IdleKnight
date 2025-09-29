@@ -129,7 +129,6 @@ namespace Player
                     break;
             }
 
-            Debug.Log($"Activated Power-Up: {_powerUp.Type} with Duration: {_powerUp.Duration}, Multiplier: {_powerUp.Multiplier}, Amount: {_powerUp.Amount}");
         }
 
 

@@ -136,7 +136,7 @@ MonoBehaviour:
   itemSpawnChance: 0
   hasAttackAnimation: 1
   hasDeathAnimation: 1
-  maxHealth: 10
+  maxHealth: 20
   armourValue: 8
   currentHealth: 0
 --- !u!114 &2458141461037358793

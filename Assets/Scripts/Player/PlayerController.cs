@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using Effects.Projectiles;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game;
@@ -38,6 +39,9 @@ namespace Player
         private const float ArrowSpreadAmount = 15f;
         private float currentMovementSpeed;
         private float speedDebuffs;
+        private float superSecondaryFrequency;
+        private int superSecondaryDamage;
+        private int maxSecondaryEffects;
 
         public delegate void HandleSuperCooldownUI(float _amount, float _timer);
         public event HandleSuperCooldownUI OnSuperCooldownChange;
@@ -273,6 +277,9 @@ namespace Player
                 projComponent.Initialize(attackPoint.normalized, superSpeed,
                     BaseSuperDamage * SuperDamageBuff, AttackType.PlayerAttack, true);
             }
+
+            if (projectile.TryGetComponent(out EnergySuperEffects energyComponent))
+                energyComponent.Initialize(superSecondaryFrequency, superSecondaryDamage, maxSecondaryEffects);
         }
 
         public void ApplySlow(float _multiplier)
@@ -452,6 +459,15 @@ namespace Player
             currentSuperPrefab = _superPrefab;
             superDamage = _damage;
             superSpeed = _speed;
+        }
+        public void SetSuper(GameObject _superPrefab, float _damage, float _speed, float _secondaryFrequency, int _secondaryDamage, int _maxSecondaryCount)
+        {
+            currentSuperPrefab = _superPrefab;
+            superDamage = _damage;
+            superSpeed = _speed;
+            superSecondaryFrequency = _secondaryFrequency;
+            superSecondaryDamage = _secondaryDamage;
+            maxSecondaryEffects = _maxSecondaryCount;
         }
     }
 

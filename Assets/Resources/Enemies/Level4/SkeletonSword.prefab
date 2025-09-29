@@ -129,14 +129,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   movementSpeed: 3
   nextWaypointDistance: 0.5
-  contactDamage: 6
+  contactDamage: 20
   damageInterval: 1
-  deathValue: 3
+  deathValue: 5
   itemSpawnChance: 0
   hasAttackAnimation: 1
   hasDeathAnimation: 1
-  maxHealth: 8
-  armourValue: 3
+  maxHealth: 25
+  armourValue: 9
   currentHealth: 0
 --- !u!114 &1916275200349395194
 MonoBehaviour:

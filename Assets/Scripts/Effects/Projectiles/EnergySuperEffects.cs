@@ -8,13 +8,14 @@ namespace Effects.Projectiles
 {
     public class EnergySuperEffects : MonoBehaviour
     {
+        [SerializeField, Tooltip("The effect that will be used to zap enemies")]
         private GameObject energyEffect;
-
-
+        
         private CircleCollider2D teslaRange;
         private CapsuleCollider2D energyCapsule;
         private float zapFrequency = 1f;
         private int maxPoolSize;
+        private int zapDamage = 2;
         private SingleEffectPoolManager effectPoolManager;
         
         private readonly Dictionary<GameObject, float> toBeZapped = new();
@@ -22,15 +23,11 @@ namespace Effects.Projectiles
         
         private const float ZapTtl = 0.2f;
         private const int InitialPoolSize = 15;
-        private const int ZapDamage = 2;
 
         private void Awake()
         {
-            energyEffect = Resources.Load<GameObject>("Projectiles/Effects/Supers/EnergyEffect");
-            if (!energyEffect) {
-                Debug.LogError("Unable to find energyEffect prefab");
-                return;
-            }
+            if (!energyEffect)
+                energyEffect = Resources.Load<GameObject>("Projectiles/Effects/Supers/EnergyEffect");
             
             teslaRange = GetComponentInChildren<CircleCollider2D>();
             if (!teslaRange) {
@@ -100,9 +97,10 @@ namespace Effects.Projectiles
             }
         }
 
-        public void Initialize(float _frequency, int _maxPoolSize)
+        public void Initialize(float _frequency, int _damage, int _maxPoolSize)
         {
             zapFrequency = _frequency;
+            zapDamage = _damage;
             maxPoolSize = _maxPoolSize;
         }
 
@@ -116,7 +114,7 @@ namespace Effects.Projectiles
                         Debug.LogError("No Controller component found on enemy for zap");
                         return;
                     }
-                    enemyController.ChangeHealth(-ZapDamage);
+                    enemyController.ChangeHealth(-zapDamage);
                     effectPoolManager.Release(pair.Value.Item1);
                     isZapped.Remove(pair.Key);
                     if (!pair.Key.activeInHierarchy)

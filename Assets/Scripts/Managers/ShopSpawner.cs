@@ -96,6 +96,7 @@ namespace Managers
         private void HandleSceneLoaded(int _sceneIndex)
         {
             StopAllCoroutines();
+            activeShops.Clear();
             if (_sceneIndex is SceneNames.MainMenu or SceneNames.PlayerHome) {
                 shouldSpawn = false;
                 return;

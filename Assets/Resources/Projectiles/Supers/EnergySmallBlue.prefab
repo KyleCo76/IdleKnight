@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71f09048b13d7447a438669e7b729ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyEffect: {fileID: 106988, guid: a9892f6a83fd8d4468ce0c8a3d09d3cd, type: 3}
 --- !u!50 &7250953761180150720
 Rigidbody2D:
   serializedVersion: 5

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   nextWaypointDistance: 0.5
-  contactDamage: 3
+  contactDamage: 6
   damageInterval: 1
   deathValue: 1
   itemSpawnChance: 0

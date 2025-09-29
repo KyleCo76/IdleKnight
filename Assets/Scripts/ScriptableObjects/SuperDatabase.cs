@@ -15,6 +15,15 @@ namespace ScriptableObjects
             public float SpeedMultiplier;
             public GameObject Prefab;
             public int BaseDamage;
+            public SecondarySuperData SecondaryData;
+        }
+
+        [System.Serializable]
+        public struct SecondarySuperData
+        {
+            public float Frequency;
+            public int MaxEffects;
+            public int SecondaryDamageAmount;
         }
 
         public SuperEntry[] SuperPowerLevels;
@@ -63,6 +72,23 @@ namespace ScriptableObjects
             }
             Debug.LogWarning($"Prefab for SuperType {_superType} not found.");
             return null;
+        }
+
+        public bool GetSecondaryDataForSuper(SuperType _superType, out float _frequency, out int _damageAmount, out int _maxEffects)
+        {
+            foreach (var entry in SuperPowerLevels) {
+                if (entry.Type == _superType) {
+                    _frequency = entry.SecondaryData.Frequency;
+                    _damageAmount = entry.SecondaryData.SecondaryDamageAmount;
+                    _maxEffects = entry.SecondaryData.MaxEffects;
+                    return true;
+                }
+            }
+            Debug.LogWarning($"SecondaryData for SuperType {_superType} not found.");
+            _frequency = -1f;
+            _damageAmount = -1;
+            _maxEffects = -1;
+            return false;
         }
 
         public float GetSpeedMultiplierForSuper(SuperType _superType)

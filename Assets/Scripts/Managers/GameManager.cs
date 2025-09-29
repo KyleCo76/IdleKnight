@@ -33,9 +33,9 @@ namespace Managers
         private int attackTrigger;
         private bool animateCursor;
 
-        private readonly Vector2 basicCursorHotspot = new Vector2(4f, 3f);
-        private readonly Vector2 swingingSwordCursorHotspot = new Vector2(4f, 3f);
-        private readonly Vector2 wobbleCursorHotspot = new Vector2(17f, -2f);
+        private readonly Vector2 basicCursorHotspot = new Vector2(-15f, 18f);
+        private readonly Vector2 swingingSwordCursorHotspot = new Vector2(-25f, 17f);
+        private readonly Vector2 wobbleCursorHotspot = new Vector2(0f, 20f);
         
         // Cached Components
         private RectTransform cursorTransform;
@@ -153,6 +153,7 @@ namespace Managers
             }
             Time.timeScale = 1.0f;
             StartupComponents();
+            SetCursorImage(1);
         }
 
         private void PauseGame()
