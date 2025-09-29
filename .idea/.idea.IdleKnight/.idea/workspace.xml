@@ -5,35 +5,204 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15ae1284-60ed-4133-865b-d4de2b4115dd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Body lower.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Body lower.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Head.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Head.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Left Arm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Left Arm.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Legs 2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Legs 2.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Legs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Legs.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Right Arm.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/Right Arm.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/body upper.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/body upper.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/sword.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Body Parts/sword.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/dashwind_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/explosion_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/fireball_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/fireball_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/fireball_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/fireball_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/fireball_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/fireball_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/particlel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/particlel.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/potion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Effect &amp; FireBalls/potion.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight AI.ai" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight AI.ai.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight EPS.eps" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight EPS.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Attack.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Attack.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Block.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Block.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Cast.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Cast.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Dash.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Dash.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Die.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Die.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Dizzy.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Dizzy.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Hurt.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Hurt.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Idle.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Idle.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight.controller" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight.controller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_attack_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_block_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_cast_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_crouch_0.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_crouch_0.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dash_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dash_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dash_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dash_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dash_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dash_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_07.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_die_08.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dizzy_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dizzy_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dizzy_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dizzy_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dizzy_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_dizzy_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_hurt_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_hurt_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_hurt_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_hurt_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_idle_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jumpAttack_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jump_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jump_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jump_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_jump_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_strike_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_strike_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_strike_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_strike_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_strike_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_strike_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_03.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_04.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_05.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_walk_06.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_win_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_win_01.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_win_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Knight_win_02.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Strike.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Strike.anim.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Walk.anim" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Walk.anim.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.selector" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.selector" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/LightingData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/LightingData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/LightingData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/LightingData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Bloby.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Bloby.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie0.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie0.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level1/Zombie2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level2/Demon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level2/Demon.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditLeader.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditLeader.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSpawner.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSpawner.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSword.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Enemies/Level4/SkeletonSword.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricityLargeBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricityLargeBlue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergyLargeBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergyLargeBlue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergySmallBlue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PowerUpFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PowerUpFunctions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/SuperDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/SuperDatabase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Collectables.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Collectables.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +228,11 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/9c/39c6bea2/Transform.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Attack.anim" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Player/PlayerController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Projectile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@be6c4fd0abf5/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -175,7 +346,7 @@
       <workItem from="1758882767433" duration="1336000" />
       <workItem from="1758954675030" duration="3625000" />
       <workItem from="1758958639953" duration="43513000" />
-      <workItem from="1759176833212" duration="1713000" />
+      <workItem from="1759176833212" duration="2368000" />
     </task>
     <task id="LOCAL-00001" summary="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
       <option name="closed" value="true" />
@@ -201,7 +372,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759132367211</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added EnergySuperEffects.cs to the ligtning supers and modified script to accept more properties at instantiation for damage.">
+      <option name="closed" value="true" />
+      <created>1759178630968</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1759178630968</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +400,8 @@
     <MESSAGE value="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files." />
     <MESSAGE value="Implemented a simple EntropyGenerator in GameManager that will be gradually pulling in more and more entropy. This will be called in place of Random.Range and Random.value as that has been not randomy enough.&#10;Added a lightning/tesla effect to the EnergySmallBlue.prefab that will zap nearby enemies." />
     <MESSAGE value="Fixed a logic bug in collider detection. The larger collider will always be touching something that the smaller collider is also touching so we were always returning when we needed to deal damage." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a logic bug in collider detection. The larger collider will always be touching something that the smaller collider is also touching so we were always returning when we needed to deal damage." />
+    <MESSAGE value="Added EnergySuperEffects.cs to the ligtning supers and modified script to accept more properties at instantiation for damage." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added EnergySuperEffects.cs to the ligtning supers and modified script to accept more properties at instantiation for damage." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

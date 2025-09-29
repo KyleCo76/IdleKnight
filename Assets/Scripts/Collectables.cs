@@ -230,7 +230,7 @@ public class Collectables : MonoBehaviour, IPooledResettable
     private GameObject prefabReference;
 
 
-    private void Awake()
+    private void OnEnable()
     {
         if (randomizeSprite) {
             RandomizeSprite();
@@ -312,6 +312,9 @@ public class Collectables : MonoBehaviour, IPooledResettable
 
     public void Initialize(PowerUpData _data)
     {
+        if (powerUps.Count > 0)
+            powerUps.Clear();
+        
         spawnerReference = _data.SpawnerObject;
         prefabReference = _data.PrefabReference;
         powerUps.Add(_data);
