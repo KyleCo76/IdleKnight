@@ -11,13 +11,20 @@ public class Projectile : MonoBehaviour
     // Projectile Damage Variables
     private int damageAmount = 1;
     private AttackType typeOfAttack = AttackType.None;
-
+    
+    // Checks for secondary colliders
+    private Collider2D mainCollider;
+    private bool hasColliders;
 
     void Awake()
     {
         if (!TryGetComponent(out projectileBody)) {
             Debug.LogError("No Rigidbody2D component found on " + gameObject.name);
         }
+        
+        // Assumes only one collider will be on the main parent object
+        if (!TryGetComponent(out mainCollider))
+            Debug.LogError("No main collider found on " + gameObject.name);
     }
 
     private void Update()
@@ -40,6 +47,9 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D _other)
     {
+        if (hasColliders && !mainCollider.IsTouching(_other))
+            return;
+        
         if (_other.CompareTag("Enemy")) {
             if (_other.TryGetComponent<Enemies.Controller>(out var enemyHealth)) {
                 enemyHealth.ChangeHealth(-damageAmount, typeOfAttack);
