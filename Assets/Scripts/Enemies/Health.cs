@@ -65,11 +65,22 @@ namespace Enemies
         {
             if (hasDeathAnimation)
                 enemyAnimator.SetTrigger(animatorHashes["Die"]);
-            if (isMinion) {
+            if (isPooled) {
                 parentSpawner.ReleaseMinion(this.gameObject);
                 return;
             }
-            OnEnemyDeath?.Invoke(deathShotType, deathValue, itemSpawnChance, transform.position, this.gameObject);
+            var handlers = OnEnemyDeath;
+            if (handlers != null) {
+                foreach (var d in handlers.GetInvocationList()) {
+                    try {
+                        ((System.Action<AttackType, int, float, Vector2, GameObject>)d).Invoke(deathShotType, deathValue, itemSpawnChance, transform.position, this.gameObject);
+                    }
+                    catch (System.Exception ex) {
+                        Debug.LogException(ex);
+                    }
+                }
+            }
+            // OnEnemyDeath?.Invoke(deathShotType, deathValue, itemSpawnChance, transform.position, this.gameObject);
         }
         
         public void ResetHealth()

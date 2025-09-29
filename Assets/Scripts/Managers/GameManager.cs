@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using Game;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -78,14 +80,66 @@ namespace Managers
 
         public Bounds GetCameraWorldBounds(Camera _camera = null)
         {
-            if (_camera == null)
+            if (!_camera)
                 _camera = Camera.main;
-            
-            float height = 2f * _camera.orthographicSize;
-            float width = height * _camera.aspect;
-            return new Bounds(_camera.transform.position, new Vector3(width, height, _camera.transform.position.z));
+
+            if (_camera != null) {
+                float height = 2f * _camera.orthographicSize;
+                float width = height * _camera.aspect;
+                return new Bounds(_camera.transform.position, new Vector3(width, height, _camera.transform.position.z));
+            }
+            Debug.LogError("Could not find camera");
+            return new Bounds(Vector3.zero, Vector3.zero);
         }
 
+        public uint GetEntropy(uint _seed = 1059161518u)
+        {
+            int shift1 = GetShiftPoint();
+            uint byteValue = (uint)(attackTrigger >> shift1) & 0xFFu; // Constrain to 1 byte
+            int shift2 = GetShiftPoint();
+            _seed = unchecked(_seed + (byteValue << shift2));
+            
+            shift1 = GetShiftPoint();
+            byteValue = (uint)(Mathf.RoundToInt(cursorTransform.position.x) >> shift1) & 0xFFu;
+            shift2 = GetShiftPoint();
+            _seed = unchecked(_seed + (byteValue << shift2));
+            
+            shift1 = GetShiftPoint();
+            byteValue = (uint)(DateTimeOffset.UtcNow.ToUnixTimeSeconds() >> shift1) & 0xFFu;
+            shift2 = GetShiftPoint();
+            _seed = unchecked(_seed + (byteValue << shift2));
+            
+            shift1 = GetShiftPoint();
+            byteValue = (uint)(Mathf.RoundToInt(cursorTransform.position.y) >> shift1) & 0xFFu;
+            shift2 = GetShiftPoint();
+            _seed = unchecked(_seed + (byteValue << shift2));
+            return _seed;
+        }
+
+        private int GetShiftPoint()
+        {
+            var x = Random.Range(0, 4);
+            switch (x) {
+                case 0:
+                    x = 0;
+                    break;
+                case 1:
+                    x = 8;
+                    break;
+                case 2:
+                    x = 16;
+                    break;
+                case 3:
+                    x = 24;
+                    break;
+                default:
+                    Debug.LogError("Invalid shift point");
+                    return 0;
+            }
+
+            return x;
+        }
+        
         private void HandleSceneLoaded(int _sceneIndex)
         {
             if (_sceneIndex is SceneNames.MainMenu or SceneNames.PlayerHome)

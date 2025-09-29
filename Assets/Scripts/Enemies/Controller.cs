@@ -41,7 +41,7 @@ namespace Enemies
         private float attackTimer;
         private bool isFlipped;
         private float moveSpeed;
-        private bool isMinion;
+        private bool isPooled;
         private MinionSpawner parentSpawner;
         
         private GameObject sourcePrefab;
@@ -137,7 +137,7 @@ namespace Enemies
 
         public void OnTakenFromPool(GameObject _sourcePrefab, MinionSpawner _spawner)
         {
-            isMinion = true;
+            isPooled = true;
             parentSpawner = _spawner;
             sourcePrefab = _sourcePrefab;
             currentHealth = maxHealth;

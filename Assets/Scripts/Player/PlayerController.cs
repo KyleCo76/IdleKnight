@@ -85,6 +85,7 @@ namespace Player
         private Camera mainCamera;
 
         // Cached in runtime
+        [SerializeField]
         private GameObject currentSuperPrefab;
 
 

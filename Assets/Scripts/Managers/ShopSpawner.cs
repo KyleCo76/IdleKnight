@@ -79,10 +79,11 @@ namespace Managers
                 TryShopCull();
             }
 
-            foreach (var shop in activeShops) {
+            var snapshot = new Dictionary<string, TrackedShop>(activeShops);
+            foreach (var shop in snapshot) {
                 var trackedShop = shop.Value;
                 trackedShop.TimeToLive -= Time.deltaTime;
-                if (trackedShop.TimeToLive > 0) {
+                if (trackedShop.TimeToLive > 0 && activeShops.ContainsKey(shop.Key)) {
                     activeShops[shop.Key] = trackedShop;
                     continue;
                 }
@@ -114,7 +115,7 @@ namespace Managers
         private bool IsShopTooClose(Vector2 _position)
         {
             // Overlap any shop colliders within buffer distance
-            return !Physics2D.OverlapCircle(_position, shopSpawnOffset, shopLayer);
+            return Physics2D.OverlapCircle(_position, shopSpawnOffset, shopLayer);
         }
 
         public void LeaveShop(GameObject _shop)
@@ -131,7 +132,10 @@ namespace Managers
         private Vector2 RandomPointInAnnulus(Vector2 _center, float _innerRadius, float _outerRadius)
         {
             if (_outerRadius < _innerRadius) (_innerRadius, _outerRadius) = (_outerRadius, _innerRadius);
-            float angle = Random.Range(0f, 2f * Mathf.PI);
+
+            var seed = new Unity.Mathematics.Random(GameManager.Instance.GetEntropy());
+            var rng = new Unity.Mathematics.Random(seed.NextUInt());
+            float angle = rng.NextFloat(0f, Mathf.PI * 2f);
             float u = Random.value;
             float r = Mathf.Sqrt(Mathf.Lerp(_innerRadius * _innerRadius, _outerRadius * _outerRadius, u));
             return _center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r;
@@ -154,7 +158,7 @@ namespace Managers
                 {
                     var cullList = new List<string>();
                     foreach (var shopData in shopLocations) {
-                        if ((shopData.ShopPosition - shopData.PlayerPosition).sqrMagnitude < cullDistSqr) {
+                        if ((shopData.ShopPosition - shopData.PlayerPosition).sqrMagnitude > cullDistSqr) {
                             cullList.Add(shopData.Guid);
                         }
                     }
@@ -184,8 +188,9 @@ namespace Managers
                 Vector2 candidate = RandomPointInAnnulus(center, spawnRangeMin, spawnRangeMax);
 
                 // If there is a shop within shopSpawnOffset, reject and retry
-                if (IsShopTooClose(candidate))
+                if (IsShopTooClose(candidate)) {
                     continue;
+                }
 
                 _position = new Vector3(candidate.x, candidate.y, 0f);
                 return true;
@@ -197,8 +202,10 @@ namespace Managers
         {
             if (!shopPrefabs[0] || !playerTransform) return;
 
-            if (!TryGetValidShopPosition(out var spawnPos))
+            if (!TryGetValidShopPosition(out var spawnPos)) {
+                Debug.LogWarning("No Valid Shop Position");
                 return;
+            }
 
             var shop = Instantiate(shopPrefabs[0], spawnPos, Quaternion.identity);
             var id = Guid.NewGuid().ToString();

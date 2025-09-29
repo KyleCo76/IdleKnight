@@ -6,7 +6,6 @@ using Game;
 using ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -82,11 +81,11 @@ namespace Managers
             GameObject _enemy)
         {
             spawnCount--;
+            pooledMinions.Release(_enemy);
+            
             if (_attackType == AttackType.PlayerAttack) {
                 SpawnRandomEnemy();
             }
-
-            pooledMinions.Release(_enemy);
         }
 
         private void HandlePlayerLevelUp(int _newLevel)
@@ -95,15 +94,6 @@ namespace Managers
             currentPlayerLevel = _newLevel;
             StopAllCoroutines();
             StartCoroutine(MinionSpawnerTimer(currentSpawnTime));
-        }
-        
-        private Vector2 RandomPointInAnnulus(Vector2 _center, float _innerRadius, float _outerRadius)
-        {
-            if (_outerRadius < _innerRadius) (_innerRadius, _outerRadius) = (_outerRadius, _innerRadius);
-            float angle = Random.Range(0f, 2f * Mathf.PI);
-            float u = Random.value;
-            float r = Mathf.Sqrt(Mathf.Lerp(_innerRadius * _innerRadius, _outerRadius * _outerRadius, u));
-            return _center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r;
         }
 
         private void SpawnRandomEnemy()
@@ -124,7 +114,9 @@ namespace Managers
             
             // Vector3 spawnPosition = RandomPointInAnnulus(player.transform.position, spawnRangeMin, spawnRangeMax);
             var camBounds = GameManager.Instance.GetCameraWorldBounds();
-            int direction = Random.Range(0, 4); // 0=left, 1=right, 2=top, 3=bottom
+            var seed = GameManager.Instance.GetEntropy();
+            var rng = new Unity.Mathematics.Random(seed);
+            int direction = rng.NextInt(0, 4); // 0=left, 1=right, 2=top, 3=bottom
             float x = 0;
             float y = 0;
             float min;
@@ -132,23 +124,23 @@ namespace Managers
             switch (direction) {
                 case 0:
                     max = camBounds.min.x - SpawnMargin;
-                    x = Random.Range(max - SpawnRange, max);
-                    y = Random.Range(camBounds.min.y, camBounds.max.y);
+                    x = rng.NextFloat(max - SpawnRange, max);
+                    y = rng.NextFloat(camBounds.min.y, camBounds.max.y);
                     break;
                 case 1:
                     min = camBounds.max.x + SpawnMargin;
-                    x = Random.Range(min, min + SpawnRange);
-                    y = Random.Range(camBounds.min.y, camBounds.max.y);
+                    x = rng.NextFloat(min, min + SpawnRange);
+                    y = rng.NextFloat(camBounds.min.y, camBounds.max.y);
                     break;
                 case 2:
                     min = camBounds.max.y + SpawnMargin;
-                    y = Random.Range(min, min + SpawnRange);
-                    x = Random.Range(camBounds.min.x, camBounds.max.x);
+                    y = rng.NextFloat(min, min + SpawnRange);
+                    x = rng.NextFloat(camBounds.min.x, camBounds.max.x);
                     break;
                 case 3:
                     max = camBounds.min.y - SpawnMargin;
-                    y = Random.Range(max - SpawnRange, max);
-                    x = Random.Range(camBounds.min.x, camBounds.max.x);
+                    y = rng.NextFloat(max - SpawnRange, max);
+                    x = rng.NextFloat(camBounds.min.x, camBounds.max.x);
                     break;
             }
             Vector2 spawnPosition = new Vector2(x, y);

@@ -28,7 +28,7 @@ namespace Managers
 
         private PooledPowerUpManager poolManager;
         
-        private const int InitialPoolSize = 5;
+        private const int InitialPoolSize = 3;
         private const int MaxCountPerPrefab = 10;
 
         private void Awake()

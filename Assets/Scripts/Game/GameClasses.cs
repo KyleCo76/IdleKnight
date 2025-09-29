@@ -185,9 +185,12 @@ namespace Game
                 if (globalMaxPrefabAmount > 0 && GetLiveCount(_prefab) >= globalMaxPrefabAmount) {
                     return null; // Ignore spawn if we reached the max number of prefabs
                 }
-                go = Object.Instantiate(_prefab, poolRoot);
+                go = Object.Instantiate(_prefab, poolRoot, true);
             }
 
+            if (!go)
+                return null;
+            
             go.transform.SetPositionAndRotation(_position, _rotation);
             go.SetActive(true);
             
@@ -254,11 +257,91 @@ namespace Game
             EnsurePool(prefab);
             
             _instance.SetActive(false);
-            _instance.transform.SetParent(poolRoot, false);
+            //_instance.transform.SetParent(poolRoot, true);
             liveCounts[prefab]--;
             pools[prefab].Enqueue(_instance);
             
             liveCounts[prefab] = Mathf.Max(0, GetLiveCount(prefab) - 1);
         }
     }
+    
+    public sealed class SingleEffectPoolManager {
+            private readonly Transform poolRoot;
+            private readonly GameObject effectPrefab;
+            private readonly int initialSize;
+            private readonly int maxPrefabAmount;
+            private readonly Queue<GameObject> pool = new();
+            private int liveCount;
+
+            public SingleEffectPoolManager(Transform _poolRoot, GameObject _prefab, int _initialSize, int _maxPrefabAmount)
+            {
+                poolRoot = _poolRoot;
+                effectPrefab = _prefab;
+                initialSize = _initialSize;
+                maxPrefabAmount = _maxPrefabAmount;
+                PreWarm();
+            }
+            
+            public GameObject GetFromPool(Vector3 _position, Quaternion _rotation)
+            {
+                var queue = pool;
+
+                GameObject go;
+                if (queue.Count > 0) {
+                    go = queue.Dequeue();
+                } else {
+                    if (maxPrefabAmount != 0 && liveCount >= maxPrefabAmount) {
+                        return null;
+                    }
+                    go = Object.Instantiate(effectPrefab, poolRoot);
+                }
+                
+                go.transform.SetPositionAndRotation(_position, _rotation);
+                go.SetActive(true);
+            
+                liveCount++;
+                return go;
+            }
+            
+            public GameObject GetFromPool()
+            {
+                var queue = pool;
+
+                GameObject go;
+                if (queue.Count > 0) {
+                    go = queue.Dequeue();
+                } else {
+                    if (maxPrefabAmount != 0 && liveCount >= maxPrefabAmount) {
+                        return null;
+                    }
+                    go = Object.Instantiate(effectPrefab, poolRoot);
+                }
+            
+                liveCount++;
+                return go;
+            }
+
+            private void PreWarm()
+            {
+                var queue = pool;
+                while (queue.Count < initialSize) {
+                    var go = Object.Instantiate(effectPrefab, poolRoot);
+                    go.SetActive(false);
+                    queue.Enqueue(go);
+                }
+            }
+            
+            public void Release(GameObject _instance)
+            {
+                if (!_instance)
+                    return;
+                
+                _instance.SetActive(false);
+                _instance.transform.SetParent(poolRoot, false);
+                liveCount--;
+                pool.Enqueue(_instance);
+            
+                liveCount = Mathf.Max(0, liveCount);
+            }
+        }
 }

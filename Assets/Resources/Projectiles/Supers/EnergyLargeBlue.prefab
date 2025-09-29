@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6057084581076807940}
   - component: {fileID: 7330450858155673093}
   - component: {fileID: 4594401232651722105}
+  - component: {fileID: 6758888813603573193}
   - component: {fileID: 3052070087335707315}
   m_Layer: 0
   m_Name: EnergyLargeBlue
@@ -160,6 +161,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8149d7bb8dad8d647a43aa4315169051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6758888813603573193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661422374702890701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71f09048b13d7447a438669e7b729ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &3052070087335707315

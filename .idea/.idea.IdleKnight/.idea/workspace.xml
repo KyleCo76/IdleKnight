@@ -4,541 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15ae1284-60ed-4133-865b-d4de2b4115dd" name="Changes" comment="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/dictionaries/project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo.unity" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo.unity.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/LightingData.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/LightingData.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/ReflectionProbe-0.exr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemo/ReflectionProbe-0.exr.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects.unity" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects.unity.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/LightingData.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/LightingData.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/ReflectionProbe-0.exr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjects/ReflectionProbe-0.exr.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjectsSettings.lighting" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoObjectsSettings.lighting.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoSettings.lighting" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Demo/LightningBoltDemoSettings.lighting.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Editor.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Editor/LightningBoltEditor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Editor/LightningBoltEditor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Editor/LightningBoltLogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Editor/LightningBoltLogo.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltMaterialAdditive.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltMaterialAdditive.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltMaterialAlphaBlend.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltMaterialAlphaBlend.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltMaterialAnimatedAdditive.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltMaterialAnimatedAdditive.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltScript.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/LightningBoltScript.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Readme.txt.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningBoltTexture.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningBoltTexture.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningSpriteSheet1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningSpriteSheet1.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningSpriteSheet2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningSpriteSheet2.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningSpriteSheet3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/LightningBolt/Textures/LightningSpriteSheet3.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/BloodiedSword.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/BloodiedSword.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/RedCursor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/RedCursor.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSword.anim" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSword.anim.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSword.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSword.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSwordBase.anim" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSwordBase.anim.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSwordController.controller" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/SwingingSwordController.controller.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/WobbleShield.anim" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/WobbleShield.anim.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/WobbleShield.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/WobbleShield.png.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/WobbleShieldController.controller" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/CursorImages/WobbleShieldController.controller.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Effects.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Effects/Supers.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Effects/Supers/EnergyEffect.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Effects/Supers/EnergyEffect.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Effects/Supers/LightningEfffect.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Effects/Supers/LightningEfffect.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Effects.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IdleKnight.sln.DotSettings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Packages/manifest.json.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Packages/packages-lock.json.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/AudioManager.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/TimeManager.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset.private.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/D3D12/D3D12Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_BurstDebugInformation_DoNotShip/Data/Plugins/x86_64/lib_burst_generated.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Assembly-CSharp-firstpass.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Assembly-CSharp.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/AstarPathfindingProject.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Clipper2Lib.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Drawing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Mono.Security.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/PackageTools.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Pathfinding.Ionic.Zip.Reduced.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Sirenix.OdinInspector.Attributes.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Collections.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.ComponentModel.Composition.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Configuration.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Data.DataSetExtensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Data.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Drawing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.EnterpriseServices.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.IO.Compression.FileSystem.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.IO.Compression.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.IO.Hashing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Memory.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Net.Http.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Numerics.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Runtime.Extensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Runtime.InteropServices.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Runtime.Serialization.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Security.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.ServiceModel.Internals.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Transactions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Xml.Linq.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.Xml.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/System.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.2D.Animation.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.2D.Common.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.2D.IK.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.2D.PixelPerfect.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.2D.SpriteShape.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.2D.Tilemap.Extras.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Burst.Unsafe.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Burst.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Cinemachine.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Collections.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Deformations.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Entities.Hybrid.HybridComponents.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Entities.Hybrid.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Entities.UI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Entities.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.InputSystem.ForUI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.InputSystem.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.InternalAPIEngineBridge.001.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.InternalAPIEngineBridge.002.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Mathematics.Extensions.Hybrid.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Mathematics.Extensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Mathematics.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Multiplayer.Center.Common.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Profiling.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Rendering.LightTransport.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Scenes.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.ScriptableBuildPipeline.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Serialization.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Splines.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.TextMeshPro.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Timeline.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Transforms.Hybrid.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Unity.Transforms.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AMDModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ARModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AccessibilityModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AndroidJNIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AnimationModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AssetBundleModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.AudioModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ClothModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ClusterInputModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ClusterRendererModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ContentLoadModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.CoreModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.CrashReportingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.DSPGraphModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.DirectorModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.GIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.GameCenterModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.GridModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.HierarchyCoreModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.HotReloadModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.IMGUIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ImageConversionModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.InputForUIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.InputLegacyModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.InputModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.JSONSerializeModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.LocalizationModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.MarshallingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.MultiplayerModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.NVIDIAModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ParticleSystemModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.PerformanceReportingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.Physics2DModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.PhysicsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.PropertiesModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ScreenCaptureModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.SharedInternalsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.SpriteMaskModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.SpriteShapeModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.StreamingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.SubstanceModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.SubsystemsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TLSModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TerrainModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TextRenderingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.TilemapModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UIElementsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UmbraModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityConnectModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityCurlModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.VFXModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.VRModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.VehiclesModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.VideoModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.VirtualTexturingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.WindModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.XRModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/UnityEngine.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/andywiecko.BurstTriangulator.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/mscorlib.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/netstandard.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Plugins/x86_64/lib_burst_generated.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Resources/unity default resources" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Resources/unity_builtin_extra" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/RuntimeInitializeOnLoads.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/ScriptingAssemblies.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/StreamingAssets/EntityScenes/scene_info.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/app.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/boot.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/resources.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/resources.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets0.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets0.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets1.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets1.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets2.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets2.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/2.0/machine.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/2.0/settings.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/2.0/web.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.0/machine.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.0/settings.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.0/web.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.5/machine.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.5/settings.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/4.5/web.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/browscap.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/MonoBleedingEdge/etc/mono/mconfig/config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/UnityCrashHandler64.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinBuilds/UnityPlayer.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/D3D12/D3D12Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/D3D12/d3d12SDKLayers.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_BurstDebugInformation_DoNotShip/Data/Plugins/x86_64/lib_burst_generated.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Assembly-CSharp-firstpass.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Assembly-CSharp.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/AstarPathfindingProject.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Clipper2Lib.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Drawing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Mono.Security.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/PackageTools.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Pathfinding.Ionic.Zip.Reduced.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Sirenix.OdinInspector.Attributes.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Collections.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.ComponentModel.Composition.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Configuration.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Data.DataSetExtensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Data.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Drawing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.EnterpriseServices.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.IO.Compression.FileSystem.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.IO.Compression.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.IO.Hashing.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Memory.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Net.Http.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Numerics.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Runtime.Extensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Runtime.InteropServices.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Runtime.Serialization.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Security.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.ServiceModel.Internals.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Transactions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Xml.Linq.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.Xml.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/System.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.2D.Animation.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.2D.Common.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.2D.IK.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.2D.PixelPerfect.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.2D.SpriteShape.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.2D.Tilemap.Extras.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Burst.Unsafe.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Burst.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Cinemachine.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Collections.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Deformations.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Entities.Hybrid.HybridComponents.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Entities.Hybrid.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Entities.UI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Entities.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.InputSystem.ForUI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.InputSystem.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.InternalAPIEngineBridge.001.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.InternalAPIEngineBridge.002.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Mathematics.Extensions.Hybrid.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Mathematics.Extensions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Mathematics.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Multiplayer.Center.Common.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Profiling.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Rendering.LightTransport.Runtime.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Scenes.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.ScriptableBuildPipeline.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Serialization.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Splines.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.TextMeshPro.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Timeline.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Transforms.Hybrid.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/Unity.Transforms.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AMDModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ARModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AccessibilityModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AndroidJNIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AnimationModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AssetBundleModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.AudioModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ClothModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ClusterInputModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ClusterRendererModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ContentLoadModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.CoreModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.CrashReportingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.DSPGraphModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.DirectorModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.GIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.GameCenterModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.GridModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.HierarchyCoreModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.HotReloadModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.IMGUIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ImageConversionModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.InputForUIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.InputLegacyModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.InputModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.JSONSerializeModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.LocalizationModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.MarshallingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.MultiplayerModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.NVIDIAModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ParticleSystemModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.PerformanceReportingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.Physics2DModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.PhysicsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.PropertiesModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ScreenCaptureModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.SharedInternalsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.SpriteMaskModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.SpriteShapeModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.StreamingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.SubstanceModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.SubsystemsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TLSModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TerrainModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TextRenderingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.TilemapModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UI.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UIElementsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UIModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UmbraModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityConnectModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityCurlModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.VFXModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.VRModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.VehiclesModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.VideoModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.VirtualTexturingModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.WindModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.XRModule.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/UnityEngine.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/andywiecko.BurstTriangulator.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/mscorlib.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Managed/netstandard.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Plugins/x86_64/lib_burst_generated.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Resources/unity default resources" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/Resources/unity_builtin_extra" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/RuntimeInitializeOnLoads.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/ScriptingAssemblies.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/StreamingAssets/EntityScenes/scene_info.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/app.info" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/boot.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/globalgamemanagers" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/globalgamemanagers.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/globalgamemanagers.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/level0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/level1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/level2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/resources.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/resources.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/sharedassets0.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/sharedassets0.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/sharedassets1.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/sharedassets1.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/sharedassets2.assets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/IdleKnight_Data/sharedassets2.assets.resS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/2.0/machine.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/2.0/settings.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/2.0/web.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.0/machine.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.0/settings.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.0/web.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.5/machine.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.5/settings.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/4.5/web.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/browscap.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/MonoBleedingEdge/etc/mono/mconfig/config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/UnityCrashHandler64.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/UnityPlayer.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WinDevBuilds/WinPixEventRuntime.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
+    <list default="true" id="15ae1284-60ed-4133-865b-d4de2b4115dd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.plastic/plastic.selector" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.selector" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.workspace" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.workspace" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/CursorImages/bloodied_sword_cursor_128x128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/CursorImages/bloodied_sword_cursor_128x128.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PowerUpDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PowerUpDatabase.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergyLargeBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergyLargeBlue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/EnergySmallBlue.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/CursorUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/CursorUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/EnemySpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/EnemySpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/MainManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/MainManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BuildWeb/Build/BuildWeb.data.br" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BuildWeb/Build/BuildWeb.framework.js.br" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BuildWeb/Build/BuildWeb.loader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BuildWeb/Build/BuildWeb.wasm.br" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PowerUpFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PowerUpFunctions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Projectile.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -555,6 +39,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -577,7 +64,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "settings.editor.selected.configurable": "vcs.Git",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -632,10 +119,10 @@
       <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="11856">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17528">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="11856" />
+      <option name="pid" value="17528" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -661,8 +148,17 @@
       <updated>1758882765177</updated>
       <workItem from="1758882767433" duration="1336000" />
       <workItem from="1758954675030" duration="3625000" />
-      <workItem from="1758958639953" duration="10247000" />
+      <workItem from="1758958639953" duration="34609000" />
     </task>
+    <task id="LOCAL-00001" summary="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
+      <option name="closed" value="true" />
+      <created>1759030671241</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759030671241</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -699,29 +195,42 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs</url>
-          <line>145</line>
+          <line>199</line>
           <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Managers\GameManager.cs" containingFunctionPresentation="Method 'SetCursorImage'">
             <startOffsets>
-              <option value="4623" />
+              <option value="6502" />
             </startOffsets>
             <endOffsets>
-              <option value="4694" />
+              <option value="6573" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs</url>
-          <line>212</line>
-          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Managers\GameManager.cs" containingFunctionPresentation="Method 'StartupComponents'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs</url>
+          <line>70</line>
+          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Managers\ShopSpawner.cs" containingFunctionPresentation="Method 'Update'">
             <startOffsets>
-              <option value="7942" />
+              <option value="2602" />
             </startOffsets>
             <endOffsets>
-              <option value="8010" />
+              <option value="2635" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="6" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs</url>
+          <line>95</line>
+          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Effects\Projectiles\EnergySuperEffects.cs" containingFunctionPresentation="Method 'EjectFromLists'">
+            <startOffsets>
+              <option value="3135" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3161" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
