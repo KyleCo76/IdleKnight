@@ -33,12 +33,16 @@ namespace Managers
         private GameObject inventoryCanvasObject;
         private GameObject questCanvasObject;
         private GameObject skillsCanvasObject;
+        private GameObject achievementsCanvasObject;
         private Toggle resumeButton;
         private Toggle quitButton;
         private Toggle settingsMenuToggle;
         private Toggle questMenuToggle;
         private Toggle inventoryMenuToggle;
         private Toggle skillsMenuToggle;
+        private Toggle shopMenuToggle;
+        private Toggle homeMenuToggle;
+        private Toggle achievementsMenuToggle;
         private Button quitGameButton;
         private Button floatingResumeButton;
         private Button levelFailedHomeButton;
@@ -254,18 +258,59 @@ namespace Managers
             uiCanvasObject.SetActive(false);
             levelFailedObject.SetActive(true);
         }
+        
+        private float3 GetPlayerStats(PowerUpType _powerUpType)
+        {
+            switch (_powerUpType) {
+                case PowerUpType.AttackSpeedBoost:
+                    return new float3(playerController.BaseAttackSpeed, playerController.AttackSpeedBuff,
+                        playerController.AttackSpeedBuffTemp);
+                case PowerUpType.RangedDamageBoost:
+                    return new float3(playerController.BaseRangedDamage, playerController.RangedDamageBuff,
+                        playerController.RangedDamageBuffTemp);
+                case PowerUpType.MeleeDamageBoost:
+                    return new float3(playerController.BaseMeleeDamage, playerController.MeleeDamageBuff,
+                        playerController.MeleeDamageBuffTemp);
+                case PowerUpType.HealthRegenAmount:
+                    return new float3(playerController.BaseHealthRegenAmount, playerController.HealthRegenAmountBuff,
+                        playerController.HealthRegenAmountTempBuff);
+                case PowerUpType.ManaRegenAmount:
+                    return new float3(playerController.BaseManaRegenRate, playerController.ManaRegenRateBuff,
+                        playerController.ManaRegenRateTempBuff);
+                case PowerUpType.SpeedBoost:
+                    return new float3(playerController.BaseSpeed, playerController.SpeedBuff,
+                        playerController.SpeedBuffTemp);
+                case PowerUpType.AuraDamageBoost:
+                    return new float3(playerController.GetAuraDamageStats());
+                case PowerUpType.AuraRangeBoost:
+                    return new float3(playerController.GetAuraRangeStats());
+                case PowerUpType.SuperDamageBoost:
+                    return new float3(playerController.BaseSuperDamage, playerController.SuperDamageBuff, 0f);
+                case PowerUpType.SuperCooldownReduction:
+                    return new float3(playerController.BaseSuperCooldown, playerController.SuperCooldownBuff, 0f);
+                default:
+                    Debug.LogError("Unknown PowerUpType in StatsPanel.");
+                    return new float3();
+            }
+        }
 
         public void HideAllMenus()
         {
             settingsCanvasObject.SetActive(false);
-            mainCanvasObjects[0].SetActive(false);
-            mainCanvasObjects[1].SetActive(false);
-            levelFailedObject.SetActive(false);
-            exitConfirmationObject.SetActive(false);
+            if (mainCanvasObjects is { Length: > 0 }) {
+                mainCanvasObjects[0].SetActive(false);
+                mainCanvasObjects[1].SetActive(false);
+            }
+            if (levelFailedObject)
+                levelFailedObject.SetActive(false);
+            if (exitConfirmationObject)
+                exitConfirmationObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
             questCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
             shopCanvasObject.SetActive(false);
+            if (achievementsCanvasObject)
+                achievementsCanvasObject.SetActive(false);
         }
 
         private void NewSceneLoaded(int _sceneIndex)
@@ -278,82 +323,22 @@ namespace Managers
             if (_sceneIndex is SceneNames.MainMenu)
                 return;
             
+            SetupSettingsScreen();
             FindUIComponents();
             SetupScoreTexts();
             FindStatsScreen();
             SetupHealthAndMana();
             FindPlayerAndCache();
+            if (!string.IsNullOrEmpty(chosenAbility))
+                playerController.SetAbility(chosenAbility);
             AwakeShopManager();
             HideAllMenus();
             ShopHandleSceneLoaded();
-            SetupSettingsScreen();
             uiCanvasObject.SetActive(true);
         }
 
-        private void SetupHealthAndMana()
+        private void PauseMenuToggles()
         {
-            var manaBubbleObject = uiCanvasObject.transform.Find("ManaBubble");
-            if (manaBubbleObject == null) {
-                Debug.LogError("No ManaBubble GameObject found under Canvas.");
-                return;
-            }
-            if (!manaBubbleObject.TryGetComponent(out manaBubble)) {
-                Debug.LogError("No Slider component found on ManaBubble GameObject.");
-                return;
-            }
-            manaText = manaBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
-            if (manaText == null) {
-                Debug.LogError("No TextMeshProUGUI component found on ManaText GameObject.");
-                return;
-            }
-
-            var healthBubbleObject = uiCanvasObject.transform.Find("HealthBubble");
-            if (healthBubbleObject == null) {
-                Debug.LogError("No HealthBubble GameObject found under Canvas.");
-                return;
-            }
-            if (!healthBubbleObject.TryGetComponent(out healthBubble)) {
-                Debug.LogError("No HealthBubble GameObject found under Canvas.");
-                return;
-            }
-
-            healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
-            if (healthText == null) {
-                Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
-                return;
-            }
-
-            var superCooldownBarObject = uiCanvasObject.transform.Find("SuperCooldownBar");
-            if (superCooldownBarObject == null) {
-                Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
-                return;
-            }
-            
-            if (!superCooldownBarObject.TryGetComponent(out superCooldownBar)) {
-                Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
-            }
-        }
-
-        private void SetupMainMenuSelections()
-        {
-            // Get Menu Screens
-            inventoryCanvasObject = GameObject.Find("InventoryMenu");
-            if (!inventoryCanvasObject) {
-                Debug.LogError("No InventoryMenu GameObject found under MainMenuItems.");
-                return;
-            }
-            questCanvasObject = GameObject.Find("QuestsMenu");
-            if (!questCanvasObject) {
-                Debug.LogError("No QuestsMenu GameObject found under MainMenuItems.");
-                return;
-            }
-            skillsCanvasObject = GameObject.Find("SkillsMenu");
-            if (!skillsCanvasObject) {
-                Debug.LogError("No SkillsMenu GameObject found under MainMenuItems.");
-                return;           
-            }
-
-            settingsCanvasObject = GameObject.Find("SettingsMenu");
             // Get Menu Buttons
             var settingsButtonObject = mainCanvasObjects[1].transform.Find("PauseMenuToggleSettings");
             if (!settingsButtonObject) {
@@ -415,6 +400,170 @@ namespace Managers
             
             quitGameButton.onClick.RemoveAllListeners();
             quitGameButton.onClick.AddListener(GameManager.Instance.QuitGame);
+        }
+
+        private void PlayerMenuToggles()
+        {
+            var shopToggleObject = GameObject.Find("ShopToggle");
+            if (!shopToggleObject || !shopToggleObject.TryGetComponent(out shopMenuToggle)) {
+                Debug.LogError("Failed to find ShopToggle GameObject or ShopMenuToggle component.");
+                return;
+            }
+            
+            var homeToggleObject = GameObject.Find("HomeToggle");
+            if (!homeToggleObject || !homeToggleObject.TryGetComponent(out homeMenuToggle)) {
+                Debug.LogError("Failed to find HomeToggle GameObject or HomeMenuToggle component.");
+                return;
+            }
+            
+            var achievementsToggleObject = GameObject.Find("AchievementsToggle");
+            if (!achievementsToggleObject || !achievementsToggleObject.TryGetComponent(out achievementsMenuToggle)) {
+                Debug.LogError("Failed to find AchievementsToggle GameObject or AchievementsMenuToggle component.");
+                return;
+            }
+            
+            var settingsToggleObject = GameObject.Find("SettingsToggle");
+            if (!settingsToggleObject || !settingsToggleObject.TryGetComponent(out settingsMenuToggle)) {
+                Debug.LogError("Failed to find SettingsToggle GameObject or SettingsMenuToggle component.");
+                return;
+            }
+            
+            var questToggleObject = GameObject.Find("QuestsToggle");
+            if (!questToggleObject || !questToggleObject.TryGetComponent(out questMenuToggle)) {
+                Debug.LogError("Failed to find QuestsToggle GameObject or QuestMenuToggle component.");
+                return;
+            }
+            
+            var inventoryToggleObject = GameObject.Find("InventoryToggle");
+            if (!inventoryToggleObject || !inventoryToggleObject.TryGetComponent(out inventoryMenuToggle)) {
+                Debug.LogError("Failed to find InventoryToggle GameObject or InventoryMenuToggle component.");
+                return;
+            }
+
+            var skillsToggleObject = GameObject.Find("SkillsToggle");
+            if (!skillsToggleObject || !skillsToggleObject.TryGetComponent(out skillsMenuToggle)) {
+                Debug.LogError("Failed to find SkillsToggle GameObject or SkillsMenuToggle component.");
+                return;
+            }
+            shopMenuToggle.onValueChanged.RemoveAllListeners();
+            homeMenuToggle.onValueChanged.RemoveAllListeners();
+            achievementsMenuToggle.onValueChanged.RemoveAllListeners();
+            settingsMenuToggle.onValueChanged.RemoveAllListeners();
+            questMenuToggle.onValueChanged.RemoveAllListeners();
+            inventoryMenuToggle.onValueChanged.RemoveAllListeners();
+            skillsMenuToggle.onValueChanged.RemoveAllListeners();
+            
+            shopMenuToggle.onValueChanged.AddListener(_isOn =>
+            {
+                if (_isOn) SetupShopUI(true);
+            });
+            homeMenuToggle.onValueChanged.AddListener(_isOn =>
+            {
+                if (_isOn) ShowHomeMenu();
+            });
+            achievementsMenuToggle.onValueChanged.AddListener(_isOn =>
+            {
+                if (_isOn) ShowAchievementsMenu(); 
+            });
+            settingsMenuToggle.onValueChanged.AddListener(_isOn =>
+            {
+                if (_isOn) ShowSettingsMenu();
+            });
+            questMenuToggle.onValueChanged.AddListener( _isOn =>
+            {
+                if (_isOn) ShowQuestMenu();
+            });
+            inventoryMenuToggle.onValueChanged.AddListener(_isOn =>
+            {
+                if (_isOn) ShowInventoryMenu();
+            });
+            skillsMenuToggle.onValueChanged.AddListener(_isOn =>
+            {
+                if (_isOn) ShowSkillsMenu();
+            });
+            
+        }
+
+        private void SetupHealthAndMana()
+        {
+            var manaBubbleObject = uiCanvasObject.transform.Find("ManaBubble");
+            if (manaBubbleObject == null) {
+                Debug.LogError("No ManaBubble GameObject found under Canvas.");
+                return;
+            }
+            if (!manaBubbleObject.TryGetComponent(out manaBubble)) {
+                Debug.LogError("No Slider component found on ManaBubble GameObject.");
+                return;
+            }
+            manaText = manaBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
+            if (manaText == null) {
+                Debug.LogError("No TextMeshProUGUI component found on ManaText GameObject.");
+                return;
+            }
+
+            var healthBubbleObject = uiCanvasObject.transform.Find("HealthBubble");
+            if (healthBubbleObject == null) {
+                Debug.LogError("No HealthBubble GameObject found under Canvas.");
+                return;
+            }
+            if (!healthBubbleObject.TryGetComponent(out healthBubble)) {
+                Debug.LogError("No HealthBubble GameObject found under Canvas.");
+                return;
+            }
+
+            healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
+            if (healthText == null) {
+                Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
+                return;
+            }
+
+            var superCooldownBarObject = uiCanvasObject.transform.Find("SuperCooldownBar");
+            if (superCooldownBarObject == null) {
+                Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
+                return;
+            }
+            
+            if (!superCooldownBarObject.TryGetComponent(out superCooldownBar)) {
+                Debug.LogError("No SuperCooldownBar GameObject found under Canvas.");
+            }
+        }
+
+        private void SetupMainMenuSelections(bool _isPlayerMenu = false)
+        {
+            // Get Menu Screens
+            inventoryCanvasObject = GameObject.Find("InventoryMenu");
+            if (!inventoryCanvasObject) {
+                Debug.LogError("No InventoryMenu GameObject found under MainMenuItems.");
+                return;
+            }
+            questCanvasObject = GameObject.Find("QuestsMenu");
+            if (!questCanvasObject) {
+                Debug.LogError("No QuestsMenu GameObject found under MainMenuItems.");
+                return;
+            }
+            skillsCanvasObject = GameObject.Find("SkillsMenu");
+            if (!skillsCanvasObject) {
+                Debug.LogError("No SkillsMenu GameObject found under MainMenuItems.");
+                return;           
+            }
+            settingsCanvasObject = GameObject.Find("SettingsMenu");
+            if (!settingsCanvasObject) {
+                Debug.LogError("No SettingsMenu GameObject found under MainMenuItems.");
+                return;
+            }
+
+
+            if (_isPlayerMenu) {
+                achievementsCanvasObject = GameObject.Find("AchievementsMenu");
+                if (!achievementsCanvasObject) {
+                    Debug.LogError("No AchievementsMenu GameObject found under MainMenuItems.");
+                    return;
+                }
+
+                PlayerMenuToggles();
+            } else {
+                PauseMenuToggles();
+            }
         }
 
         private void SetupResumeButton(GameObject _parentObject)
@@ -527,50 +676,20 @@ namespace Managers
             }
         }
 
-        private float3 GetPlayerStats(PowerUpType _powerUpType)
-        {
-            switch (_powerUpType) {
-                case PowerUpType.AttackSpeedBoost:
-                    return new float3(playerController.BaseAttackSpeed, playerController.AttackSpeedBuff,
-                        playerController.AttackSpeedBuffTemp);
-                case PowerUpType.RangedDamageBoost:
-                    return new float3(playerController.BaseRangedDamage, playerController.RangedDamageBuff,
-                        playerController.RangedDamageBuffTemp);
-                case PowerUpType.MeleeDamageBoost:
-                    return new float3(playerController.BaseMeleeDamage, playerController.MeleeDamageBuff,
-                        playerController.MeleeDamageBuffTemp);
-                case PowerUpType.HealthRegenAmount:
-                    return new float3(playerController.BaseHealthRegenAmount, playerController.HealthRegenAmountBuff,
-                        playerController.HealthRegenAmountTempBuff);
-                case PowerUpType.ManaRegenAmount:
-                    return new float3(playerController.BaseManaRegenRate, playerController.ManaRegenRateBuff,
-                        playerController.ManaRegenRateTempBuff);
-                case PowerUpType.SpeedBoost:
-                    return new float3(playerController.BaseSpeed, playerController.SpeedBuff,
-                        playerController.SpeedBuffTemp);
-                case PowerUpType.AuraDamageBoost:
-                    return new float3(playerController.GetAuraDamageStats());
-                case PowerUpType.AuraRangeBoost:
-                    return new float3(playerController.GetAuraRangeStats());
-                case PowerUpType.SuperDamageBoost:
-                    return new float3(playerController.BaseSuperDamage, playerController.SuperDamageBuff, 0f);
-                case PowerUpType.SuperCooldownReduction:
-                    return new float3(playerController.BaseSuperCooldown, playerController.SuperCooldownBuff, 0f);
-                default:
-                    Debug.LogError("Unknown PowerUpType in StatsPanel.");
-                    return new float3();
-            }
-        }
-        
         private void ShowInventoryMenu()
         {
             settingsCanvasObject.SetActive(false);
             questCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(true);
-            mainCanvasObjects[0].SetActive(true);
-            mainCanvasObjects[1].SetActive(true);
-            statsParent.SetActive(true);
+            if (mainCanvasObjects is { Length: > 0 }) {
+                mainCanvasObjects[0].SetActive(true);
+                mainCanvasObjects[1].SetActive(true);
+            }
+            if (statsParent)
+                statsParent.SetActive(true);
+            if (achievementsCanvasObject)
+                achievementsCanvasObject.SetActive(false);
             SetupResumeButton(inventoryCanvasObject);
         }
 
@@ -593,12 +712,17 @@ namespace Managers
         private void ShowSettingsMenu()
         {
             settingsCanvasObject.SetActive(true);
-            mainCanvasObjects[0].SetActive(true);
-            mainCanvasObjects[1].SetActive(true);
+            if (mainCanvasObjects is { Length: > 0 }) {
+                mainCanvasObjects[0].SetActive(true);
+                mainCanvasObjects[1].SetActive(true);
+            }
             questCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
-            statsParent.SetActive(true);
+            if (statsParent)
+                statsParent.SetActive(true);
+            if (achievementsCanvasObject)
+                achievementsCanvasObject.SetActive(false);
             SetupResumeButton(settingsCanvasObject);
         }
 
@@ -608,9 +732,14 @@ namespace Managers
             questCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(true);
-            mainCanvasObjects[0].SetActive(true);
-            mainCanvasObjects[1].SetActive(true);
-            statsParent.SetActive(false);
+            if (mainCanvasObjects is { Length: > 0 }) {
+                mainCanvasObjects[0].SetActive(true);
+                mainCanvasObjects[1].SetActive(true);
+            }
+            if (statsParent)
+                statsParent.SetActive(false);
+            if (achievementsCanvasObject)
+                achievementsCanvasObject.SetActive(false);
             SetupResumeButton(skillsCanvasObject);
         }
 
@@ -620,9 +749,14 @@ namespace Managers
             questCanvasObject.SetActive(true);
             inventoryCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
-            mainCanvasObjects[0].SetActive(true);
-            mainCanvasObjects[1].SetActive(true);
-            statsParent.SetActive(true);
+            if (mainCanvasObjects is { Length: > 0 }) {
+                mainCanvasObjects[0].SetActive(true);
+                mainCanvasObjects[1].SetActive(true);
+            }
+            if (statsParent)
+                statsParent.SetActive(true);
+            if (achievementsCanvasObject)
+                achievementsCanvasObject.SetActive(false);
             SetupResumeButton(questCanvasObject);
         }
         

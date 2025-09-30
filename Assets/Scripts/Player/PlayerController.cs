@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using Effects.Projectiles;
@@ -92,10 +93,22 @@ namespace Player
         [SerializeField]
         private GameObject currentSuperPrefab;
 
+        // Ability variables
+        private Action abilityMethod;
+
 
         /*
          * Begin Input System methods
          */
+        public void OnAbility(InputAction.CallbackContext _context)
+        {
+            if (!gamePaused) {
+                if (_context.performed && abilityMethod != null) {
+                    abilityMethod.Invoke();
+                }
+            }
+        }
+        
         public void OnAttack(InputAction.CallbackContext _context)
         {
             if (!gamePaused) {
@@ -263,6 +276,36 @@ namespace Player
             GameManager.InputActions.Player.SetCallbacks(null);
         }
 
+
+        private void AbilityArtemis()
+        {
+            if (projectiles.Count == 0) {
+                Debug.LogError("No Projectile prefab found in Artemis ability.");
+                return;
+            }
+
+            const int degreeSeparation = 24;
+
+            for (int angle = 0; angle < 360; angle += degreeSeparation) {
+                var rotation = Quaternion.Euler(0f, 0f, angle);
+                
+                float angleInRadians = angle * Mathf.Deg2Rad;
+                var targetPosition = new Vector2(
+                    transform.position.x + 2f * Mathf.Cos(angleInRadians),
+                    transform.position.y + 2f * Mathf.Sin(angleInRadians)
+                );
+                var arrow = Instantiate(projectiles[0], targetPosition, rotation);
+                if (!arrow.TryGetComponent(out Projectile projectileManager)) {
+                    Debug.LogError("Projectile prefab in Artemis ability does not have a Projectile component.");
+                    Destroy(arrow);
+                    return;
+                }
+    
+                var direction = (targetPosition - (Vector2)transform.position).normalized;
+                Debug.DrawLine(transform.position, targetPosition, Color.red, 2f);
+                projectileManager.Initialize(direction, 200f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
+            }
+        }
 
         private void ActivateSuper()
         {
@@ -452,6 +495,24 @@ namespace Player
             playerTransform.rotation = _lookLeft
                 ? Quaternion.Euler(0f, moveInput.y > 0f ? 30f : 20f, 0f)
                 : Quaternion.Euler(0f, moveInput.y > 0f ? 330f : 340f, 0f);
+        }
+
+        public void SetAbility(string _abilityName)
+        {
+            switch (_abilityName) {
+                case "Apollo":
+
+                    break;
+                case "Artemis":
+                    abilityMethod = AbilityArtemis;
+                    break;
+                case "Athena":
+
+                    break;
+                default:
+                    Debug.LogError("Invalid ability name " + _abilityName + " provided to PlayerController.SetAbility.");
+                    break;
+            }
         }
 
         public void SetSuper(GameObject _superPrefab, float _damage, float _speed)

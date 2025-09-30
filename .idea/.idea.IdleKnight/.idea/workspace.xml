@@ -6,21 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="15ae1284-60ed-4133-865b-d4de2b4115dd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSystem_Actions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayerHome.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayerHome.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIPlayerHome.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIPlayerHome.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +41,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/21/5840ba63/IntPtr.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/25/5b31e7ab/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/4e/46545f79/List`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/32/4d316c86/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/37/e5f9803b/Object.cs" root0="FORCE_HIGHLIGHTING" />
@@ -60,6 +55,7 @@
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/ElectricityInjector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Enemies/Controller.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ItemSpawner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ShopSpawner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ShopSpawner.cs" root0="SKIP_HIGHLIGHTING" />
@@ -180,7 +176,7 @@
       <workItem from="1758882767433" duration="1336000" />
       <workItem from="1758954675030" duration="3625000" />
       <workItem from="1758958639953" duration="43513000" />
-      <workItem from="1759176833212" duration="18522000" />
+      <workItem from="1759176833212" duration="32005000" />
     </task>
     <task id="LOCAL-00001" summary="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
       <option name="closed" value="true" />
@@ -246,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759203138348</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Injector interface to allow for injecting new methods and coroutines into scripts. Used this new interface to inject a shock method into enemies for electricity supers to propegate shocks between enemies">
+      <option name="closed" value="true" />
+      <created>1759218842112</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1759218842112</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,7 +275,8 @@
     <MESSAGE value="Protected shop UI from scene reloads and ensure old shop items are properly deleted." />
     <MESSAGE value="Propely delete and remove all old shop objects on scene reload" />
     <MESSAGE value="?Fixed? collectables spawning in and rushing upward. Seems to be an issue with cached location data in ObjectBounce but also hardened item spawning against random jumps." />
-    <option name="LAST_COMMIT_MESSAGE" value="?Fixed? collectables spawning in and rushing upward. Seems to be an issue with cached location data in ObjectBounce but also hardened item spawning against random jumps." />
+    <MESSAGE value="Injector interface to allow for injecting new methods and coroutines into scripts. Used this new interface to inject a shock method into enemies for electricity supers to propegate shocks between enemies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Injector interface to allow for injecting new methods and coroutines into scripts. Used this new interface to inject a shock method into enemies for electricity supers to propegate shocks between enemies" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -48,11 +48,7 @@ namespace Managers
                 Debug.LogError("Player not found or missing PlayerController component.");
                 return;
             }
-            shopCanvasObject = GameObject.Find("ShopMenu");
-            if (!shopCanvasObject) {
-                Debug.LogError("No Shop GameObject found in scene.");
-                return;           
-            }
+            FindSharedShopObjects();
             
             shopDatabase = Resources.Load<ShopItemDatabase>("ScriptableObjects/ShopItemDatabase");
             if (!shopDatabase) {
@@ -66,13 +62,6 @@ namespace Managers
                 return;           
             }
             
-            var shopItemsParentObj = GameObject.Find("ShopItemHolder");
-            if (!shopItemsParentObj) {
-                Debug.LogError("No ShopItemHolder GameObject found in scene.");
-                return;
-            }
-            shopItemsParent = shopItemsParentObj.transform;
-            
             var leaveShopButtonObj = GameObject.Find("LeaveShopButton");
             if (!leaveShopButtonObj) {
                 Debug.LogError("No LeaveShopButton GameObject found in scene.");
@@ -82,36 +71,8 @@ namespace Managers
                 Debug.LogError("No LeaveShopButton found in scene.");
                 return;           
             }
-            
-            var shopPointsTextObj = GameObject.Find("ShopPointsText");
-            if (!shopPointsTextObj) {
-                Debug.LogError("No ShopPointsText GameObject found in scene.");
-                return;
-            }
-            if (!shopPointsTextObj.TryGetComponent(out shopPointsText)) {
-                Debug.LogError("No ShopPointsText found in scene.");
-                return;           
-            }
-            
-            var shopPowerUpTextObj = GameObject.Find("ShopPowerUpText");
-            if (!shopPowerUpTextObj) {
-                Debug.LogError("No ShopPowerUpText GameObject found in scene.");
-            }
 
-            if (!shopPowerUpTextObj.TryGetComponent(out shopPowerUpText)) {
-                Debug.LogError("No ShopPowerUpText found in scene.");
-                return;           
-            }
-            
-            var shopGemTextObj = GameObject.Find("ShopGemsText");
-            if (!shopGemTextObj) {
-                Debug.LogError("No ShopGemsText GameObject found in scene.");
-            }
-
-            if (!shopGemTextObj.TryGetComponent(out shopGemText)) {
-                Debug.LogError("No ShopGemText found in scene.");
-                return;           
-            }
+            FindShopTextFields();
             
             SetupShopUI();
         }
@@ -205,6 +166,54 @@ namespace Managers
             isShopOpen = false;
         }
 
+        private void FindSharedShopObjects()
+        {
+            shopCanvasObject = GameObject.Find("ShopMenu");
+            if (!shopCanvasObject) {
+                Debug.LogError("No Shop GameObject found in scene.");
+                return;           
+            }
+            
+            var shopItemsParentObj = GameObject.Find("ShopItemHolder");
+            if (!shopItemsParentObj) {
+                Debug.LogError("No ShopItemHolder GameObject found in scene.");
+                return;
+            }
+            shopItemsParent = shopItemsParentObj.transform;
+        }
+
+        private void FindShopTextFields()
+        {
+            var shopPointsTextObj = GameObject.Find("ShopPointsText");
+            if (!shopPointsTextObj) {
+                Debug.LogError("No ShopPointsText GameObject found in scene.");
+                return;
+            }
+            if (!shopPointsTextObj.TryGetComponent(out shopPointsText)) {
+                Debug.LogError("No ShopPointsText found in scene.");
+                return;           
+            }
+            
+            var shopPowerUpTextObj = GameObject.Find("ShopPowerUpText");
+            if (!shopPowerUpTextObj) {
+                Debug.LogError("No ShopPowerUpText GameObject found in scene.");
+            }
+
+            if (!shopPowerUpTextObj.TryGetComponent(out shopPowerUpText)) {
+                Debug.LogError("No ShopPowerUpText found in scene.");
+                return;           
+            }
+            
+            var shopGemTextObj = GameObject.Find("ShopGemsText");
+            if (!shopGemTextObj) {
+                Debug.LogError("No ShopGemsText GameObject found in scene.");
+            }
+
+            if (!shopGemTextObj.TryGetComponent(out shopGemText)) {
+                Debug.LogError("No ShopGemText found in scene.");
+            }
+        }
+
         private (int, int) GetShopItemCounts(int _maxSuperCount, int _maxItemCount, int _maxTotalCount)
         {
             if (_maxTotalCount >= (_maxSuperCount + _maxItemCount))
@@ -293,10 +302,12 @@ namespace Managers
             return Mathf.Clamp(value, _min, _max);
         }
 
-        private void SetupShopUI()
+        private void SetupShopUI(bool _isPlayerMenu = false)
         {
-            leaveShopButton.onClick.RemoveAllListeners();
-            leaveShopButton.onClick.AddListener(ExitShop);
+            if (!_isPlayerMenu) {
+                leaveShopButton.onClick.RemoveAllListeners();
+                leaveShopButton.onClick.AddListener(ExitShop);
+            }
             shopCanvasObject.SetActive(false);
         }
     }
