@@ -154436,8 +154436,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 515950041}
   m_HandleRect: {fileID: 515950039}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999666
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -184925,7 +184925,7 @@ MonoBehaviour:
   startingMana: 50
   manaRegenRate: 1
   manaRegenInterval: 5
-  specialAttackManaCost: 20
+  specialAttackManaCost: 5
   sprintManaCostPerTick: 2
   movementSpeed: 3
   sprintSpeedMultiplier: 1.3
@@ -184937,7 +184937,7 @@ MonoBehaviour:
   tripleAttackDamageActivationPoint: 45
   superCooldown: 10
   superDamage: 20
-  currentSuperPrefab: {fileID: 4373732897414272093, guid: 6f78b59c69c4f8a48a516ad8c4ed3a98, type: 3}
+  currentSuperPrefab: {fileID: 8209676496208518619, guid: 2c1e251b56287ef4097a3af8d2849e9b, type: 3}
   maxHealth: 100
   invincibilityDuration: 1
   healthRegenInterval: 2
@@ -186488,34 +186488,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4504803356935489774, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670946043271350358, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: cullDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670946043271350358, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: spawnInterval
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670946043271350358, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: spawnRangeMax
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670946043271350358, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: spawnRangeMin
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670946043271350358, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: shopSpawnOffset
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670946043271350358, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: shopLayer.m_Bits
-      value: 8192
-      objectReference: {fileID: 0}
     - target: {fileID: 7212019802047137928, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.57297
@@ -186554,22 +186526,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7212019802047137928, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7407229176779317003, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7407229176779317003, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7407229176779317003, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7407229176779317003, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9181122379315924883, guid: 77c59ae004d8d894cacfe277f729869d, type: 3}
@@ -187417,18 +187373,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkeletonSword
       objectReference: {fileID: 0}
-    - target: {fileID: 3134386686994224129, guid: 76c373ef8ee0fb1449a8842f16b2418d, type: 3}
-      propertyPath: maxHealth
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134386686994224129, guid: 76c373ef8ee0fb1449a8842f16b2418d, type: 3}
-      propertyPath: deathValue
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3134386686994224129, guid: 76c373ef8ee0fb1449a8842f16b2418d, type: 3}
-      propertyPath: armourValue
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 6956722679747732767, guid: 76c373ef8ee0fb1449a8842f16b2418d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.85
@@ -187697,18 +187641,6 @@ PrefabInstance:
     - target: {fileID: 8064180223179997128, guid: 1852ef64556b4064aa8c3bb4cb25c168, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8211783463538576139, guid: 1852ef64556b4064aa8c3bb4cb25c168, type: 3}
-      propertyPath: maxHealth
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8211783463538576139, guid: 1852ef64556b4064aa8c3bb4cb25c168, type: 3}
-      propertyPath: deathValue
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8211783463538576139, guid: 1852ef64556b4064aa8c3bb4cb25c168, type: 3}
-      propertyPath: armourValue
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -188093,14 +188025,6 @@ PrefabInstance:
     - target: {fileID: 4576604378483639459, guid: 41c8e857158ec2541b88b36ab83811c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7422661051132991125, guid: 41c8e857158ec2541b88b36ab83811c9, type: 3}
-      propertyPath: deathValue
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7422661051132991125, guid: 41c8e857158ec2541b88b36ab83811c9, type: 3}
-      propertyPath: itemSpawnChance
-      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -189054,7 +188978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8941242622962656950, guid: 434ff4e6c1bf8b34aaab4b56cdc1c94d, type: 3}
       propertyPath: m_Name
-      value: DemonWarlock1
+      value: BanditAxeThrower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -69,6 +69,7 @@ namespace Enemies
                 parentSpawner.ReleaseMinion(this.gameObject);
                 return;
             }
+            
             var handlers = OnEnemyDeath;
             if (handlers != null) {
                 foreach (var d in handlers.GetInvocationList()) {
@@ -80,7 +81,6 @@ namespace Enemies
                     }
                 }
             }
-            // OnEnemyDeath?.Invoke(deathShotType, deathValue, itemSpawnChance, transform.position, this.gameObject);
         }
         
         public void ResetHealth()

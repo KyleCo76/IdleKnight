@@ -75,6 +75,12 @@ namespace Managers
             GameSceneManager.Instance.OnSceneLoaded += NewSceneLoaded;
         }
 
+        private void Update()
+        {
+            if (GameSceneManager.Instance.CurrentScene is SceneNames.PlayerHome)
+                PlayerHomeUpdate();
+        }
+
         private void OnDisable()
         {
             if (!GameManager.Instance)
@@ -240,18 +246,6 @@ namespace Managers
             levelFailedRetryButton = levelFailedRetryButtonObject.GetComponent<Button>();
             levelFailedRetryButton.onClick.RemoveAllListeners();
             levelFailedRetryButton.onClick.AddListener(() => GameSceneManager.Instance.ReloadScene());
-            
-            var cursorPointerDropdownObject =  GameObject.Find("CursorPointerDropdown");
-            if (!cursorPointerDropdownObject) {
-                Debug.LogError("No cursorPointerDropdown GameObject found in the scene.");
-                return;
-            }
-
-            if (!cursorPointerDropdownObject.TryGetComponent(out cursorPointerDropdown)) {
-                Debug.LogError("No cursorPointerDropdown GameObject found in the scene.");
-            }
-            cursorPointerDropdown.onValueChanged.RemoveAllListeners();
-            cursorPointerDropdown.onValueChanged.AddListener(GameManager.Instance.SetCursorImage);
         }
 
         private void GameOver()
@@ -276,9 +270,14 @@ namespace Managers
 
         private void NewSceneLoaded(int _sceneIndex)
         {
-            if (_sceneIndex is SceneNames.PlayerHome or SceneNames.MainMenu) {
+            if (_sceneIndex is SceneNames.PlayerHome) {
+                InitializePlayerHome();
                 return;
             }
+
+            if (_sceneIndex is SceneNames.MainMenu)
+                return;
+            
             FindUIComponents();
             SetupScoreTexts();
             FindStatsScreen();
@@ -287,6 +286,7 @@ namespace Managers
             AwakeShopManager();
             HideAllMenus();
             ShopHandleSceneLoaded();
+            SetupSettingsScreen();
             uiCanvasObject.SetActive(true);
         }
 
@@ -472,6 +472,21 @@ namespace Managers
             if (!pauseGemsText) {
                 Debug.LogError("PauseGemsText UI element not found in the scene.");
             }
+        }
+
+        private void SetupSettingsScreen()
+        {
+            var cursorPointerDropdownObject =  GameObject.Find("CursorPointerDropdown");
+            if (!cursorPointerDropdownObject) {
+                Debug.LogError("No cursorPointerDropdown GameObject found in the scene.");
+                return;
+            }
+
+            if (!cursorPointerDropdownObject.TryGetComponent(out cursorPointerDropdown)) {
+                Debug.LogError("No cursorPointerDropdown GameObject found in the scene.");
+            }
+            cursorPointerDropdown.onValueChanged.RemoveAllListeners();
+            cursorPointerDropdown.onValueChanged.AddListener(GameManager.Instance.SetCursorImage);
         }
 
         private void SetupStatsScreen()

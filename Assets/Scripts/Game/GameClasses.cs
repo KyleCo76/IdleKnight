@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Enemies;
 using Managers;
+using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game
 {
@@ -99,6 +102,15 @@ namespace Game
         public void OnTakenFromPool(GameObject _instance);
         public void OnTakenFromPool(GameObject _instance, MinionSpawner _spawner);
         public GameObject GetSourcePrefab();
+    }
+
+    public interface IMethodInjectable
+    {
+        public void InjectMethod(System.Action _method);
+        public void InjectCoroutine(System.Func<object[], System.Collections.IEnumerator> _coroutine);
+
+        public void InvokeMethod(params object[] _args);
+        public Coroutine InvokeCoroutine(params object[] _args);
     }
     
     public struct TrackedMinion : System.IEquatable<TrackedMinion>
@@ -333,14 +345,16 @@ namespace Game
             
             public void Release(GameObject _instance)
             {
-                if (!_instance)
+                if (!_instance) {
+                    Debug.LogError("Instance is null.");
                     return;
+                }
                 
                 _instance.SetActive(false);
                 _instance.transform.SetParent(poolRoot, false);
-                liveCount--;
                 pool.Enqueue(_instance);
             
+                liveCount--;
                 liveCount = Mathf.Max(0, liveCount);
             }
         }

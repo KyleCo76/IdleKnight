@@ -1,4 +1,7 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Pathfinding;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,9 +10,9 @@ using Managers;
 
 namespace Enemies
 {
-    public partial class Controller : MonoBehaviour, IPooledResettable
+    public partial class Controller : MonoBehaviour, IPooledResettable, IMethodInjectable
     {
-        public static event System.Action<AttackType, int, float, Vector2, GameObject> OnEnemyDeath;
+        public static event Action<AttackType, int, float, Vector2, GameObject> OnEnemyDeath;
 
         [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("The movement speed of the enemy")]
         private float movementSpeed = 3.0f;
@@ -27,6 +30,8 @@ namespace Enemies
         private bool hasAttackAnimation;
         [FoldoutGroup("Animation Settings"), SerializeField, Tooltip(("Does the enemy have a death animation?"))]
         private bool hasDeathAnimation;
+        [FoldoutGroup("Child Settings"), SerializeField, Tooltip("Does the enemy contain any children?")]
+        private bool hasChildren;
 
 
         // Cached components
@@ -43,10 +48,14 @@ namespace Enemies
         private float moveSpeed;
         private bool isPooled;
         private MinionSpawner parentSpawner;
+        private Transform[] children;
         
         private GameObject sourcePrefab;
 
-        private void Awake()
+        private Delegate methodDelegate;
+        private Func<object[], IEnumerator> coroutineDelegate;
+
+        private void OnEnable()
         {
             var playerObj = GameObject.FindGameObjectWithTag("Player");
             if (playerObj != null) {
@@ -67,6 +76,9 @@ namespace Enemies
                 Debug.LogError("Enemy is set to have an attack and/or death animation but does not have an Animator component.");
                 enabled = false;
             }
+
+            if (hasChildren)
+                children = GetComponentsInChildren<Transform>();
 
             InvokeRepeating(nameof(UpdatePath), 0f, pathUpdateRate);
             
@@ -125,7 +137,27 @@ namespace Enemies
                 }
             }
         }
-        
+
+        private void OnDisable()
+        {
+            // Cleanup any unneeded child components
+            var allChildren = GetComponentsInChildren<Transform>();
+            if (!hasChildren) {
+                foreach (var child in allChildren) {
+                    if (child != transform) {
+                        Destroy(child.gameObject);
+                    }
+                }
+            } else {
+                foreach (var child in allChildren) {
+                    if (child == transform || children.Contains(child))
+                        continue;
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
+
         public void OnTakenFromPool(GameObject _sourcePrefab)
         {
             sourcePrefab = _sourcePrefab;
@@ -150,7 +182,30 @@ namespace Enemies
         {
             return sourcePrefab;
         }
+
+        public void InjectMethod(Action _method)
+        {
+            methodDelegate = _method;
+        }
+
+        public void InjectCoroutine(Func<object[], IEnumerator> _coroutine)
+        {
+            coroutineDelegate = _coroutine;
+        }
         
+        public void InvokeMethod(params object[] _args)
+        {
+            methodDelegate?.DynamicInvoke(_args);
+        }
+
+        public Coroutine InvokeCoroutine(params object[] _args)
+        {
+            if (coroutineDelegate == null)
+                return null;
+            
+            return StartCoroutine(coroutineDelegate(_args));
+        }
+
 
         public void ApplySpeedBoost(float _multiplier)
         {

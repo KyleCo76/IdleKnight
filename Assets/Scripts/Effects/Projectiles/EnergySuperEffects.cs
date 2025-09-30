@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DigitalRuby.LightningBolt;
 using Game;
 using Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Effects.Projectiles
@@ -10,6 +11,8 @@ namespace Effects.Projectiles
     {
         [SerializeField, Tooltip("The effect that will be used to zap enemies")]
         private GameObject energyEffect;
+        [SerializeField, Tooltip("Does the prefab use an injector?")]
+        private bool useInjector;
         
         private CircleCollider2D teslaRange;
         private CapsuleCollider2D energyCapsule;
@@ -18,8 +21,11 @@ namespace Effects.Projectiles
         private int zapDamage = 2;
         private SingleEffectPoolManager effectPoolManager;
         
+        [ShowInInspector]
         private readonly Dictionary<GameObject, float> toBeZapped = new();
+        [ShowInInspector]
         private readonly Dictionary<GameObject, (GameObject, float)> isZapped = new();
+        private readonly List<GameObject> zaps = new();
         
         private const float ZapTtl = 0.2f;
         private const int InitialPoolSize = 15;
@@ -46,15 +52,29 @@ namespace Effects.Projectiles
         {
             if (!GameManager.Instance || GameManager.Instance.IsPaused)
                 return;
-            
-            var snapshot = new Dictionary<GameObject, float>(toBeZapped);
-            foreach (var pair in snapshot) {
-                float timer = pair.Value - Time.deltaTime;
-                if (timer <= 0) {
-                    ZapEnemy(pair.Key);
-                } else {
-                    if (toBeZapped.ContainsKey(pair.Key))
-                        toBeZapped[pair.Key] = timer;
+
+            if (toBeZapped.Count > 0) {
+                var snapshot = new Dictionary<GameObject, float>(toBeZapped);
+                foreach (var pair in snapshot) {
+                    float timer = pair.Value - Time.deltaTime;
+                    if (timer <= 0) {
+                        ZapEnemy(pair.Key);
+                    } else {
+                        if (toBeZapped.ContainsKey(pair.Key))
+                            toBeZapped[pair.Key] = timer;
+                    }
+                }
+
+                if (useInjector) {
+                    if (!TryGetComponent(out ElectricityInjector injector)) {
+                        Debug.LogError("No ElectricityInjector component found");
+                        zaps.Clear();
+                    } else {
+                        injector.TryInjector(zaps);
+                        Debug.Log("Injected");
+                        Debug.Log("Zaps: " + zaps.Count);
+                        zaps.Clear();
+                    }
                 }
             }
 
@@ -81,9 +101,9 @@ namespace Effects.Projectiles
         private void OnDestroy()
         {
             toBeZapped.Clear();
+            
             foreach (var pair in isZapped)
                 effectPoolManager.Release(pair.Value.Item1);
-            
             isZapped.Clear();
         }
 
@@ -149,6 +169,9 @@ namespace Effects.Projectiles
                 toBeZapped.Remove(_enemy);
                 return;
             }
+
+            if (useInjector)
+                zaps.Add(zap);
 
             //lightningBolt.ManualMode = true;
             lightningBolt.StartObject = this.gameObject;

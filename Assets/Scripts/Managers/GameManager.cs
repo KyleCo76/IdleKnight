@@ -67,7 +67,8 @@ namespace Managers
         private void OnDisable()
         {
             InputActions.Player.Attack.performed -= TriggerCursorAnimator;
-            GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
+            if (GameSceneManager.Instance)
+                GameSceneManager.Instance.OnSceneLoaded -= HandleSceneLoaded;
         }
 
         private void OnDestroy()
@@ -251,6 +252,8 @@ namespace Managers
                     PauseGame();
                 }
             };
+            InputActions.UI.SlowTime.performed += _ => { Time.timeScale = Mathf.Clamp01(Time.timeScale - 0.1f); };
+            InputActions.UI.SpeedTime.performed += _ => { Time.timeScale = Mathf.Clamp01(Time.timeScale + 0.1f); };
             
             cursorTransform = GameObject.Find("CursorImage").GetComponent<RectTransform>();
             var cursorSizeSliderParent = GameObject.Find("CursorSizeSlider");

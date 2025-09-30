@@ -6,12 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="15ae1284-60ed-4133-865b-d4de2b4115dd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Collectables.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Collectables.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSystem_Actions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Projectiles/Supers/ElectricitySmallBlue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/PlayerLevels.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/SuperDatabase.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayerHome.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayerHome.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Controller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectBounce.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectBounce.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,14 +46,26 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/21/5840ba63/IntPtr.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/4e/46545f79/List`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/32/4d316c86/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/37/e5f9803b/Object.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/9c/39c6bea2/Transform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Attack.anim" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/ElectricityInjector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ItemSpawner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ShopSpawner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ShopSpawner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/UIManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/UIPlayerHome.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/UIShopManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@be6c4fd0abf5/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -159,7 +180,7 @@
       <workItem from="1758882767433" duration="1336000" />
       <workItem from="1758954675030" duration="3625000" />
       <workItem from="1758958639953" duration="43513000" />
-      <workItem from="1759176833212" duration="6360000" />
+      <workItem from="1759176833212" duration="18522000" />
     </task>
     <task id="LOCAL-00001" summary="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
       <option name="closed" value="true" />
@@ -201,7 +222,31 @@
       <option name="project" value="LOCAL" />
       <updated>1759179304879</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Protected shop UI from scene reloads and ensure old shop items are properly deleted.">
+      <option name="closed" value="true" />
+      <created>1759203020041</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1759203020041</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Propely delete and remove all old shop objects on scene reload">
+      <option name="closed" value="true" />
+      <created>1759203073245</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1759203073245</updated>
+    </task>
+    <task id="LOCAL-00008" summary="?Fixed? collectables spawning in and rushing upward. Seems to be an issue with cached location data in ObjectBounce but also hardened item spawning against random jumps.">
+      <option name="closed" value="true" />
+      <created>1759203138348</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1759203138348</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,7 +268,10 @@
     <MESSAGE value="Fixed a logic bug in collider detection. The larger collider will always be touching something that the smaller collider is also touching so we were always returning when we needed to deal damage." />
     <MESSAGE value="Added EnergySuperEffects.cs to the ligtning supers and modified script to accept more properties at instantiation for damage." />
     <MESSAGE value="Modified Collectables to change it's Awake method to OnEnable so that it will run each time the pooled prefab is reused." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified Collectables to change it's Awake method to OnEnable so that it will run each time the pooled prefab is reused." />
+    <MESSAGE value="Protected shop UI from scene reloads and ensure old shop items are properly deleted." />
+    <MESSAGE value="Propely delete and remove all old shop objects on scene reload" />
+    <MESSAGE value="?Fixed? collectables spawning in and rushing upward. Seems to be an issue with cached location data in ObjectBounce but also hardened item spawning against random jumps." />
+    <option name="LAST_COMMIT_MESSAGE" value="?Fixed? collectables spawning in and rushing upward. Seems to be an issue with cached location data in ObjectBounce but also hardened item spawning against random jumps." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -240,32 +288,12 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs</url>
-          <line>41</line>
-          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Effects\Projectiles\EnergySuperEffects.cs" containingFunctionPresentation="Method 'Awake'">
-            <startOffsets>
-              <option value="1431" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1534" />
-            </endOffsets>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="UnityEngine.MissingReferenceException" breakIfHandledByUserCode="true" breakIfUnhandled="false" isInternal="false" displayValue="MissingReferenceException" namespaceName="UnityEngine">
+            <option name="internal" value="false" />
           </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs</url>
-          <line>28</line>
-          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Effects\Projectiles\EnergySuperEffects.cs" containingFunctionPresentation="Method 'Awake'">
-            <startOffsets>
-              <option value="921" />
-            </startOffsets>
-            <endOffsets>
-              <option value="939" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
+          <option name="timeStamp" value="6" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
