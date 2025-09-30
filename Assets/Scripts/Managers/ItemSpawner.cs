@@ -173,12 +173,20 @@ namespace Managers
                 chosenType = ChoosePowerUpType();
             }
             var isTemporary = RandomBiasedNumber(0f, 1f) < temporaryPowerUpChance;
+            if (chosenType == PowerUpType.SuperCooldownReduction || chosenType == PowerUpType.SuperDamageBoost) {
+                isTemporary = false;
+            } else if (chosenType == PowerUpType.DoublePoints || chosenType == PowerUpType.CoinMagnet || chosenType == PowerUpType.Invincibility) {
+                isTemporary = true;
+            }
             var powerUpSprite = powerUpDatabase.GetSpriteForPowerUpType(chosenType, isTemporary);
             var powerUpPrefab = powerUpDatabase.GetPrefabForPowerUpType(chosenType, isTemporary);
 
             var powerUpInstance = poolManager.GetFromPool(powerUpPrefab, _position, Quaternion.identity);
 
-            if (!powerUpInstance || !powerUpInstance.TryGetComponent<SpriteRenderer>(out var spriteRenderer)) {
+            if (!powerUpInstance) {
+                return;
+            }
+            if (!powerUpInstance.TryGetComponent<SpriteRenderer>(out var spriteRenderer)) {
                 Debug.LogError("PowerUp prefab is missing a SpriteRenderer component.");
                 return;
             }

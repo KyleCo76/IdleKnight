@@ -47,6 +47,7 @@ namespace Enemies
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
             if (currentHealth <= 0) {
+                Vector2 position = transform.position;
                 deathShotType = _attackType;
                 isDead = true;
                 
@@ -57,14 +58,12 @@ namespace Enemies
                     enemyAnimator.SetTrigger(animatorHashes["Die"]);
                     return;
                 }
-                Die();
+                Die(position);
             }
         }
 
-        public void Die()
+        public void Die(Vector2 _position)
         {
-            if (hasDeathAnimation)
-                enemyAnimator.SetTrigger(animatorHashes["Die"]);
             if (isPooled) {
                 parentSpawner.ReleaseMinion(this.gameObject);
                 return;
@@ -74,7 +73,7 @@ namespace Enemies
             if (handlers != null) {
                 foreach (var d in handlers.GetInvocationList()) {
                     try {
-                        ((System.Action<AttackType, int, float, Vector2, GameObject>)d).Invoke(deathShotType, deathValue, itemSpawnChance, transform.position, this.gameObject);
+                        ((System.Action<AttackType, int, float, Vector2, GameObject>)d).Invoke(deathShotType, deathValue, itemSpawnChance, _position, this.gameObject);
                     }
                     catch (System.Exception ex) {
                         Debug.LogException(ex);

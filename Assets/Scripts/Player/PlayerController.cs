@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using Effects.Projectiles;
@@ -285,26 +286,7 @@ namespace Player
             }
 
             const int degreeSeparation = 24;
-
-            for (int angle = 0; angle < 360; angle += degreeSeparation) {
-                var rotation = Quaternion.Euler(0f, 0f, angle);
-                
-                float angleInRadians = angle * Mathf.Deg2Rad;
-                var targetPosition = new Vector2(
-                    transform.position.x + 2f * Mathf.Cos(angleInRadians),
-                    transform.position.y + 2f * Mathf.Sin(angleInRadians)
-                );
-                var arrow = Instantiate(projectiles[0], targetPosition, rotation);
-                if (!arrow.TryGetComponent(out Projectile projectileManager)) {
-                    Debug.LogError("Projectile prefab in Artemis ability does not have a Projectile component.");
-                    Destroy(arrow);
-                    return;
-                }
-    
-                var direction = (targetPosition - (Vector2)transform.position).normalized;
-                Debug.DrawLine(transform.position, targetPosition, Color.red, 2f);
-                projectileManager.Initialize(direction, 200f, BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
-            }
+            StartCoroutine(ArtemisBow(degreeSeparation));
         }
 
         private void ActivateSuper()
@@ -529,6 +511,32 @@ namespace Player
             superSecondaryFrequency = _secondaryFrequency;
             superSecondaryDamage = _secondaryDamage;
             maxSecondaryEffects = _maxSecondaryCount;
+        }
+
+        private IEnumerator ArtemisBow(int _degreeSeparation)
+        {
+            for (int angle = 0; angle < 360; angle += _degreeSeparation) {
+                var rotation = Quaternion.Euler(0f, 0f, angle);
+                
+                float angleInRadians = angle * Mathf.Deg2Rad;
+                var targetPosition = new Vector2(
+                    transform.position.x + 2f * Mathf.Cos(angleInRadians),
+                    transform.position.y + 2f * Mathf.Sin(angleInRadians)
+                );
+                var arrow = Instantiate(projectiles[0], targetPosition, rotation);
+                if (!arrow.TryGetComponent(out Projectile projectileManager)) {
+                    Debug.LogError("Projectile prefab in Artemis ability does not have a Projectile component.");
+                    Destroy(arrow);
+                    yield break;
+                }
+    
+                var direction = (targetPosition - (Vector2)transform.position).normalized;
+                Debug.DrawLine(transform.position, targetPosition, Color.red, 2f);
+                projectileManager.Initialize(direction, 300f,
+                    BaseRangedDamage * RangedDamageBuff * RangedDamageBuffTemp, AttackType.PlayerAttack, false);
+                
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 

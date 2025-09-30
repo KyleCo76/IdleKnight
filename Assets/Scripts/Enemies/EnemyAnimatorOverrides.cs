@@ -18,7 +18,7 @@ namespace Enemies
         {
             var enemy = _animator.gameObject;
             if (enemy.TryGetComponent(out Controller controller)) {
-                controller.Die();
+                controller.Die(enemy.transform.position);
             }
         }
     }

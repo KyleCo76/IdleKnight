@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectOnPickup: 1
   destroyOnPickup: 1
+  timeToLive: 15
   pickupSound: {fileID: 0}
   pickupSoundVolume: 1
   randomizeSprite: 0
@@ -201,19 +202,19 @@ MonoBehaviour:
   maxAuraDamageBoostRange: {x: 1.1, y: 1.3}
   randomAuraDamageBoostTemporary: 0
   maxAuraDamageBoostDurationRange: {x: 1.1099924, y: 120}
-  weightInvincibility: 1
-  weightDoublePoints: 1
-  weightHealthBoost: 1
-  weightMaxHealthBoost: 1
-  weightManaBoost: 1
-  weightMaxManaBoost: 1
-  weightAttackSpeedBoost: 1
-  weightMeleeDamageBoost: 1
-  weightRangedDamageBoost: 1
-  weightSpeedBoost: 1
-  weightAuraTickRateBoost: 1
-  weightAuraRangeBoost: 1
-  weightAuraDamageBoost: 1
+  weightInvincibility: 0
+  weightDoublePoints: 0
+  weightHealthBoost: 0
+  weightMaxHealthBoost: 0
+  weightManaBoost: 0
+  weightMaxManaBoost: 0
+  weightAttackSpeedBoost: 0
+  weightMeleeDamageBoost: 0
+  weightRangedDamageBoost: 0
+  weightSpeedBoost: 0
+  weightAuraTickRateBoost: 0
+  weightAuraRangeBoost: 0
+  weightAuraDamageBoost: 0
   numberOfStatsToGive: 1
   collectableID: 
   iDSet: 0

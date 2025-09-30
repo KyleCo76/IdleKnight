@@ -71,8 +71,6 @@ namespace Effects.Projectiles
                         zaps.Clear();
                     } else {
                         injector.TryInjector(zaps);
-                        Debug.Log("Injected");
-                        Debug.Log("Zaps: " + zaps.Count);
                         zaps.Clear();
                     }
                 }
