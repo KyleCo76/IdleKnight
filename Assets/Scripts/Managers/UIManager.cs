@@ -286,6 +286,7 @@ namespace Managers
             FindPlayerAndCache();
             AwakeShopManager();
             HideAllMenus();
+            ShopHandleSceneLoaded();
             uiCanvasObject.SetActive(true);
         }
 

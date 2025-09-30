@@ -157,7 +157,8 @@ namespace Managers
             }
 
             foreach (var view in shopItemViews) {
-                Destroy(view.gameObject);
+                if (view.gameObject)
+                    Destroy(view.gameObject);
             }
             shopItemViews.Clear();
 
@@ -238,6 +239,15 @@ namespace Managers
                     break;
                 }
             }
+        }
+
+        private void ShopHandleSceneLoaded()
+        {
+            foreach (var view in shopItemViews) {
+                if (view != null && view.gameObject != null)
+                    Destroy(view.gameObject);
+            }
+            shopItemViews.Clear();   
         }
 
         private void OnSuperPurchased(ShopItemDatabase.ShopSuperEntry _super)
