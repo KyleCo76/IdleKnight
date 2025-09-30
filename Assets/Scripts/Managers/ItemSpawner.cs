@@ -127,13 +127,13 @@ namespace Managers
         {
             switch (_type) {
                 case PowerUpType.Invincibility:
-                    _powerUp.Initialize(new PowerUpData(this, _prefabReference, _type, _duration: RandomBiasedNumber(minTemporaryDuration + 1, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(this, _prefabReference, _type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                     break;
                 case PowerUpType.DoublePoints:
-                    _powerUp.Initialize(new PowerUpData(this,_prefabReference,_type, _duration: RandomBiasedNumber(minTemporaryDuration + 1, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(this,_prefabReference,_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                     break;
                 case PowerUpType.CoinMagnet:
-                    _powerUp.Initialize(new PowerUpData(this, _prefabReference,_type, _duration: RandomBiasedNumber(minTemporaryDuration + 1, maxTemporaryDuration)));
+                    _powerUp.Initialize(new PowerUpData(this, _prefabReference,_type, _duration: RandomBiasedNumber(minTemporaryDuration, maxTemporaryDuration)));
                     break;
                 case PowerUpType.MaxHealthBoost:
                 case PowerUpType.HealAmount:
@@ -231,7 +231,7 @@ namespace Managers
                     if (!HasSpawnsAvailable(_prefab) || (globalMaxPrefabAmount > 0 && GetLiveCount(_prefab) >= globalMaxPrefabAmount)) {
                         return null;
                     }
-                    go = Object.Instantiate(_prefab, poolRoot);
+                    go = Object.Instantiate(_prefab, poolRoot, true);
                 }
 
                 go.transform.SetPositionAndRotation(_position, _rotation);
@@ -280,10 +280,10 @@ namespace Managers
                 EnsurePool(prefab);
                 
                 _instance.SetActive(false);
-                _instance.transform.SetParent(poolRoot, true);
-                liveCounts[prefab]--;
+                //_instance.transform.SetParent(poolRoot, true);
                 pools[prefab].Enqueue(_instance);
                 
+                liveCounts[prefab]--;
                 liveCounts[prefab] = Mathf.Max(0, GetLiveCount(prefab) - 1);
             }
         }

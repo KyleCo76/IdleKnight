@@ -256,6 +256,7 @@ public class Collectables : MonoBehaviour, IPooledResettable
         pickupDelayTimer = PickupDelay;
         timeToLiveTimer = timeToLive;
         spriteFlashTimer = SpriteFlashTime;
+        isEnabled = false;
     }
 
     private void Update()
@@ -269,7 +270,7 @@ public class Collectables : MonoBehaviour, IPooledResettable
         if (pickupDelayTimer <= 0) {
             timeToLiveTimer -= Time.deltaTime;
             if (timeToLiveTimer <= 0f) {
-                if (spawnerReference != null)
+                if (spawnerReference)
                     spawnerReference.ReleasePowerUp(gameObject);
                 else
                     Destroy(gameObject);
@@ -312,8 +313,7 @@ public class Collectables : MonoBehaviour, IPooledResettable
 
     public void Initialize(PowerUpData _data)
     {
-        if (powerUps.Count > 0)
-            powerUps.Clear();
+        powerUps.Clear();
         
         spawnerReference = _data.SpawnerObject;
         prefabReference = _data.PrefabReference;
@@ -397,7 +397,7 @@ public class Collectables : MonoBehaviour, IPooledResettable
         
     }
 
-    public void OnTakenFromPool(GameObject _g)
+    public void OnTakenFromPool(GameObject _)
     {
         
     }

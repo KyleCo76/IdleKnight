@@ -12,17 +12,26 @@ public class ObjectBounce : MonoBehaviour
     private Vector3 initialPosition;
     private Vector3 targetPosition;
     private Vector3 currentTarget;
+    private float bounceDelayTimer;
+    
+    private const float BounceDelay = 0.3f;
 
-    private void Start()
+    private void OnEnable()
     {
         initialPosition = transform.position;
         targetPosition = initialPosition + new Vector3(horizontalBounce, verticalBounce, 0f);
         currentTarget = targetPosition;
+        bounceDelayTimer = BounceDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (bounceDelayTimer > 0) {
+            bounceDelayTimer -= Time.deltaTime;
+            if (bounceDelayTimer > 0)
+                return;
+        }
         // Calculate the new position
         float newX = transform.position.x;
         float newY = transform.position.y;
