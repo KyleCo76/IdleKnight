@@ -231,7 +231,7 @@ namespace Managers
                     if (!HasSpawnsAvailable(_prefab) || (globalMaxPrefabAmount > 0 && GetLiveCount(_prefab) >= globalMaxPrefabAmount)) {
                         return null;
                     }
-                    go = Object.Instantiate(_prefab, poolRoot, true);
+                    go = Object.Instantiate(_prefab, poolRoot);
                 }
 
                 go.transform.SetPositionAndRotation(_position, _rotation);

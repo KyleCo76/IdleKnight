@@ -1,3 +1,4 @@
+using Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,7 @@ namespace Managers
         public event SceneLoadedEventHandler OnSceneLoaded;
         
         public int CurrentScene { get; private set; }
+        public bool IsPlayerScene => CurrentScene is not SceneNames.PlayerHome and not SceneNames.MainMenu;
 
 
         private void Awake()

@@ -297,19 +297,19 @@ namespace Managers
         public void HideAllMenus()
         {
             settingsCanvasObject.SetActive(false);
-            if (mainCanvasObjects is { Length: > 0 }) {
+            if (GameSceneManager.Instance.IsPlayerScene) {
                 mainCanvasObjects[0].SetActive(false);
                 mainCanvasObjects[1].SetActive(false);
             }
-            if (levelFailedObject)
+            if (GameSceneManager.Instance.IsPlayerScene)
                 levelFailedObject.SetActive(false);
-            if (exitConfirmationObject)
+            if (GameSceneManager.Instance.IsPlayerScene)
                 exitConfirmationObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
             questCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
             shopCanvasObject.SetActive(false);
-            if (achievementsCanvasObject)
+            if (!GameSceneManager.Instance.IsPlayerScene)
                 achievementsCanvasObject.SetActive(false);
         }
 

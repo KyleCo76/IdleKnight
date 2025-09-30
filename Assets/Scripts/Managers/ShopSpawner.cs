@@ -64,7 +64,7 @@ namespace Managers
 
         void Update()
         {
-            if (!shouldSpawn || !GameManager.Instance || GameManager.Instance.IsPaused)
+            if (!shouldSpawn || !GameManager.Instance || GameManager.Instance.IsPaused || !GameSceneManager.Instance || !GameSceneManager.Instance.IsPlayerScene)
                 return;
 
             while (shopsToCull.Count > 0) {
