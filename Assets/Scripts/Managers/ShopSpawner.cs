@@ -110,6 +110,13 @@ namespace Managers
                 Debug.LogError("No GameObject tagged 'Player' found. Please assign the player tag.");
             }
 
+            foreach (var shop in activeShops) {
+                if (shop.Value.Shop) {
+                    Destroy(shop.Value.Shop);
+                }
+            }
+            activeShops.Clear();
+            
             StartCoroutine(ShopSpawnerCoroutine(spawnInterval));
         }
         
