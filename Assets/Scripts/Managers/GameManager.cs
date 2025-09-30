@@ -144,10 +144,11 @@ namespace Managers
         
         private void HandleSceneLoaded(int _sceneIndex)
         {
+            InitializeCursorCache();
+            SetCursorImage(0);
             if (_sceneIndex is SceneNames.MainMenu)
                 return;
             if (_sceneIndex is SceneNames.PlayerHome) {
-                InitializeCursorCache();
                 return;
             }
             
@@ -165,6 +166,14 @@ namespace Managers
         private void InitializeCursorCache()
         {
             cursorTransform = GameObject.Find("CursorImage").GetComponent<RectTransform>();
+            if (!cursorTransform.gameObject.TryGetComponent(out cursorAnimator)) {
+                Debug.LogError("No CursorAnimator GameObject found in scene.");
+                return;
+            }
+            cursorAnimator.enabled = animateCursor;
+            if (GameSceneManager.Instance.CurrentScene is SceneNames.MainMenu)
+                return;
+            
             var cursorSizeSliderParent = GameObject.Find("CursorSizeSlider");
             if (!cursorSizeSliderParent) {
                 Debug.LogError("No CursorSizeSlider GameObject found in scene.");
@@ -177,12 +186,7 @@ namespace Managers
             cursorSizeSlider.onValueChanged.AddListener(_value => {
                 cursorTransform.localScale = new Vector3(_value + 1, _value + 1, 1);
             });
-            if (!cursorTransform.gameObject.TryGetComponent(out cursorAnimator)) {
-                Debug.LogError("No CursorAnimator GameObject found in scene.");
-                return;
-            }
             
-            cursorAnimator.enabled = animateCursor;
         }
 
         private void PauseGame()

@@ -52,13 +52,12 @@ namespace Managers
 
         private void Update()
         {
-            if (RunScore >= lastScoreLevelThreshold + (lastScoreLevelThreshold * playerLevels.GetLevelMultiplier(playerLevel)))
-            {
-                lastScoreLevelThreshold = RunScore;
-                playerLevel++;
-                OnPlayerLeveledUp?.Invoke(playerLevel);
-                Debug.Log($"Player leveled up to {playerLevel}!");
-            }
+            if (!(RunScore >= lastScoreLevelThreshold +
+                    (lastScoreLevelThreshold * playerLevels.GetLevelMultiplier(playerLevel)))) return;
+            lastScoreLevelThreshold = RunScore;
+            playerLevel++;
+            OnPlayerLeveledUp?.Invoke(playerLevel);
+            Debug.Log($"Player leveled up to {playerLevel}!");
         }
 
         public void AddScore(int _points)
