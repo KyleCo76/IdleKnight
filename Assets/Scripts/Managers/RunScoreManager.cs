@@ -16,9 +16,13 @@ namespace Managers
         public event PlayerLeveledUpEventHandler OnPlayerLeveledUp;
 
         [Tooltip("The current score of the player")]
-        public int RunScore { get; private set; }
-        public int PowerUpScore { get; private set; }
-        public int GemsCount { get; private set; }
+        public int RunScore;
+
+        private int runPowerUpScore;
+        private int totalPowerUpScore;
+        public int PowerUpScore => GameSceneManager.Instance.IsPlayerScene ? runPowerUpScore : totalPowerUpScore;
+        
+        public int GemsCount;
 
         private int playerLevel = 1;
         private int lastScoreLevelThreshold;
@@ -35,6 +39,7 @@ namespace Managers
             }
             Instance = this;
             // DontDestroyOnLoad is handled by parent GameManager
+            GemsCount = 100;
         }
         private void OnEnable()
         {
@@ -69,8 +74,8 @@ namespace Managers
 
         public void AddPowerUpScore(int _points)
         {
-            PowerUpScore += _points;
-            PowerUpScore = Mathf.Max(0, PowerUpScore);
+            runPowerUpScore += _points;
+            runPowerUpScore = Mathf.Max(0, runPowerUpScore);
             UIManager.Instance.UpdatePowerUpScoreText();
         }
 
@@ -87,7 +92,7 @@ namespace Managers
 
         private void HandleGameOver()
         {
-            PowerUpScore = 0;
+            runPowerUpScore = 0;
             RunScore = 0;
             GemsCount = 0;
             playerLevel = 1;
@@ -112,6 +117,16 @@ namespace Managers
             float originalPoints = playerAttackMultiplier;
             playerAttackMultiplier *= 2f;
             StartCoroutine(ResetPointMultiplier(originalPoints, _duration));
+        }
+
+        public void SaveScore(int _score = -1)
+        {
+            if (_score >= 0)
+                totalPowerUpScore += _score;
+            else
+                totalPowerUpScore += runPowerUpScore;
+            
+            
         }
 
         private IEnumerator ResetPointMultiplier(float _originalPoints, float _duration)

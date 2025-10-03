@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAttackMultiplier: 2
+  RunScore: 0
+  GemsCount: 0
 --- !u!1 &1454841639827088103
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +514,7 @@ GameObject:
   - component: {fileID: 617483562985980019}
   - component: {fileID: 3459390935420058529}
   - component: {fileID: 2418389831918431079}
+  - component: {fileID: 5663895258170196315}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -546,6 +549,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6352d7f1c46678438a8644678706753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  baseAttackSpeed: 1
+  baseRangeDamage: 15
+  baseMeleeDamage: 30
+  baseSpeed: 3
+  baseSuperCooldown: 20
+  baseHealthRegenAmount: 2
+  baseHealthRegenRate: 2
+  baseManaRegenAmount: 1
+  baseManaRegenRate: 2
+  baseAuraRange: 1
+  baseAuraDamage: 4
+  baseAuraInterval: 0.1
+  baseArmourValue: 0
 --- !u!114 &2418389831918431079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,3 +575,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorImg: {fileID: 7407229176779317003}
+--- !u!114 &5663895258170196315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9202155878264273266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357b11403a0d0ef4281e5a8048b63843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableHotkeys: 0
+  forceBorderlessOnSwitch: 1

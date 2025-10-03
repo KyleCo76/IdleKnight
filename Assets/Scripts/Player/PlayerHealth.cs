@@ -9,16 +9,12 @@ namespace Player
         private float maxHealth = 100f;
         [SerializeField, Tooltip("The length of time in seconds the player is invincible after taking damage")]
         private float invincibilityDuration = 1.0f;
-        [SerializeField, Tooltip("The time in seconds between health regeneration ticks")]
-        private float healthRegenInterval = 5.0f;
-        [SerializeField, Tooltip("The amount of health regenerated each tick")]
-        private float healthRegenAmount = 2.0f;
 
         // Public getters for player stats
-        public float BaseHealthRegenAmount => healthRegenAmount;
+        public float BaseHealthRegenAmount { get; private set; }
         public float HealthRegenAmountBuff { get; private set; }
         public float HealthRegenAmountTempBuff { get; private set; }
-        public float BaseHealthRegenInterval => healthRegenInterval;
+        public float BaseHealthRegenInterval { get; private set; }
         public float HealthRegenIntervalBuff { get; private set; }
         public float HealthRegenIntervalTempBuff { get; private set; }
         
@@ -31,6 +27,8 @@ namespace Player
 
         private void HealthAwake()
         {
+            BaseHealthRegenAmount = PlayerDataStorage.BaseHealthRegenAmount;
+            BaseHealthRegenInterval = PlayerDataStorage.BaseHealthRegenInterval;
             HealthRegenAmountBuff = 1f;
             HealthRegenAmountTempBuff = 1f;
             HealthRegenIntervalBuff = 1f;

@@ -49,12 +49,8 @@ namespace Managers
                 return;
             }
             FindSharedShopObjects();
-            
-            shopDatabase = Resources.Load<ShopItemDatabase>("ScriptableObjects/ShopItemDatabase");
-            if (!shopDatabase) {
-                Debug.LogError("ShopItemDatabase not found in Resources/ScriptableObjects.");
-                return;           
-            }
+
+            GetShopDatabase();
             
             superDatabase = Resources.Load<SuperDatabase>("ScriptableObjects/SuperDatabase");
             if (!superDatabase) {
@@ -82,7 +78,7 @@ namespace Managers
         {
             openShop = _shop;
             if (_activate) {
-                DisplayShopItems();
+                DisplayShopItems(false);
                 shopCanvasObject.SetActive(true);
                 uiCanvasObject.SetActive(false);
             } else {
@@ -92,31 +88,40 @@ namespace Managers
             Time.timeScale = _activate ? 0f : 1f;
         }
         
-        private void DisplayShopItems()
+        private void DisplayShopItems(bool _isHomeMenu)
         {
             if (isShopOpen || !shopDatabase || !shopItemsParent || !shopItemPrefab || !shopPointsText || !shopPowerUpText ||
                 !shopGemText || !RunScoreManager.Instance) {
                 return;           
             }
 
-            isShopOpen = true;
+            if (!_isHomeMenu)
+                isShopOpen = true;
             
-            shopPointsText.text = RunScoreManager.Instance.RunScore.ToString();
+            if (!_isHomeMenu)
+                shopPointsText.text = RunScoreManager.Instance.RunScore.ToString();
             shopPowerUpText.text = RunScoreManager.Instance.PowerUpScore.ToString();
             shopGemText.text = RunScoreManager.Instance.GemsCount.ToString();
 
-            var playerLevel = RunScoreManager.Instance.GetPlayerLevel();
-            var shopItemCounts = GetShopItemCounts(maxShopSuperCount, maxShopItemCount, playerLevel * 2 + 2);
+            
+            var playerLevel = _isHomeMenu ? 10 : RunScoreManager.Instance.GetPlayerLevel();
+            var shopItemCounts = _isHomeMenu ? (0, 0) : GetShopItemCounts(maxShopSuperCount, maxShopItemCount, playerLevel * 2 + 2);
             shopSupers.Clear();
             shopItems.Clear();
-            for (int i = 0; i < shopItemCounts.Item1; i++) {
-                shopSupers.Add(shopDatabase.GetRandomShopSuper(playerLevel));
-            }
+            if (!_isHomeMenu)
+                for (int i = 0; i < shopItemCounts.Item1; i++) {
+                    shopSupers.Add(shopDatabase.GetRandomShopSuper(playerLevel));
+                }
 
-            for (int i = 0; i < shopItemCounts.Item2; i++) {
-                shopItems.Add(shopDatabase.GetRandomShopItem(playerLevel));
+            if (!_isHomeMenu)
+                for (int i = 0; i < shopItemCounts.Item2; i++) {
+                    shopItems.Add(shopDatabase.GetRandomShopItem(playerLevel));
+                }
+            else {
+                shopItems.AddRange(shopDatabase.GetAllHomeShopItems());
+                shopItemCounts.Item2 = shopItems.Count;
             }
-
+            
             foreach (var view in shopItemViews) {
                 if (view.gameObject)
                     Destroy(view.gameObject);
@@ -129,20 +134,20 @@ namespace Managers
                 bool useSuper = false;
                 if (superCount >= shopItemCounts.Item2 && itemCount >= shopItemCounts.Item1)
                     return;
-                else if (superCount < shopItemCounts.Item2 && itemCount < shopItemCounts.Item1)
+                if (superCount < shopItemCounts.Item2 && itemCount < shopItemCounts.Item1)
                     useSuper = Random.value < 0.5f;
-                else if (superCount < shopItemCounts.Item2)
-                    useSuper = true;
+                // else if (superCount < shopItemCounts.Item2)
+                //     useSuper = true;
                 
                 var itemIndex = itemCount;
                 var superIndex = superCount;
                 if (useSuper && superIndex >= shopSupers.Count)
-                    superIndex = Random.Range(0, shopSupers.Count);
+                    superIndex = Random.Range(0, shopSupers.Count - 1);
                 else if (!useSuper && itemIndex >= shopItems.Count)
-                    itemIndex = Random.Range(0, shopItems.Count);
+                    itemIndex = Random.Range(0, shopItems.Count - 1);
 
                 var view = Instantiate(shopItemPrefab, shopItemsParent);
-                if (useSuper) {
+                if (!_isHomeMenu && useSuper) {
                     view.Bind(shopSupers[superIndex], OnSuperPurchased);
                 } else {
                     view.Bind(shopItems[itemIndex], OnItemPurchased);
@@ -211,6 +216,18 @@ namespace Managers
 
             if (!shopGemTextObj.TryGetComponent(out shopGemText)) {
                 Debug.LogError("No ShopGemText found in scene.");
+            }
+        }
+
+        private void GetShopDatabase()
+        {
+            if (shopDatabase)
+                return;
+            
+            shopDatabase = Resources.Load<ShopItemDatabase>("ScriptableObjects/ShopItemDatabase");
+            if (!shopDatabase) {
+                Debug.LogError("ShopItemDatabase not found in Resources/ScriptableObjects.");
+                return;           
             }
         }
 
@@ -302,12 +319,10 @@ namespace Managers
             return Mathf.Clamp(value, _min, _max);
         }
 
-        private void SetupShopUI(bool _isPlayerMenu = false)
+        private void SetupShopUI()
         {
-            if (!_isPlayerMenu) {
-                leaveShopButton.onClick.RemoveAllListeners();
-                leaveShopButton.onClick.AddListener(ExitShop);
-            }
+            leaveShopButton.onClick.RemoveAllListeners();
+            leaveShopButton.onClick.AddListener(ExitShop);
             shopCanvasObject.SetActive(false);
         }
     }

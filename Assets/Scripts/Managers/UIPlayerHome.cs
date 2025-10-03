@@ -20,6 +20,13 @@ namespace Managers
                 return;
             }
             timeText = timeObject.GetComponent<TextMeshProUGUI>();
+            
+            AwakeSkillsManager();
+            FindStatsScreen(true);
+            SetupStatsHomeScreen();
+            SetupConfirmationScreen();
+            exitConfirmationObject.SetActive(false);
+            InitializeMonitorInfo();
             SetupSettingsScreen();
             SetupMainMenuSelections(true);
             FindShopTextFields();
@@ -27,7 +34,9 @@ namespace Managers
             ShopHandleSceneLoaded();
             HideAllMenus();
             FindAbilities();
-            
+            FindUIElements();
+            FindCoinsText();
+
             // Must be loaded after components are initialized
         }
 
@@ -81,6 +90,60 @@ namespace Managers
             }
         }
 
+        private void FindCoinsText()
+        {
+            var mainPowerUpText = GameObject.Find("MainPowerUpText");
+            if (!mainPowerUpText) {
+                Debug.LogError("Failed to find MainPowerUpText GameObject.");
+                return;
+            }
+
+            if (!mainPowerUpText.TryGetComponent(out TextMeshProUGUI mainPowerUpTextComponent)) {
+                Debug.LogError("Failed to find MainPowerUpText TextMeshProUGUI component.");
+                return;
+            }
+
+            mainPowerUpTextComponent.text = RunScoreManager.Instance.PowerUpScore.ToString();
+        }
+
+        private void FindUIElements()
+        {
+            var playObject = GameObject.Find("PlayButton");
+            if (!playObject) {
+                Debug.LogError("No PlayButton GameObject found in the scene.");
+                return;
+            }
+            var quitObject = GameObject.Find("QuitButton");
+            if (!quitObject) {
+                Debug.LogError("No QuitButton GameObject found in the scene");
+                return;
+            }
+
+            if (!playObject.TryGetComponent(out Button buttonPlay)) {
+                Debug.LogError("No PlayButton found in the scene");
+                return;
+            }
+            if (!quitObject.TryGetComponent(out Button buttonQuit)) {
+                Debug.LogError("No QuitButton found in the scene");
+                return;
+            }
+            
+            buttonPlay.onClick.AddListener(() => GameSceneManager.Instance.LoadScene(2));
+            buttonQuit.onClick.AddListener(() =>
+            {
+                exitConfirmationMethod = GameManager.Instance.QuitGame;
+                ShowExitConfirmation("Are you sure you want to quit?");
+            });
+        }
+
+        private void InitializeHomeShop()
+        {
+            GetShopDatabase();
+            DisplayShopItems(true);
+            HideAllMenus();
+            shopCanvasObject.SetActive(true);
+        }
+
         private void SelectAbility(string _abilityName)
         {
             foreach (var ability in abilities) {
@@ -103,6 +166,7 @@ namespace Managers
             settingsCanvasObject.SetActive(false);
             shopCanvasObject.SetActive(false);
             achievementsCanvasObject.SetActive(true);
+            shopCanvasObject.SetActive(false);
         }
 
         private void ShowHomeMenu()
@@ -113,6 +177,7 @@ namespace Managers
             settingsCanvasObject.SetActive(false);
             shopCanvasObject.SetActive(false);
             achievementsCanvasObject.SetActive(false);
+            shopCanvasObject.SetActive(false);
         }
     }
 }

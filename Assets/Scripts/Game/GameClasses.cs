@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Enemies;
 using Managers;
-using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -357,5 +356,55 @@ namespace Game
                 liveCount--;
                 liveCount = Mathf.Max(0, liveCount);
             }
+            
+        }
+        public struct SkillData
+        {
+            public readonly string Name;
+            public readonly int TierNumerical;
+            public readonly string TierRoman;
+            public readonly int2 TreeRequirement;
+            public readonly SkillTypes Effect;
+            public readonly string FlairText;
+            public readonly string EffectText;
+            public readonly string ResultText;
+            public readonly float EffectPower;
+            public readonly int Cost;
+            public readonly bool UseConnector;
+            public readonly bool UseLock;
+            public readonly bool IsInteractable;
+            public readonly int2 TreePosition;
+
+            public SkillData(string _name, int _tierNumerical, string _tierRoman, int2 _requirement, SkillTypes _effect, string _flairText,
+                string _effectText, string _resultText, float _effectPower, int _cost, bool _useConnector, bool _useLock,
+                bool _isInteractable, int2 _treePosition)
+            {
+                Name = _name;
+                TierNumerical = _tierNumerical;
+                TierRoman = _tierRoman;
+                TreeRequirement = _requirement;
+                Effect = _effect;
+                FlairText = _flairText;
+                EffectText = _effectText;
+                ResultText = _resultText;
+                EffectPower = _effectPower;
+                Cost = _cost;
+                UseConnector = _useConnector;
+                UseLock = _useLock;
+                IsInteractable = _isInteractable;
+                TreePosition = _treePosition;
+            }
+        }
+
+        public enum SkillTypes
+        {
+            None,
+            AbilityDamage,
+            AbilityCooldown,
+            AbilityRange,
+            SuperDamage,
+            SuperCooldown,
+            MagnetRange,
+            MagnetCooldown
         }
 }

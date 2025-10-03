@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game;
 using Player;
@@ -21,6 +22,7 @@ namespace Managers
         private TextMeshProUGUI pauseScoreText;
         private TextMeshProUGUI pausePowerUpText;
         private TextMeshProUGUI pauseGemsText;
+        private TextMeshProUGUI exitConfirmationText;
         private Slider manaBubble;
         private Slider healthBubble;
         private Slider superCooldownBar;
@@ -44,13 +46,20 @@ namespace Managers
         private Toggle homeMenuToggle;
         private Toggle achievementsMenuToggle;
         private Button quitGameButton;
+        private Button endRunButton;
         private Button floatingResumeButton;
         private Button levelFailedHomeButton;
         private Button levelFailedRetryButton;
+        private Button buttonStay;
+        private Button quitConfirmationButton;
         private TMP_Dropdown cursorPointerDropdown;
+        
+        private Action exitConfirmationMethod;
         
         // Stats Panel Components
         private readonly List<(TextMeshProUGUI[], PowerUpType)> stats = new();
+
+        private const string DefaultWarningMessage = "Waning! All unsaved progress will be lost!";
 
         
         private void Awake()
@@ -112,8 +121,9 @@ namespace Managers
             }
         }
 
-        private void FindStatsScreen()
+        private void FindStatsScreen(bool _isPlayerHome = false)
         {
+            stats.Clear();
             statsParent = GameObject.Find("StatsPanel");
             if (!statsParent) {
                 Debug.LogError("No StatsPanel GameObject found in the scene.");
@@ -123,33 +133,43 @@ namespace Managers
             for (int i = 0; i < statsParent.transform.childCount; i++) {
                 var child = statsParent.transform.GetChild(i);
                 var baseParent = child.transform.Find("BaseScore");
+                
                 if (!baseParent) {
                     Debug.LogError("No BaseScore GameObject found under StatsPanel.");
                     return;
                 }
                 var baseText = baseParent.GetComponentInChildren<TextMeshProUGUI>();
                 if (!baseText) {
-                    Debug.LogError("No TextMeshProUGUI component found on BaseScore GameObject.");
+                    Debug.LogError("No TextMeshProU GUI component found on BaseScore GameObject.");
                     return;
                 }
-                var buffParent = child.transform.Find("BuffScore");
-                if (!buffParent) {
-                    Debug.LogError("No BuffScore GameObject found under StatsPanel.");
+
+                var tmProGUIArray = new TextMeshProUGUI[_isPlayerHome ? 1 : 3];
+                tmProGUIArray[0] = baseText;
+                
+                if (!_isPlayerHome) {
+                    var buffParent = child.transform.Find("BuffScore");
+                    if (!buffParent) {
+                        Debug.LogError("No BuffScore GameObject found under StatsPanel.");
+                    }
+                    var buffText = buffParent.GetComponentInChildren<TextMeshProUGUI>();
+                    if (!buffText) {
+                        Debug.LogError("No TextMeshProU GUI component found on BuffScore GameObject.");
+                    }
+                    var tempParent = child.transform.Find("TempScore");
+                    if (!tempParent) {
+                        Debug.LogError("No TempScore GameObject found under StatsPanel.");
+                        return;
+                    }
+                    var tempText = tempParent.GetComponentInChildren<TextMeshProUGUI>();
+                    if (!tempText) {
+                        Debug.LogError("No TextMeshProU GUI component found on TempScore GameObject.");
+                        return;
+                    }
+                    tmProGUIArray[1] = buffText;
+                    tmProGUIArray[2] = tempText;
                 }
-                var buffText = buffParent.GetComponentInChildren<TextMeshProUGUI>();
-                if (!buffText) {
-                    Debug.LogError("No TextMeshProUGUI component found on BuffScore GameObject.");
-                }
-                var tempParent = child.transform.Find("TempScore");
-                if (!tempParent) {
-                    Debug.LogError("No TempScore GameObject found under StatsPanel.");
-                    return;
-                }
-                var tempText = tempParent.GetComponentInChildren<TextMeshProUGUI>();
-                if (!tempText) {
-                    Debug.LogError("No TextMeshProUGUI component found on TempScore GameObject.");
-                    return;
-                }
+                
                 
                 PowerUpType type;
                 switch (child.name) {
@@ -188,11 +208,6 @@ namespace Managers
                         enabled = false;
                         return;
                 }
-
-                var tmProGUIArray = new TextMeshProUGUI[3];
-                tmProGUIArray[0] = baseText;
-                tmProGUIArray[1] = buffText;
-                tmProGUIArray[2] = tempText;
                 stats.Add((tmProGUIArray, type));
             }
         }
@@ -202,7 +217,6 @@ namespace Managers
             uiCanvasObject = GameObject.Find("UI");
             if (!uiCanvasObject) {
                 Debug.LogError("No UI GameObject found in the scene.");
-                enabled = false;
                 return;
             }
 
@@ -211,25 +225,17 @@ namespace Managers
             var menuItems = GameObject.Find("MainMenuItems");
             if (!menuBackground || !menuItems) {
                 Debug.LogError("No MenuBackground or MainMenuMenuItems GameObject found under Canvas.");
-                enabled = false;
                 return;
             }
             mainCanvasObjects[0] = menuBackground.gameObject;
             mainCanvasObjects[1] = menuItems.gameObject;
 
             SetupMainMenuSelections();
-            
-            exitConfirmationObject = GameObject.Find("ExitConfirmation");
-            if (!exitConfirmationObject) {
-                Debug.LogError("No ExitConfirmation GameObject found in the scene.");
-                enabled = false;
-                return;           
-            }
+            SetupConfirmationScreen();
             
             levelFailedObject = GameObject.Find("LevelFailed");
             if (!levelFailedObject) {
                 Debug.LogError("No LevelFailed GameObject found in the scene.");
-                enabled = false;
                 return;           
             }
             
@@ -275,7 +281,7 @@ namespace Managers
                     return new float3(playerController.BaseHealthRegenAmount, playerController.HealthRegenAmountBuff,
                         playerController.HealthRegenAmountTempBuff);
                 case PowerUpType.ManaRegenAmount:
-                    return new float3(playerController.BaseManaRegenRate, playerController.ManaRegenRateBuff,
+                    return new float3(playerController.BaseManaRegenAmount, playerController.ManaRegenRateBuff,
                         playerController.ManaRegenRateTempBuff);
                 case PowerUpType.SpeedBoost:
                     return new float3(playerController.BaseSpeed, playerController.SpeedBuff,
@@ -312,6 +318,44 @@ namespace Managers
             if (!GameSceneManager.Instance.IsPlayerScene)
                 achievementsCanvasObject.SetActive(false);
         }
+        
+        private void HideExitConfirmation()
+        {
+            exitConfirmationText.text = DefaultWarningMessage;
+            exitConfirmationObject.SetActive(false);
+        }
+        
+        private void InitializeMonitorInfo()
+        {
+            var displayChoiceObject = GameObject.Find("ActiveMonitorDropdown");
+            if (!displayChoiceObject || !displayChoiceObject.TryGetComponent(out TMP_Dropdown displayChoiceDropdown)) {
+                Debug.LogError("Failed to find ActiveMonitorDropdown GameObject or TMP_Dropdown component.");
+                return;
+            }
+
+            var displayInfo = GameManager.Instance.GetMonitors();
+            if (displayInfo.Count <= 1) {
+                var monitorSelection = GameObject.Find("MonitorSelection");
+                if (monitorSelection)
+                    monitorSelection.SetActive(false);
+                else
+                    Debug.LogError("Failed to find MonitorSelection GameObject.");
+                return;
+            }
+
+            displayChoiceDropdown.ClearOptions();
+            
+            foreach (var display in displayInfo) {
+                var displayName = display.FriendlyName;
+                displayChoiceDropdown.options.Add(new TMP_Dropdown.OptionData(displayName));
+            }
+            
+            displayChoiceDropdown.onValueChanged.RemoveAllListeners();
+            displayChoiceDropdown.onValueChanged.AddListener((_value) =>
+            {
+                if (GameManager.Instance) GameManager.Instance.ChangeMonitor(_value);
+            });
+        }
 
         private void NewSceneLoaded(int _sceneIndex)
         {
@@ -323,6 +367,7 @@ namespace Managers
             if (_sceneIndex is SceneNames.MainMenu)
                 return;
             
+            InitializeMonitorInfo();
             SetupSettingsScreen();
             FindUIComponents();
             SetupScoreTexts();
@@ -387,6 +432,22 @@ namespace Managers
                 return;           
             }
             quitGameButton = quitButtonObject.GetComponent<Button>();
+            if (!quitGameButton) {
+                Debug.LogError("No QuitGameButton GameObject found in the scene.");
+                return;           
+            }
+            
+            var endRunButtonObject = GameObject.Find("EndRunButton");
+            if (!endRunButtonObject) {
+                Debug.LogError("No EndRunButton GameObject found in the scene.");
+                return;
+            }
+
+            endRunButton = endRunButtonObject.GetComponent<Button>();
+            if (!endRunButton) {
+                Debug.LogError("No EndRunButton GameObject found in the scene.");
+                return;           
+            }
             
             settingsMenuToggle.onValueChanged.RemoveAllListeners();
             questMenuToggle.onValueChanged.RemoveAllListeners();
@@ -399,7 +460,17 @@ namespace Managers
             skillsMenuToggle.onValueChanged.AddListener(_isOn => { if (_isOn) ShowSkillsMenu(); });
             
             quitGameButton.onClick.RemoveAllListeners();
-            quitGameButton.onClick.AddListener(GameManager.Instance.QuitGame);
+            quitGameButton.onClick.AddListener(() =>
+            {
+                exitConfirmationMethod = GameManager.Instance.QuitGame;
+                ShowExitConfirmation();
+            });
+            endRunButton.onClick.RemoveAllListeners();
+            endRunButton.onClick.AddListener(() =>
+            {
+                exitConfirmationMethod = GameManager.Instance.EndRun;
+                ShowExitConfirmation("Are you sure you want to end the run?");
+            });
         }
 
         private void PlayerMenuToggles()
@@ -455,7 +526,7 @@ namespace Managers
             
             shopMenuToggle.onValueChanged.AddListener(_isOn =>
             {
-                if (_isOn) SetupShopUI(true);
+                if (_isOn) InitializeHomeShop();
             });
             homeMenuToggle.onValueChanged.AddListener(_isOn =>
             {
@@ -481,7 +552,51 @@ namespace Managers
             {
                 if (_isOn) ShowSkillsMenu();
             });
+        }
+
+        private void SetupConfirmationScreen()
+        {
+            exitConfirmationObject = GameObject.Find("ExitConfirmationParent");
+            if (!exitConfirmationObject) {
+                Debug.LogError("No ExitConfirmation GameObject found in the scene.");
+                return;           
+            }
+            var buttonStayObject = GameObject.Find("ButtonStay");
+            if (!buttonStayObject) {
+                Debug.LogError("No ButtonStay GameObject found in the scene.");
+                return;           
+            }
+            if (!buttonStayObject.TryGetComponent(out buttonStay)) {
+                Debug.LogError("No ButtonStay button found in the scene.");
+                return;           
+            }
+            buttonStay.onClick.RemoveAllListeners();
+            buttonStay.onClick.AddListener(HideExitConfirmation);
             
+            var quitConfirmationButtonObject = GameObject.Find("ButtonQuit");
+            if (!quitConfirmationButtonObject) {
+                Debug.LogError("No ButtonQuit GameObject found in the scene.");
+                return;           
+            }
+            if (!quitConfirmationButtonObject.TryGetComponent(out quitConfirmationButton)) {
+                Debug.LogError("No ButtonQuit button found in the scene.");
+                return;           
+            }
+            var exitConfirmationTextObject = GameObject.Find("WarningMessage");
+            if (!exitConfirmationTextObject) {
+                Debug.LogError("No WarningMessage object found in scene.");
+                return;           
+            }
+            if (!exitConfirmationTextObject.TryGetComponent(out exitConfirmationText)) {
+                Debug.LogError("No ExitConfirmationText TextMeshProUGUI component found on ButtonQuit GameObject.");
+                return;
+            }
+            quitConfirmationButton.onClick.RemoveAllListeners();
+            quitConfirmationButton.onClick.AddListener(() =>
+            {
+                HideExitConfirmation();
+                exitConfirmationMethod();
+            });
         }
 
         private void SetupHealthAndMana()
@@ -497,7 +612,7 @@ namespace Managers
             }
             manaText = manaBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
             if (manaText == null) {
-                Debug.LogError("No TextMeshProUGUI component found on ManaText GameObject.");
+                Debug.LogError("No TextMeshProU GUI component found on ManaText GameObject.");
                 return;
             }
 
@@ -513,7 +628,7 @@ namespace Managers
 
             healthText = healthBubbleObject.GetComponentInChildren<TextMeshProUGUI>();
             if (healthText == null) {
-                Debug.LogError("No TextMeshProUGUI component found on HealthText GameObject.");
+                Debug.LogError("No TextMeshProU GUI component found on HealthText GameObject.");
                 return;
             }
 
@@ -528,7 +643,7 @@ namespace Managers
             }
         }
 
-        private void SetupMainMenuSelections(bool _isPlayerMenu = false)
+        private void SetupMainMenuSelections(bool _isPlayerHome = false)
         {
             // Get Menu Screens
             inventoryCanvasObject = GameObject.Find("InventoryMenu");
@@ -551,9 +666,8 @@ namespace Managers
                 Debug.LogError("No SettingsMenu GameObject found under MainMenuItems.");
                 return;
             }
-
-
-            if (_isPlayerMenu) {
+            
+            if (_isPlayerHome) {
                 achievementsCanvasObject = GameObject.Find("AchievementsMenu");
                 if (!achievementsCanvasObject) {
                     Debug.LogError("No AchievementsMenu GameObject found under MainMenuItems.");
@@ -657,23 +771,64 @@ namespace Managers
                         useSecondStat = true;
                         break;
                     case PowerUpType.AuraDamageBoost:
-                        stats2 = new float3(playerController.GetAuraDamageStats());
+                        stats2 = new float3(playerController.GetAuraIntervalStats());
                         useSecondStat = true;
                         break;
                 }
 
-                var baseText = $"{stats1.x}";
-                var buffText = $"{stats1.y}";
-                var tempText = $"{stats1.z}";
+                var baseText = $"{stats1.x:F2}";
+                var buffText = $"{stats1.y:F2}";
+                var tempText = $"{stats1.z:F2}";
                 if (useSecondStat) {
-                    baseText = $"{baseText}/{stats2.x}s";
-                    buffText = $"{buffText}/{stats2.y}s";
-                    tempText = $"{tempText}/{stats2.z}s";
+                    baseText = $"{baseText}/{stats2.x:F2}s";
+                    buffText = $"{buffText}/{stats2.y:F2}s";
+                    tempText = $"{tempText}/{stats2.z:F2}s";
                 }
                 textArray[0].text = baseText;
                 textArray[1].text = buffText;
                 textArray[2].text = tempText;
             }
+        }
+        
+        private void SetupStatsHomeScreen()
+        {
+            foreach (var (textArray, powerUpType) in stats) {
+                var stats1 = PlayerDataStorage.GetPlayerDataByType(powerUpType);
+
+                var useSecondStat = false;
+                var stats2 = 0f;
+                switch (powerUpType) {
+                    case PowerUpType.HealthRegenAmount:
+                        stats2 = PlayerDataStorage.BaseHealthRegenInterval;
+                        useSecondStat = true;
+                        break;
+                    case PowerUpType.ManaRegenAmount:
+                        stats2 = PlayerDataStorage.BaseManaRegenInterval;
+                        useSecondStat = true;
+                        break;
+                    case PowerUpType.AuraDamageBoost:
+                        stats2 = PlayerDataStorage.BaseAuraInterval;
+                        useSecondStat = true;
+                        break;
+                }
+
+                var baseText = $"{stats1:F3}";
+                if (useSecondStat) {
+                    baseText = $"{baseText}/{stats2:F3}s";
+                }
+                textArray[0].text = baseText;
+            }
+        }
+
+        private void ShowExitConfirmation()
+        {
+            exitConfirmationObject.SetActive(true);
+        }
+
+        private void ShowExitConfirmation(string _message)
+        {
+            exitConfirmationText.text = _message;
+            exitConfirmationObject.SetActive(true);
         }
 
         private void ShowInventoryMenu()
@@ -682,6 +837,7 @@ namespace Managers
             questCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(true);
+            shopCanvasObject.SetActive(false);
             if (mainCanvasObjects is { Length: > 0 }) {
                 mainCanvasObjects[0].SetActive(true);
                 mainCanvasObjects[1].SetActive(true);
@@ -716,6 +872,7 @@ namespace Managers
                 mainCanvasObjects[0].SetActive(true);
                 mainCanvasObjects[1].SetActive(true);
             }
+            shopCanvasObject.SetActive(false);
             questCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
@@ -731,6 +888,7 @@ namespace Managers
             settingsCanvasObject.SetActive(false);
             questCanvasObject.SetActive(false);
             inventoryCanvasObject.SetActive(false);
+            shopCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(true);
             if (mainCanvasObjects is { Length: > 0 }) {
                 mainCanvasObjects[0].SetActive(true);
@@ -749,6 +907,7 @@ namespace Managers
             questCanvasObject.SetActive(true);
             inventoryCanvasObject.SetActive(false);
             skillsCanvasObject.SetActive(false);
+            shopCanvasObject.SetActive(false);
             if (mainCanvasObjects is { Length: > 0 }) {
                 mainCanvasObjects[0].SetActive(true);
                 mainCanvasObjects[1].SetActive(true);

@@ -8,26 +8,34 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IdleKnight/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PowerUps/PermTickBuff.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PowerUps/PermTickBuff.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PowerUps/TempTickBuff.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/PowerUps/TempTickBuff.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Honeti/PixelArtGUI/Prefabs/Buttons/SkillToggle.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Honeti/PixelArtGUI/Prefabs/Buttons/SkillToggle.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Floor1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayerHome.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayerHome.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyAnimatorOverrides.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyAnimatorOverrides.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/Health.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ItemSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectBounce.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectBounce.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameClasses.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerHome.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PlayerHome.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/RunScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/RunScoreManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIPlayerHome.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIPlayerHome.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/AuraManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/AuraManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/ManaManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/ManaManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/ShopItemDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/ShopItemDatabase.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Managed/Assembly-CSharp.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Plugins/x86_64/lib_burst_generated.dll" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/Plugins/x86_64/lib_burst_generated.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/boot.config" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/boot.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers.assets" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers.assets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers.assets.resS" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/globalgamemanagers.assets.resS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level0" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level1" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level2" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/level2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/resources.assets" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/resources.assets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/resources.assets.resS" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/resources.assets.resS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets0.assets" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets0.assets" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets1.assets" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets1.assets" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets1.assets.resS" beforeDir="false" afterPath="$PROJECT_DIR$/WinBuilds/IdleKnight_Data/sharedassets1.assets.resS" afterDir="false" />
@@ -58,29 +66,33 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/03/a4a3137e/Single.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/11/a899e1b0/Random.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/21/5840ba63/IntPtr.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/25/5b31e7ab/ThrowHelper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/4e/46545f79/List`1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/5f/e7db9991/Thread.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/c9/7de883bd/AppDomain.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/152439c387994a8da523328132967f8d46ae00/dd/837cb6ca/NumberFormatInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/32/4d316c86/MonoBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/37/e5f9803b/Object.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/52/0ddd64af/GameObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/9b/15941dad/Component.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/25ce29052dfe4e49a635a42f7798806b1e0000/9c/39c6bea2/Transform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Knight Files/Knight PNG/Attack.anim" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Resources/Enemies/Level3/BanditAxeThrower.prefab" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Collectables.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/ElectricityInjector.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effects/Projectiles/EnergySuperEffects.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Enemies/Controller.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ItemSpawner.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ShopSpawner.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/ShopSpawner.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/UIManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/UIPlayerHome.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://D:/Unity/Projects/IdleKnight/IdleKnight/Assets/Scripts/Managers/UIShopManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/UISkillsManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerDataStorage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SkillItemView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@be6c4fd0abf5/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@8017b507cc74/Unity.Mathematics/int2.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@aa507f3228f0/Runtime/TMP/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@aa507f3228f0/Runtime/UGUI/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@aa507f3228f0/Runtime/UGUI/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@aa507f3228f0/Runtime/UGUI/UI/Core/Toggle.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -109,7 +121,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
+    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -164,10 +176,10 @@
       <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18232">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="2236">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="18232" />
+      <option name="pid" value="2236" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -194,7 +206,9 @@
       <workItem from="1758882767433" duration="1336000" />
       <workItem from="1758954675030" duration="3625000" />
       <workItem from="1758958639953" duration="43513000" />
-      <workItem from="1759176833212" duration="41626000" />
+      <workItem from="1759176833212" duration="60114000" />
+      <workItem from="1759367499245" duration="44246000" />
+      <workItem from="1759444487746" duration="16392000" />
     </task>
     <task id="LOCAL-00001" summary="Update cursor UI to work with animator. Made Managers object  a prefab to be used acrossed scenes for consistancy. New windows install with new initial setup of Unity and game files.">
       <option name="closed" value="true" />
@@ -292,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759262630261</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Finally found the issue with the flying Power Ups, OjbectBounce.cs was initializing before everything got in place with the object reuse. Moved initialization behind the bounce dealy.">
+      <option name="closed" value="true" />
+      <created>1759271232733</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1759271232733</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,7 +343,8 @@
     <MESSAGE value="Updated UIManager.cs to work with PlayerHome scene. Added ability functionality to PlayerController.cs" />
     <MESSAGE value="We now always initialize the mouse curor, even in the main menu." />
     <MESSAGE value="Updated for reloading PlayerHome scene after run death" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated for reloading PlayerHome scene after run death" />
+    <MESSAGE value="Finally found the issue with the flying Power Ups, OjbectBounce.cs was initializing before everything got in place with the object reuse. Moved initialization behind the bounce dealy." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finally found the issue with the flying Power Ups, OjbectBounce.cs was initializing before everything got in place with the object reuse. Moved initialization behind the bounce dealy." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -344,7 +367,24 @@
           </properties>
           <option name="timeStamp" value="6" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Managers/UIShopManager.cs</url>
+          <line>235</line>
+          <properties documentPath="D:\Unity\Projects\IdleKnight\IdleKnight\Assets\Scripts\Managers\UIShopManager.cs" containingFunctionPresentation="Method 'GetShopItemCounts'">
+            <startOffsets>
+              <option value="9080" />
+            </startOffsets>
+            <endOffsets>
+              <option value="9135" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

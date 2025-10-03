@@ -13,26 +13,14 @@ namespace Player
 {
     public partial class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerActions
     {
-        [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("Movement speed of the player.")]
-        private float movementSpeed = 5f;
         [FoldoutGroup("Movement Settings"), SerializeField, Tooltip("Sprint speed multiplier.")]
         private float sprintSpeedMultiplier = 1.4f;
-        [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Attack cooldown in seconds.")]
-        private float attackCooldown = 1f;
-        [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Damage dealt per ranged attack.")]
-        private float rangedDamage = 5f;
-        [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Damage dealt per melee attack.")]
-        private float meleeDamage = 10f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Range of the melee attack.")]
         private float attackRange = 1f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Ranged damage required to unlock double attack.")]
         private float doubleAttackDamageActivationPoint = 20f;
         [FoldoutGroup("Attack Settings"), SerializeField, Tooltip("Ranged damage required to unlock triple attack.")]
         private float tripleAttackDamageActivationPoint = 40f;
-        [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Cooldown time for the super ability in seconds.")]
-        private float superCooldown = 10f;
-        [FoldoutGroup("Super Settings"), SerializeField, Tooltip("Damage of the super ability")]
-        private float superDamage = 100f;
 
         private bool gamePaused;
         private bool isFlipped;
@@ -49,26 +37,26 @@ namespace Player
         public event HandleSuperCooldownUI OnSuperCooldownChange;
 
         // Public getters for player stats
-        public float BaseAttackSpeed => attackCooldown;
+        public float BaseAttackSpeed { get; private set; }
         public float AttackSpeedBuff { get; private set; }
         public float AttackSpeedBuffTemp { get; private set; }
         
-        public float BaseRangedDamage => rangedDamage;
+        public float BaseRangedDamage { get; private set; }
         public float RangedDamageBuff { get; private set; }
         public float RangedDamageBuffTemp { get; private set; }
         
-        public float BaseMeleeDamage => meleeDamage;
+        public float BaseMeleeDamage { get; private set; }
         public float MeleeDamageBuff { get; private set; }
         public float MeleeDamageBuffTemp { get; private set; }
         
-        public float BaseSpeed => movementSpeed;
+        public float BaseSpeed { get; private set; }
         public float SpeedBuff { get; private set; }
         public float SpeedBuffTemp { get; private set; }
         
-        public float BaseSuperDamage => superDamage;
+        public float BaseSuperDamage { get; private set; }
         public float SuperDamageBuff { get; private set; }
         
-        public float BaseSuperCooldown => superCooldown;
+        public float BaseSuperCooldown { get; private set; }
         public float SuperCooldownBuff { get; private set; }
 
         // Attack type variables
@@ -186,6 +174,12 @@ namespace Player
             playerAnimatorHelper.Init(playerAnimator);
             mainCamera = Camera.main;
 
+            BaseAttackSpeed = PlayerDataStorage.BaseAttackSpeed;
+            BaseRangedDamage = PlayerDataStorage.BaseRangedDamage;
+            BaseMeleeDamage = PlayerDataStorage.BaseMeleeDamage;
+            BaseSpeed = PlayerDataStorage.BaseSpeed;
+            BaseSuperCooldown = PlayerDataStorage.BaseSuperCooldown;
+
             AttackSpeedBuff = 1f;
             AttackSpeedBuffTemp = 1f;
             RangedDamageBuff = 1f;
@@ -226,7 +220,7 @@ namespace Player
             } else {
                 GameManager.InputActions.Player.SetCallbacks(this);
             }
-            currentMovementSpeed = movementSpeed;
+            currentMovementSpeed = BaseSpeed * SpeedBuff * SpeedBuffTemp;
             HealthStart();
             StaminaStart();
         }
@@ -394,6 +388,11 @@ namespace Player
             return playerAuraManager.GetDamageStats();
         }
 
+        public float3 GetAuraIntervalStats()
+        {
+            return playerAuraManager.GetIntervalStats();
+        }
+
         public float3 GetAuraRangeStats()
         {
             return playerAuraManager.GetRangeStats();
@@ -418,7 +417,7 @@ namespace Player
 
         private void HandleSceneLoaded(int _sceneIndex)
         {
-            OnSuperCooldownChange?.Invoke(superCooldown, BaseSuperCooldown / SuperCooldownBuff);
+            OnSuperCooldownChange?.Invoke(BaseSuperCooldown / SuperCooldownBuff, 0f);
         }
 
         private void MovePlayer()
@@ -479,6 +478,22 @@ namespace Player
                 : Quaternion.Euler(0f, moveInput.y > 0f ? 330f : 340f, 0f);
         }
 
+        public void SaveStats()
+        {
+            PlayerDataStorage.BaseAttackSpeed = BaseAttackSpeed * AttackSpeedBuff;
+            PlayerDataStorage.BaseRangedDamage = BaseRangedDamage * RangedDamageBuff;
+            PlayerDataStorage.BaseMeleeDamage = BaseMeleeDamage * MeleeDamageBuff;
+            PlayerDataStorage.BaseSpeed = BaseSpeed * SpeedBuff;
+            PlayerDataStorage.BaseSuperCooldown = BaseSuperCooldown * SuperCooldownBuff;
+            PlayerDataStorage.BaseHealthRegenAmount = BaseHealthRegenAmount * HealthRegenAmountBuff;
+            PlayerDataStorage.BaseHealthRegenInterval = BaseHealthRegenInterval * HealthRegenIntervalBuff;
+            PlayerDataStorage.BaseManaRegenAmount = BaseManaRegenAmount * ManaRegenRateBuff;
+            PlayerDataStorage.BaseManaRegenInterval = BaseManaRegenInterval * ManaRegenIntervalBuff;
+            PlayerDataStorage.BaseAuraRange = playerAuraManager.GetRangeStats().x;
+            PlayerDataStorage.BaseAuraInterval = playerAuraManager.GetIntervalStats().x;
+            PlayerDataStorage.BaseAuraDamage = playerAuraManager.GetDamageStats().x;
+        }
+
         public void SetAbility(string _abilityName)
         {
             switch (_abilityName) {
@@ -500,13 +515,13 @@ namespace Player
         public void SetSuper(GameObject _superPrefab, float _damage, float _speed)
         {
             currentSuperPrefab = _superPrefab;
-            superDamage = _damage;
+            BaseSuperDamage = _damage;
             superSpeed = _speed;
         }
         public void SetSuper(GameObject _superPrefab, float _damage, float _speed, float _secondaryFrequency, int _secondaryDamage, int _maxSecondaryCount)
         {
             currentSuperPrefab = _superPrefab;
-            superDamage = _damage;
+            BaseSuperDamage = _damage;
             superSpeed = _speed;
             superSecondaryFrequency = _secondaryFrequency;
             superSecondaryDamage = _secondaryDamage;

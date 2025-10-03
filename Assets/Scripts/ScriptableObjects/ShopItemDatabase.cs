@@ -85,7 +85,13 @@ namespace ScriptableObjects
     
         [FormerlySerializedAs("ShopItems")] public ShopSuperEntry[] ShopSupers;
         public ShopItemEntry[] ShopItems;
-    
+
+        
+        public ShopItemEntry[] GetAllHomeShopItems()
+        {
+            return ShopItems;
+        }
+        
         public ShopSuperEntry GetRandomShopSuper(int _playerLevel)
         {
             if (ShopSupers.Length == 0 || !superDatabase)

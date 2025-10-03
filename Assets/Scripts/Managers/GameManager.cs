@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Game;
+using Player;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -17,9 +20,7 @@ namespace Managers
         public static bool ReadyToLoadScene { get; set; } = false;
 
         public bool IsPaused { get; private set; }
-
-        //private static readonly HashSet<string> AssignedIDs = new();
-
+        
         public delegate void GamePausedEventHandler();
         public event GamePausedEventHandler OnGamePaused;
         public delegate void GameResumedEventHandler();
@@ -29,6 +30,48 @@ namespace Managers
 
 
         public int DifficultyLevel { get; private set; } = 1;
+
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Base"), SerializeField, Tooltip("The base attack speed of the player.")]
+        private float baseAttackSpeed;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Base"), SerializeField, Tooltip("The base Range damage of the player.")]
+        private int baseRangeDamage;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Base"), SerializeField, Tooltip("The base Melee damage of the player.")]
+        private int baseMeleeDamage;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Base"), SerializeField, Tooltip("The base speed of the player.")]
+        private float baseSpeed;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Super Stats"), SerializeField, Tooltip("The base cooldown of the super for the player.")]
+        private float baseSuperCooldown;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Health Stats"), SerializeField, Tooltip("The base health regen amount of the player.")]
+        private float baseHealthRegenAmount;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Health Stats"), SerializeField, Tooltip("The base health regen rate of the player.")]
+        private float baseHealthRegenRate;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Mana Stats"), SerializeField, Tooltip("The base mana regen amount of the player")]
+        private float baseManaRegenAmount;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Mana Stats"), SerializeField, Tooltip("The base mana regen rate of the player.")]
+        private float baseManaRegenRate;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Aura Stats"), SerializeField, Tooltip("The base aura range of the player.")]
+        private float baseAuraRange;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Aura Stats"), SerializeField, Tooltip("The base aura damage of the player.")]
+        private int baseAuraDamage;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Aura Stats"), SerializeField, Tooltip("The base aura interval of the player.")]
+        private float baseAuraInterval;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Armour Stats"), SerializeField, Tooltip("The base armour value of the player.")]
+        private float baseArmourValue;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Ability Stats"), SerializeField, Tooltip("The base ability damage value of the player.")]
+        private int baseAbilityDamageMultiplier;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Ability Stats"), SerializeField, Tooltip("The base ability cooldown value of the player.")]
+        private float baseAbilityCooldownMultiplier;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Ability Stats"), SerializeField, Tooltip("The base ability range value of the player.")]
+        private float baseAbilityRangeMultiplier;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Super Stats"), SerializeField, Tooltip("The base super damage value of the player.")]
+        private int baseSuperDamageMultiplier;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Super Stats"), SerializeField,
+         Tooltip("The base super cooldown value of the player.")]
+        private float baseSuperCooldownMultiplier;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Magnet Stats"), SerializeField, Tooltip("The base magnet range value of the player.")]
+        private float baseMagnetRangeMultiplier;
+        [FoldoutGroup("Player Settings"), BoxGroup("Player Settings/Magnet Stats"), SerializeField, Tooltip("The base magnet cooldown value of the player.")]
+        private float baseMagnetCooldownMultiplier;
 
         private int attackTrigger;
         private bool animateCursor;
@@ -42,7 +85,7 @@ namespace Managers
         private Slider cursorSizeSlider;
         private Animator cursorAnimator;
         private CursorUI cursorUI;
-
+        private RuntimeMonitorSwitcher monitorSwitcher;
 
         private void Awake()
         {
@@ -57,6 +100,15 @@ namespace Managers
             if (!TryGetComponent(out cursorUI)) {
                 Debug.LogError("Could not find CursorUI");
             }
+            if (!TryGetComponent(out monitorSwitcher)) {
+                Debug.LogError("Could not find RuntimeMonitorSwitcher");
+            }
+
+            PlayerDataStorage.Initialize(baseAttackSpeed, baseRangeDamage, baseMeleeDamage, baseSpeed,
+                baseSuperCooldown, baseHealthRegenAmount, baseHealthRegenRate, baseManaRegenAmount, baseManaRegenRate,
+                baseAuraRange, baseAuraDamage, baseAuraInterval, baseArmourValue, baseAbilityDamageMultiplier,
+                baseAbilityCooldownMultiplier, baseAbilityRangeMultiplier, baseSuperDamageMultiplier,
+                baseMagnetRangeMultiplier, baseMagnetCooldownMultiplier);
         }
 
         private void OnEnable()
@@ -79,6 +131,28 @@ namespace Managers
             }
         }
 
+
+        public void ChangeMonitor(int _monitorIndex)
+        {
+            monitorSwitcher.MoveToMonitor(_monitorIndex);
+        }
+
+        public void EndRun()
+        {
+            RunScoreManager.Instance.SaveScore();
+            var playerObject = GameObject.FindWithTag("Player");
+            if (!playerObject) {
+                Debug.LogError("No player object found.");
+                return;
+            }
+            if (!playerObject.TryGetComponent(out PlayerController playerController)) {
+                Debug.LogError("No player controller found.");
+                return;
+            }
+
+            playerController.SaveStats();
+            GameSceneManager.Instance.LoadScene(1);
+        }
 
         public Bounds GetCameraWorldBounds(Camera _camera = null)
         {
@@ -116,6 +190,11 @@ namespace Managers
             shift2 = GetShiftPoint();
             _seed = unchecked(_seed + (byteValue << shift2));
             return _seed;
+        }
+
+        public List<RuntimeMonitorSwitcher.MonitorInfo> GetMonitors()
+        {
+            return monitorSwitcher.Monitors;
         }
 
         private int GetShiftPoint()
@@ -317,9 +396,6 @@ namespace Managers
         /// <param name="_paintRadius">The radius around the object within which the A* grid should be updated, specified in world units.</param>
         public void UpdateAStarGrid(float _paintRadius)
         {
-            // var updateBounds = new Bounds(transform.position, new(_paintRadius, _paintRadius, 1));
-            // var graphBounds = new GraphUpdateObject(updateBounds);
-            // AstarPath.active.UpdateGraphs(graphBounds);
             AstarPath.active.Scan();
         }
     }

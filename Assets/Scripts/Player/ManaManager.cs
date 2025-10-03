@@ -10,20 +10,16 @@ namespace Player
         private float maxMana = 100f;
         [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The starting mana the player has.")]
         private float startingMana = 50f;
-        [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The rate at which mana regenerates per tick.")]
-        private float manaRegenRate = 1f;
-        [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The interval in seconds between each mana regeneration tick.")]
-        private float manaRegenInterval = 5f;
         [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The amount of mana consumed when performing a special attack.")]
         private float specialAttackManaCost = 20f;
         [FoldoutGroup("Mana Settings"), SerializeField, Tooltip("The amount of mana consumed per tick while sprinting.")]
         private float sprintManaCostPerTick = 2f;
 
         // Public getters for player stats
-        public float BaseManaRegenRate => manaRegenRate;
+        public float BaseManaRegenAmount { get; private set; }
         public float ManaRegenRateBuff { get; private set; }
         public float ManaRegenRateTempBuff { get; private set; }
-        public float BaseManaRegenInterval => manaRegenInterval;
+        public float BaseManaRegenInterval { get; private set; }
         public float ManaRegenIntervalBuff { get; private set; }
         public float ManaRegenIntervalTempBuff { get; private set; }
         
@@ -33,6 +29,8 @@ namespace Player
 
         private void StaminaAwake()
         {
+            BaseManaRegenAmount = PlayerDataStorage.BaseManaRegenAmount;
+            BaseManaRegenInterval = PlayerDataStorage.BaseManaRegenInterval;
             currentMana = startingMana;
             ManaRegenRateBuff = 1f;
             ManaRegenRateTempBuff = 1f;
@@ -73,7 +71,7 @@ namespace Player
 
         private void RegenerateMana()
         {
-            ChangeMana(BaseManaRegenRate * ManaRegenRateBuff * ManaRegenRateTempBuff);
+            ChangeMana(BaseManaRegenAmount * ManaRegenRateBuff * ManaRegenRateTempBuff);
         }
 
         private bool TryChangeMana(float _amount)

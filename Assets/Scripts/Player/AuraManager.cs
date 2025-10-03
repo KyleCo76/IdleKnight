@@ -7,16 +7,11 @@ namespace Player
 {
     public class AuraManager : MonoBehaviour
     {
-        [SerializeField, Tooltip("Time interval between damage ticks")]
-        private float damageSpeed = 1.0f;
-        [SerializeField, Tooltip("Amount of damage dealt by the aura")]
-        private float damageAmount = 1.0f;
-
-        private float BaseAuraDamage => damageAmount;
+        private float baseAuraDamage;
         private float auraDamageBuff = 1f;
         private float auraDamageBuffTemp = 1f;
-        
-        private float BaseAuraDamageInterval => damageSpeed;
+
+        private float baseAuraDamageInterval;
         private float auraDamageIntervalBuff = 1f;
         private float auraDamageIntervalBuffTemp = 1f;
 
@@ -47,7 +42,10 @@ namespace Player
 
         void Start()
         {
-            damageTimer = BaseAuraDamageInterval / auraDamageIntervalBuff / auraDamageIntervalBuffTemp;
+            baseAuraDamage = PlayerDataStorage.BaseAuraDamage;
+            baseAuraDamageInterval = PlayerDataStorage.BaseAuraInterval;
+            
+            damageTimer = baseAuraDamageInterval / auraDamageIntervalBuff / auraDamageIntervalBuffTemp;
         }
 
         void Update()
@@ -56,10 +54,10 @@ namespace Player
             if (damageTimer <= 0.0f) {
                 foreach (var enemy in new List<Enemies.Controller>(enemiesInAura)) {
                     if (enemy != null) {
-                        enemy.ChangeHealth(-BaseAuraDamage * auraDamageBuff * auraDamageBuffTemp);
+                        enemy.ChangeHealth(-baseAuraDamage * auraDamageBuff * auraDamageBuffTemp);
                     }
                 }
-                damageTimer = BaseAuraDamageInterval / auraDamageIntervalBuff / auraDamageIntervalBuffTemp;
+                damageTimer = baseAuraDamageInterval / auraDamageIntervalBuff / auraDamageIntervalBuffTemp;
             }
         }
 
@@ -97,7 +95,12 @@ namespace Player
 
         public float3 GetDamageStats()
         {
-            return new float3(BaseAuraDamage, auraDamageBuff, auraDamageBuffTemp);
+            return new float3(baseAuraDamage, auraDamageBuff, auraDamageBuffTemp);
+        }
+
+        public float3 GetIntervalStats()
+        {
+            return new float3(baseAuraDamageInterval, auraDamageIntervalBuff, auraDamageIntervalBuffTemp);
         }
 
         public float3 GetRangeStats()
